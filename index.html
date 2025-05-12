@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Startpagina van de cursus Business Economics 2.0. Leer over meso-economie, concurrentieanalyse, duurzaamheid, ESG en meer."
+    />
+    <title>Business Economics 2.0 - Jouw Kickstart!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Extra CSS voor roadmap link-styling (Best in style.css) -->
+    <style>
+      .roadmap-link-card {
+        display: block; /* Maakt de hele <a> klikbaar als een kaart */
+        background-color: var(--bg-light); /* slate-700 */
+        padding: 1.5rem; /* p-6 */
+        border-radius: 0.5rem; /* rounded-lg */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-lg */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-decoration: none; /* Geen onderlijning */
+        color: inherit; /* Erft tekstkleur */
+      }
+      .roadmap-link-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+      }
+    </style>
+  </head>
+  <body class="bg-slate-900 text-slate-200">
+    <header class="site-header sticky top-0 z-50 shadow-lg">
+      <div class="container mx-auto px-4">
+        <div class="header-content flex justify-between items-center py-4">
+          <a
+            href="index.html"
+            class="site-title text-2xl font-bold text-emerald-400 hover:text-emerald-300 transition-colors"
+            >Business Economics 2.0</a
+          >
+          <nav class="main-navigation" id="mainNavContainer">
+            <button
+              class="menu-toggle md:hidden"
+              id="menuToggle"
+              aria-label="Menu openen/sluiten"
+              aria-expanded="false"
+              aria-controls="mobileMenu"
+            >
+              <span class="menu-toggle-icon"></span>
+            </button>
+            <ul class="nav-links hidden md:flex space-x-4" id="mainNav">
+              <li><a href="index.html" class="active">Start</a></li>
+              <li><a href="week1.html">Week 1</a></li>
+              <li><a href="week2.html">Week 2</a></li>
+              <li><a href="week3.html">Week 3</a></li>
+              <li><a href="week4.html">Week 4</a></li>
+              <li><a href="week5.html">Week 5</a></li>
+              <li><a href="week6-7.html">Weken 6-7</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div
+        id="mobileMenu"
+        class="mobile-menu md:hidden bg-slate-800 absolute w-full shadow-xl hidden"
+      >
+        <ul class="flex flex-col items-center py-4 space-y-2">
+          <li><a href="index.html" class="active-mobile">Start</a></li>
+          <li><a href="week1.html" class="mobile-link">Week 1</a></li>
+          <li><a href="week2.html" class="mobile-link">Week 2</a></li>
+          <li><a href="week3.html" class="mobile-link">Week 3</a></li>
+          <li><a href="week4.html" class="mobile-link">Week 4</a></li>
+          <li><a href="week5.html" class="mobile-link">Week 5</a></li>
+          <li><a href="week6-7.html" class="mobile-link">Weken 6-7</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Sectie -->
+      <section
+        class="hero-section min-h-screen flex items-center justify-center relative overflow-hidden"
+      >
+        <div class="animated-gradient-bg"></div>
+        <div class="container mx-auto px-4 z-10">
+          <div
+            class="hero-content-card bg-slate-800 bg-opacity-80 backdrop-blur-md p-8 md:p-12 rounded-xl shadow-2xl max-w-3xl mx-auto text-center"
+          >
+            <h1 class="hero-title text-4xl md:text-5xl font-bold mb-6">
+              🚀 Boost Je <span class="text-emerald-400">Business Skills</span>:
+              BE 2.0!
+            </h1>
+            <p class="hero-subtitle text-lg md:text-xl mb-4 opacity-0">
+              Klaar om economie te ownen? Van marktanalyse tot duurzaam
+              innoveren. Let's dive in!
+            </p>
+            <p class="hero-intro text-md mb-8 opacity-0">
+              Check het menu of start direct. Hieronder vind je jouw route naar
+              BE mastery! 👇
+            </p>
+            <a
+              href="week1.html"
+              class="cta-button inline-block text-lg font-semibold px-8 py-3 rounded-lg transition-all duration-300 opacity-0"
+            >
+              Let's Go: Week 1! →
+            </a>
+          </div>
+        </div>
+        <div
+          class="scroll-down-indicator absolute bottom-10 left-1/2 transform -translate-x-1/2 opacity-0"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-8 w-8 text-emerald-400 animate-bounce"
+          >
+            <path d="M12 5v14M19 12l-7 7-7-7"></path>
+          </svg>
+        </div>
+      </section>
+
+      <!-- Features Sectie -->
+      <section class="features-section py-16 md:py-24 bg-slate-800">
+        <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold text-center mb-12 text-emerald-400">
+            ✨ Wat ga je rocken?
+          </h2>
+          <div class="grid md:grid-cols-3 gap-8">
+            <div
+              class="feature-card bg-slate-700 p-6 rounded-lg shadow-lg text-center hover:transform hover:scale-105 transition-transform"
+            >
+              <div class="text-4xl mb-4">📈</div>
+              <h3 class="text-xl font-semibold mb-2 text-emerald-300">
+                Marktdynamiek Ontcijferen
+              </h3>
+              <p class="text-sm text-slate-300">
+                Leer markten lezen en spot kansen als een pro.
+              </p>
+            </div>
+            <div
+              class="feature-card bg-slate-700 p-6 rounded-lg shadow-lg text-center hover:transform hover:scale-105 transition-transform"
+            >
+              <div class="text-4xl mb-4">💡</div>
+              <h3 class="text-xl font-semibold mb-2 text-emerald-300">
+                Innovatie & Strategie
+              </h3>
+              <p class="text-sm text-slate-300">
+                Ontwikkel skills voor vernieuwing en slimme business moves.
+              </p>
+            </div>
+            <div
+              class="feature-card bg-slate-700 p-6 rounded-lg shadow-lg text-center hover:transform hover:scale-105 transition-transform"
+            >
+              <div class="text-4xl mb-4">🌍</div>
+              <h3 class="text-xl font-semibold mb-2 text-emerald-300">
+                Duurzaam Ondernemen
+              </h3>
+              <p class="text-sm text-slate-300">
+                Check de impact van business op mens en planeet (ESG!).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sectie: Module Overzicht & Leeruitkomsten -->
+      <section class="module-details-section py-16 md:py-24 bg-slate-900">
+        <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold text-center mb-12 text-emerald-400">
+            🧐 Module Overzicht & Leeruitkomsten
+          </h2>
+          <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Kolom 1: Inhoud & Doelstellingen -->
+            <div
+              class="content-block bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
+            >
+              <h3 class="text-2xl font-semibold text-emerald-300 mb-6">
+                📘 Inhoud en Doelstellingen
+              </h3>
+              <blockquote
+                class="bg-slate-700 border-l-4 border-emerald-400 p-4 rounded-md italic text-slate-300 mb-6 text-sm"
+              >
+                <!-- Iets kleiner -->
+                “De resultaten van ondernemingen zijn afhankelijk van externe
+                factoren en individuele ondernemingskenmerken. [...] Binnen een
+                bedrijfstak proberen individuele ondernemingen zich te
+                onderscheiden door individuele bedrijfskenmerken.”
+                <footer class="text-sm text-slate-400 mt-2 not-italic">
+                  — Marijs & Hulleman (2015)
+                </footer>
+              </blockquote>
+              <p class="text-slate-300 leading-relaxed mb-4">
+                Deze module zoomt in op meso-economie: het niveau tússen de
+                grote economie en het individuele bedrijf. Je leert hoe je:
+              </p>
+              <ul
+                class="list-disc list-inside space-y-1 text-slate-300 mb-6 text-sm"
+              >
+                <!-- Iets compacter -->
+                <li>Concurrentie-intensiteit analyseert.</li>
+                <li>Concurrentiepositie van bedrijven bepaalt.</li>
+                <li>Impact van beleid op concurrentie ziet.</li>
+                <li>Maatschappelijke kosten ('true pricing') begrijpt.</li>
+                <li>
+                  Duurzaamheidsrapportage (CSRD/ESG) koppelt aan sectoren.
+                </li>
+              </ul>
+              <h4 class="text-xl font-semibold text-emerald-400 mb-2">
+                Link met je studie
+              </h4>
+              <p class="text-slate-300 leading-relaxed text-sm">
+                <!-- Iets kleiner -->
+                Dit vak bouwt voort op Macro-economie (B-cluster) en levert
+                input voor je Omgevingsanalyse (BEDROM04). Alles hangt samen!
+              </p>
+            </div>
+
+            <!-- Kolom 2: Leeruitkomsten -->
+            <div
+              class="content-block bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg lg:border-l lg:border-slate-700 lg:pl-8"
+            >
+              <!-- Border links op LG -->
+              <h3 class="text-2xl font-semibold text-emerald-300 mb-6">
+                🏆 Leeruitkomsten
+              </h3>
+              <p class="text-slate-300 mb-4">
+                Na deze module kun jij als
+                <strong>Bedrijfskundig adviseur</strong>:
+              </p>
+              <ul
+                class="list-disc list-outside space-y-4 text-slate-300 leading-relaxed pl-5"
+              >
+                <li>
+                  <strong>Markten, concurrentie & positie analyseren</strong>
+                  voor strategisch advies.
+                </li>
+                <li>
+                  <strong
+                    >Vraagfactoren & elasticiteiten
+                    berekenen/beredeneren</strong
+                  >
+                  voor prijs/marketingstrategie.
+                </li>
+                <li>
+                  <strong>Kostenstructuren & innovatie analyseren</strong> voor
+                  advies over optimalisatie & voordeel.
+                </li>
+                <li>
+                  <strong>Marktmodellen & SGR toepassen</strong> voor analyse
+                  van structuur & gedrag.
+                </li>
+                <li>
+                  <strong
+                    >Impact overheidsbeleid op concurrentie definiëren</strong
+                  >
+                  voor strategische planning.
+                </li>
+                <li>
+                  <strong
+                    >Brede welvaart & maatschappelijke kosten plaatsen</strong
+                  >
+                  voor duurzame waardecreatie.
+                </li>
+                <li>
+                  <strong>'True pricing' uitleggen & toepassen</strong> om
+                  verborgen kosten te zien & implicaties in te schatten.
+                </li>
+                <li>
+                  <strong>CSRD/ESRS framework begrijpen & toepassen</strong>
+                  voor rapportage & ESG-integratie.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sectie: Jouw Leerroute -->
+      <section class="course-roadmap-section py-16 md:py-24 bg-slate-800">
+        <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold text-center mb-12 text-emerald-400">
+            🗺️ Jouw Leerroute: Week per Week
+          </h2>
+          <p class="text-center text-slate-300 max-w-3xl mx-auto mb-12">
+            Zo bouw je je skills op! Elke week voegt een stukje van de puzzel
+            toe. Klik door naar de week voor details & opdrachten.
+          </p>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Week 1 Card Link -->
+            <a href="week1.html" class="roadmap-link-card">
+              <span class="block text-sm font-semibold text-emerald-400 mb-1"
+                >Week 1</span
+              >
+              <h3 class="text-xl font-semibold mb-3 text-emerald-300">
+                Macro-economische Basis
+              </h3>
+              <p class="text-sm text-slate-300 mb-2">
+                Starten met het grote plaatje: economie, sector impact,
+                bedrijfskolom.
+              </p>
+              <p class="text-xs text-slate-400">
+                <strong>Focus:</strong> Externe omgeving (BEDROM04)
+              </p>
+            </a>
+            <!-- Week 2 Card Link -->
+            <a href="week2.html" class="roadmap-link-card">
+              <!-- Let op: week2.html moet nog gemaakt worden -->
+              <span class="block text-sm font-semibold text-emerald-400 mb-1"
+                >Week 2</span
+              >
+              <h3 class="text-xl font-semibold mb-3 text-emerald-300">
+                Marktvormen & Concurrentie
+              </h3>
+              <p class="text-sm text-slate-300 mb-2">
+                Markt typen, concurrentie analyse (SGR), B2B/B2C,
+                prijsgevoeligheid.
+              </p>
+              <p class="text-xs text-slate-400">
+                <strong>Focus:</strong> Concurrentie-intensiteit (BEDROM04)
+              </p>
+            </a>
+            <!-- Week 3 Card Link -->
+            <a href="week3.html" class="roadmap-link-card">
+              <!-- Let op: week3.html moet nog gemaakt worden -->
+              <span class="block text-sm font-semibold text-emerald-400 mb-1"
+                >Week 3</span
+              >
+              <h3 class="text-xl font-semibold mb-3 text-emerald-300">
+                Structuur & Innovatie
+              </h3>
+              <p class="text-sm text-slate-300 mb-2">
+                Interne kant: kosten (vast/variabel), innovatierol,
+                onderscheidend vermogen.
+              </p>
+              <p class="text-xs text-slate-400">
+                <strong>Focus:</strong> Concurrentiepositie (BEDROM04)
+              </p>
+            </a>
+            <!-- Week 4 Card Link -->
+            <a href="week4.html" class="roadmap-link-card">
+              <!-- Let op: week4.html moet nog gemaakt worden -->
+              <span class="block text-sm font-semibold text-emerald-400 mb-1"
+                >Week 4</span
+              >
+              <h3 class="text-xl font-semibold mb-3 text-emerald-300">
+                Maatschappelijke Kosten & True Pricing
+              </h3>
+              <p class="text-sm text-slate-300 mb-2">
+                Brede welvaart, verborgen kosten, 'True Pricing' concept.
+              </p>
+              <p class="text-xs text-slate-400">
+                <strong>Focus:</strong> Duurzaamheidsanalyse (BEDROM04)
+              </p>
+            </a>
+            <!-- Week 5 Card Link -->
+            <a href="week5.html" class="roadmap-link-card">
+              <!-- Let op: week5.html moet nog gemaakt worden -->
+              <span class="block text-sm font-semibold text-emerald-400 mb-1"
+                >Week 5</span
+              >
+              <h3 class="text-xl font-semibold mb-3 text-emerald-300">
+                ESG & Rapportage
+              </h3>
+              <p class="text-sm text-slate-300 mb-2">
+                ESG factoren (Milieu, Sociaal, Bestuur), CSRD/ESRS frameworks.
+              </p>
+              <p class="text-xs text-slate-400">
+                <strong>Focus:</strong> ESG-analyse & rapportage (BEDROM04)
+              </p>
+            </a>
+            <!-- Week 6 & 7 Card Link -->
+            <a href="week6-7.html" class="roadmap-link-card">
+              <!-- Let op: week6-7.html moet nog gemaakt worden -->
+              <span class="block text-sm font-semibold text-emerald-400 mb-1"
+                >Week 6 & 7</span
+              >
+              <h3 class="text-xl font-semibold mb-3 text-emerald-300">
+                Presentaties & Integratie
+              </h3>
+              <p class="text-sm text-slate-300 mb-2">
+                Alles samenbrengen, analyses presenteren, verbanden leggen.
+              </p>
+              <p class="text-xs text-slate-400">
+                <strong>Focus:</strong> Eindpresentatie (BEDROM04)
+              </p>
+            </a>
+          </div>
+
+          <!-- Mijlpaal -->
+          <div class="text-center mt-12 pt-8 border-t border-slate-700">
+            <h4 class="text-xl font-semibold text-emerald-400 mb-2">
+              📌 Belangrijke Mijlpaal
+            </h4>
+            <p class="text-slate-300 max-w-xl mx-auto">
+              Don't forget: T1/3 = Deadline Omgevingsanalyse (BEDROM04). Deze
+              module is je input!
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer py-8 bg-slate-950 text-center">
+      <div class="container mx-auto px-4">
+        <p class="text-sm text-slate-400">
+          © <span id="currentYear"></span> Cursus Business Economics 2.0 - Ready
+          to Level Up?
+        </p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Week 1: Macro-economische Analyse - BE 2.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="bg-slate-900 text-slate-200">
+    <header class="site-header sticky top-0 z-50 shadow-lg">
+      <div class="container mx-auto px-4">
+        <div class="header-content flex justify-between items-center py-4">
+          <a
+            href="index.html"
+            class="site-title text-2xl font-bold text-emerald-400 hover:text-emerald-300 transition-colors"
+            >Business Economics 2.0</a
+          >
+          <nav class="main-navigation" id="mainNavContainer">
+            <button
+              class="menu-toggle md:hidden"
+              id="menuToggle"
+              aria-label="Menu openen/sluiten"
+              aria-expanded="false"
+              aria-controls="mobileMenu"
+            >
+              <span class="menu-toggle-icon"></span>
+            </button>
+            <ul class="nav-links hidden md:flex space-x-4" id="mainNav">
+              <li><a href="index.html">Start</a></li>
+              <li><a href="week1.html" class="active">Week 1</a></li>
+              <li><a href="week2.html">Week 2</a></li>
+              <li><a href="week3.html">Week 3</a></li>
+              <li><a href="week4.html">Week 4</a></li>
+              <li><a href="week5.html">Week 5</a></li>
+              <li><a href="week6-7.html">Weken 6-7</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div
+        id="mobileMenu"
+        class="mobile-menu md:hidden bg-slate-800 absolute w-full shadow-xl hidden"
+      >
+        <ul class="flex flex-col items-center py-4 space-y-2">
+          <li><a href="index.html" class="mobile-link">Start</a></li>
+          <li><a href="week1.html" class="active-mobile">Week 1</a></li>
+          <li><a href="week2.html" class="mobile-link">Week 2</a></li>
+          <li><a href="week3.html" class="mobile-link">Week 3</a></li>
+          <li><a href="week4.html" class="mobile-link">Week 4</a></li>
+          <li><a href="week5.html" class="mobile-link">Week 5</a></li>
+          <li><a href="week6-7.html" class="mobile-link">Weken 6-7</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12 md:py-16">
+      <h1 class="text-4xl font-bold text-emerald-400 mb-4 text-center">
+        Week 1: Macro-economische Analyse 🌍
+      </h1>
+
+      <p class="text-center text-slate-300 max-w-3xl mx-auto mb-12">
+        Alright, kick-off time! Deze week leg je als
+        <strong>Bedrijfskundig adviseur</strong> de basis voor je analyse. Je
+        zoomt uit naar het grote economische plaatje dat impact heeft op élke
+        sector. Essentieel om straks de concurrentie en kansen scherp te
+        krijgen.
+      </p>
+
+      <!-- Grid voor betere layout op medium schermen -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Kolom 1: Introductie & Leerdoelen -->
+        <div class="space-y-8">
+          <!-- Introductie Sectie -->
+          <section
+            class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
+          >
+            <h2 class="text-2xl font-semibold text-emerald-300 mb-4">
+              🔍 Wat ga je doen?
+            </h2>
+            <p class="text-slate-300 leading-relaxed">
+              Je verkent de kernbegrippen van macro-economie: hoe meten we
+              economische activiteit (BBP)? Hoe beïnvloeden trends zoals
+              inflatie en conjunctuur jouw sector? En hoe hangt alles samen in
+              de bedrijfskolom?
+            </p>
+          </section>
+
+          <!-- Leerdoelen & Relevantie Sectie -->
+          <section
+            class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
+          >
+            <h2 class="text-2xl font-semibold text-emerald-300 mb-4">
+              🎯 Leerdoelen & Jouw Rol
+            </h2>
+            <p class="text-slate-400 mb-6">
+              Deze week bouw je aan de fundamenten voor deze skills (check de
+              nummers op index.html!):
+            </p>
+            <ul
+              class="list-disc list-outside space-y-3 text-slate-300 leading-relaxed pl-5 text-sm"
+            >
+              <!-- Iets kleiner voor leesbaarheid hier -->
+              <li>
+                Macro-analyse en relevantie snappen voor bedrijfsomgeving.
+                <span class="text-emerald-400/80">(LU 1)</span>
+              </li>
+              <li>
+                Kernvariabelen (BBP, inflatie...) en impact op sector herkennen.
+                <span class="text-emerald-400/80">(LU 1)</span>
+              </li>
+              <li>
+                Uitleggen hoe BBP gemeten wordt (nationale rekeningen).
+                <span class="text-emerald-400/80">(LU 1, 6)</span>
+              </li>
+              <li>
+                Conjunctuurcyclus en Wet van Okun begrijpen.
+                <span class="text-emerald-400/80">(LU 1, 4)</span>
+              </li>
+              <li>
+                Conjunctuurgevoeligheid van sectoren verkennen.
+                <span class="text-emerald-400/80">(LU 1)</span>
+              </li>
+              <li>
+                Tools (FRED) en bronnen voor macro-data vinden/gebruiken.
+                <span class="text-emerald-400/80">(Ondersteunt LU 1+)</span>
+              </li>
+              <li>
+                Componenten geaggregeerde vraag (C,I,G,X,M) en BBP snappen.
+                <span class="text-emerald-400/80">(LU 1, 2, 5)</span>
+              </li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Kolom 2: Ebook & Opdracht -->
+        <div class="space-y-8">
+          <!-- Ebook Units Sectie -->
+          <section
+            class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
+          >
+            <h2 class="text-2xl font-semibold text-emerald-300 mb-4">
+              📚 Verdieping: Ebook Units
+            </h2>
+            <p class="text-slate-400 mb-6">Check deze units voor de details:</p>
+            <div class="space-y-6">
+              <!-- Unit 1 -->
+              <div>
+                <h3 class="text-xl font-semibold text-emerald-400 mb-2">
+                  Unit 1: Tech, Bevolking & Groei
+                </h3>
+                <p class="text-slate-300 mb-3 text-sm leading-relaxed">
+                  Basisideeën: economische activiteit meten, data gebruiken,
+                  historisch perspectief BBP/capita.
+                </p>
+                <a
+                  href="pdfs/the-economy-unit-1-pdf.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="pdf-button"
+                >
+                  <!-- Nieuwe class voor styling -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="w-5 h-5 mr-2"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M15.5 10a.75.75 0 0 1-.75.75h-6.5a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 .75.75Z"
+                      clip-rule="evenodd"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.502 2.075A.75.75 0 0 1 5.25 2h9.5a.75.75 0 0 1 .75.75v14.5a.75.75 0 0 1-.75.75h-9.5a.75.75 0 0 1-.748-.676L4.502 2.075Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Unit 1 PDF
+                </a>
+              </div>
+              <!-- Unit 13 -->
+              <div>
+                <h3 class="text-xl font-semibold text-emerald-400 mb-2">
+                  Unit 13: Fluctuaties & Werkloosheid
+                </h3>
+                <p class="text-slate-300 mb-3 text-sm leading-relaxed">
+                  De macro-economie: hoog/laagconjunctuur, BBP meten (nat.
+                  rekeningen), data (FRED), Okun, kringloop, C+I+G+X-M.
+                </p>
+                <a
+                  href="pdfs/the-economy-unit-13-pdf.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="pdf-button"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="w-5 h-5 mr-2"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M15.5 10a.75.75 0 0 1-.75.75h-6.5a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 .75.75Z"
+                      clip-rule="evenodd"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.502 2.075A.75.75 0 0 1 5.25 2h9.5a.75.75 0 0 1 .75.75v14.5a.75.75 0 0 1-.75.75h-9.5a.75.75 0 0 1-.748-.676L4.502 2.075Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Unit 13 PDF
+                </a>
+              </div>
+              <!-- Unit 14 -->
+              <div>
+                <h3 class="text-xl font-semibold text-emerald-400 mb-2">
+                  Unit 14: Werkloosheid & Fiscaal Beleid
+                </h3>
+                <p class="text-slate-300 mb-3 text-sm leading-relaxed">
+                  Impact vraagfluctuaties op BBP (multiplier), rol overheid:
+                  stabilisatoren, stimulering.
+                </p>
+                <a
+                  href="pdfs/the-economy-unit-14-pdf.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="pdf-button"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="w-5 h-5 mr-2"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M15.5 10a.75.75 0 0 1-.75.75h-6.5a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 .75.75Z"
+                      clip-rule="evenodd"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.502 2.075A.75.75 0 0 1 5.25 2h9.5a.75.75 0 0 1 .75.75v14.5a.75.75 0 0 1-.75.75h-9.5a.75.75 0 0 1-.748-.676L4.502 2.075Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Unit 14 PDF
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <!-- Concrete Opdracht Sectie -->
+          <section
+            class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg border-t-4 border-emerald-500"
+          >
+            <!-- Extra border top -->
+            <h2 class="text-2xl font-semibold text-emerald-300 mb-4">
+              ✅ Jouw Concrete Opdracht Week 1
+            </h2>
+            <p class="text-slate-400 mb-6">
+              Tijd om de theorie toe te passen! Werk deze punten uit voor jouw
+              sector/bedrijven:
+            </p>
+
+            <!-- Belangrijk/Tip Box -->
+            <div
+              class="bg-slate-700 border-l-4 border-emerald-400 p-4 rounded-md text-slate-300 mb-6 text-sm"
+            >
+              <strong class="text-emerald-300">Focus:</strong> Deze analyse
+              vormt een belangrijk deel van je Omgevingsanalyse (BEDROM04). Zorg
+              voor een duidelijke onderbouwing en conclusie per punt.
+            </div>
+
+            <ol
+              class="list-decimal list-outside space-y-4 text-slate-300 leading-relaxed pl-5"
+            >
+              <li>
+                Positioneer je sector in de <strong>bedrijfskolom</strong>.
+              </li>
+              <li>
+                Breng relevante <strong>macro-variabelen</strong> (NL) en hun
+                <strong>ontwikkelingen</strong> in kaart.
+              </li>
+              <li>
+                Analyseer de <strong>impact</strong> van deze variabelen op
+                <strong>jouw sector</strong>.
+              </li>
+              <li>
+                Bepaal + onderbouw de
+                <strong>conjunctuurgevoeligheid</strong> van de
+                <strong>sector</strong>.
+              </li>
+              <li>
+                Bepaal + onderbouw de
+                <strong>conjunctuurgevoeligheid</strong> van je gekozen
+                <strong>bedrijven</strong> (kijk naar spreiding, diversificatie,
+                macht).
+              </li>
+              <li>
+                Trek een <strong>overall conclusie</strong> over macro-invloeden
+                en gevoeligheid.
+              </li>
+            </ol>
+            <p class="mt-6 text-sm text-emerald-300 font-semibold">
+              💪 Zet 'm op met de analyse!
+            </p>
+          </section>
+        </div>
+      </div>
+      <!-- Einde Grid -->
+    </main>
+
+    <footer class="site-footer py-8 bg-slate-950 text-center mt-16">
+      <div class="container mx-auto px-4">
+        <p class="text-sm text-slate-400">
+          © <span id="currentYear"></span> Cursus Business Economics 2.0 - Ready
+          to Level Up?
+        </p>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

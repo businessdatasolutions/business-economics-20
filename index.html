@@ -188,6 +188,7 @@
             <div
               class="content-block bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
             >
+              <!-- ... (Inhoud kolom 1 blijft hetzelfde) ... -->
               <h3 class="text-2xl font-semibold text-emerald-300 mb-6">
                 📘 Inhoud en Doelstellingen
               </h3>
@@ -229,11 +230,10 @@
               </p>
             </div>
 
-            <!-- Kolom 2: Leeruitkomsten -->
+            <!-- Kolom 2: Genummerde Leeruitkomsten met IDs en Flexbox Alignment -->
             <div
               class="content-block bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg lg:border-l lg:border-slate-700 lg:pl-8"
             >
-              <!-- Border links op LG -->
               <h3 class="text-2xl font-semibold text-emerald-300 mb-6">
                 🏆 Leeruitkomsten
               </h3>
@@ -241,47 +241,75 @@
                 Na deze module kun jij als
                 <strong>Bedrijfskundig adviseur</strong>:
               </p>
-              <ul
-                class="list-disc list-outside space-y-4 text-slate-300 leading-relaxed pl-5"
-              >
-                <li>
-                  <strong>Markten, concurrentie & positie analyseren</strong>
-                  voor strategisch advies.
-                </li>
-                <li>
-                  <strong
-                    >Vraagfactoren & elasticiteiten
-                    berekenen/beredeneren</strong
+              <!-- UL met Flexbox LI's -->
+              <ul class="space-y-4 text-slate-300 leading-relaxed">
+                <!-- Geen pl-5 meer nodig, flex regelt het -->
+
+                <li class="flex items-baseline" id="lu-1">
+                  <!-- Flex container, align baseline -->
+                  <span class="w-7 flex-shrink-0 font-semibold">1.</span>
+                  <!-- Vaste breedte voor nummer -->
+                  <span
+                    ><strong>Markten, concurrentie & positie analyseren</strong>
+                    voor strategisch advies.</span
                   >
-                  voor prijs/marketingstrategie.
+                  <!-- Tekst in eigen span -->
                 </li>
-                <li>
-                  <strong>Kostenstructuren & innovatie analyseren</strong> voor
-                  advies over optimalisatie & voordeel.
-                </li>
-                <li>
-                  <strong>Marktmodellen & SGR toepassen</strong> voor analyse
-                  van structuur & gedrag.
-                </li>
-                <li>
-                  <strong
-                    >Impact overheidsbeleid op concurrentie definiëren</strong
+                <li class="flex items-baseline" id="lu-2">
+                  <span class="w-7 flex-shrink-0 font-semibold">2.</span>
+                  <span
+                    ><strong
+                      >Vraagfactoren & elasticiteiten
+                      berekenen/beredeneren</strong
+                    >
+                    voor prijs/marketingstrategie.</span
                   >
-                  voor strategische planning.
                 </li>
-                <li>
-                  <strong
-                    >Brede welvaart & maatschappelijke kosten plaatsen</strong
+                <li class="flex items-baseline" id="lu-3">
+                  <span class="w-7 flex-shrink-0 font-semibold">3.</span>
+                  <span
+                    ><strong>Kostenstructuren & innovatie analyseren</strong>
+                    voor advies over optimalisatie & voordeel.</span
                   >
-                  voor duurzame waardecreatie.
                 </li>
-                <li>
-                  <strong>'True pricing' uitleggen & toepassen</strong> om
-                  verborgen kosten te zien & implicaties in te schatten.
+                <li class="flex items-baseline" id="lu-4">
+                  <span class="w-7 flex-shrink-0 font-semibold">4.</span>
+                  <span
+                    ><strong>Marktmodellen & SGR toepassen</strong> voor analyse
+                    van structuur & gedrag.</span
+                  >
                 </li>
-                <li>
-                  <strong>CSRD/ESRS framework begrijpen & toepassen</strong>
-                  voor rapportage & ESG-integratie.
+                <li class="flex items-baseline" id="lu-5">
+                  <span class="w-7 flex-shrink-0 font-semibold">5.</span>
+                  <span
+                    ><strong
+                      >Impact overheidsbeleid op concurrentie definiëren</strong
+                    >
+                    voor strategische planning.</span
+                  >
+                </li>
+                <li class="flex items-baseline" id="lu-6">
+                  <span class="w-7 flex-shrink-0 font-semibold">6.</span>
+                  <span
+                    ><strong
+                      >Brede welvaart & maatschappelijke kosten plaatsen</strong
+                    >
+                    voor duurzame waardecreatie.</span
+                  >
+                </li>
+                <li class="flex items-baseline" id="lu-7">
+                  <span class="w-7 flex-shrink-0 font-semibold">7.</span>
+                  <span
+                    ><strong>'True pricing' uitleggen & toepassen</strong> om
+                    verborgen kosten te zien & implicaties in te schatten.</span
+                  >
+                </li>
+                <li class="flex items-baseline" id="lu-8">
+                  <span class="w-7 flex-shrink-0 font-semibold">8.</span>
+                  <span
+                    ><strong>CSRD/ESRS framework begrijpen & toepassen</strong>
+                    voor rapportage & ESG-integratie.</span
+                  >
                 </li>
               </ul>
             </div>

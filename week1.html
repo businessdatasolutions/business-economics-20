@@ -12,6 +12,83 @@
     />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css" />
+    <!-- Extra CSS (Best in style.css) -->
+    <style>
+      /* Styling voor de PDF links (nu binnen accordion) */
+      .pdf-link-in-accordion {
+        display: inline-flex;
+        align-items: center;
+        color: var(--primary-color);
+        font-weight: 600;
+        font-size: 0.875rem;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        margin-top: 0.5rem; /* my-2 */
+      }
+      .pdf-link-in-accordion:hover {
+        color: var(--primary-color-lighter);
+        text-decoration: underline;
+      }
+      .pdf-link-in-accordion svg {
+        width: 1em;
+        height: 1em;
+        margin-right: 0.25rem;
+        fill: currentColor;
+      }
+
+      /* Styling voor accordion summary */
+      details > summary {
+        list-style: none; /* Verwijder standaard driehoekje */
+        cursor: pointer;
+        padding: 0.75rem 0; /* py-3 */
+        border-bottom: 1px solid var(--bg-light); /* border-b border-slate-700 */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color 0.2s ease;
+      }
+      details > summary:hover {
+        background-color: rgba(51, 65, 85, 0.3); /* bg-slate-700 met opacity */
+      }
+
+      details > summary::-webkit-details-marker {
+        display: none;
+      } /* Verwijder marker in Chrome/Safari */
+
+      details[open] > summary {
+        border-bottom: 1px solid var(--primary-color-darker); /* Accentueer als open */
+      }
+
+      /* Icoon voor open/dicht state */
+      details summary::after {
+        content: "+";
+        font-size: 1.5em;
+        line-height: 1;
+        margin-left: 0.5rem; /* ml-2 */
+        color: var(--primary-color);
+        transition: transform 0.2s ease-in-out;
+      }
+
+      details[open] summary::after {
+        content: "-";
+        transform: rotate(180deg);
+      }
+
+      /* Inhoud van de accordion */
+      details > div {
+        padding: 1rem 0.5rem; /* py-4 px-2 */
+        border-bottom: 1px solid var(--bg-light);
+      }
+      details:last-of-type > div {
+        border-bottom: none; /* Geen border na laatste item */
+      }
+      details:last-of-type > summary {
+        border-bottom: none; /* Geen border na laatste summary als gesloten*/
+      }
+      details[open]:last-of-type > summary {
+        border-bottom: 1px solid var(--primary-color-darker); /* Wel border als laatste item open is */
+      }
+    </style>
   </head>
   <body class="bg-slate-900 text-slate-200">
     <header class="site-header sticky top-0 z-50 shadow-lg">
@@ -73,7 +150,6 @@
         krijgen.
       </p>
 
-      <!-- Grid voor betere layout op medium schermen -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- Kolom 1: Introductie & Leerdoelen -->
         <div class="space-y-8">
@@ -82,13 +158,14 @@
             class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
           >
             <h2 class="text-2xl font-semibold text-emerald-300 mb-4">
-              🔍 Wat ga je doen?
+              🔍 Wat ga je doen? (Introductie Thema's)
             </h2>
             <p class="text-slate-300 leading-relaxed">
-              Je verkent de kernbegrippen van macro-economie: hoe meten we
-              economische activiteit (BBP)? Hoe beïnvloeden trends zoals
-              inflatie en conjunctuur jouw sector? En hoe hangt alles samen in
-              de bedrijfskolom?
+              Deze week richt zich op het begrijpen van de bredere economische
+              omgeving waarin een specifieke sector opereert. Dit omvat het
+              onderzoeken van belangrijke indicatoren van de nationale economie
+              en hoe deze de prestaties van de sector beïnvloeden, evenals het
+              bepalen hoe gevoelig de sector is voor economische schommelingen.
             </p>
           </section>
 
@@ -100,40 +177,85 @@
               🎯 Leerdoelen & Jouw Rol
             </h2>
             <p class="text-slate-400 mb-6">
-              Deze week bouw je aan de fundamenten voor deze skills (check de
-              nummers op index.html!):
+              Deze week bouw je aan de fundamenten voor deze skills:
             </p>
             <ul
               class="list-disc list-outside space-y-3 text-slate-300 leading-relaxed pl-5 text-sm"
             >
-              <!-- Iets kleiner voor leesbaarheid hier -->
               <li>
                 Macro-analyse en relevantie snappen voor bedrijfsomgeving.
-                <span class="text-emerald-400/80">(LU 1)</span>
+                <a
+                  href="index.html#lu-1"
+                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+                  >(LU 1)</a
+                >
               </li>
               <li>
                 Kernvariabelen (BBP, inflatie...) en impact op sector herkennen.
-                <span class="text-emerald-400/80">(LU 1)</span>
+                <a
+                  href="index.html#lu-1"
+                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+                  >(LU 1)</a
+                >
               </li>
               <li>
                 Uitleggen hoe BBP gemeten wordt (nationale rekeningen).
-                <span class="text-emerald-400/80">(LU 1, 6)</span>
+                <a
+                  href="index.html#lu-1"
+                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+                  >(LU 1)</a
+                >
+                <a
+                  href="index.html#lu-6"
+                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+                  >(LU 6)</a
+                >
               </li>
               <li>
-                Conjunctuurcyclus en Wet van Okun begrijpen.
-                <span class="text-emerald-400/80">(LU 1, 4)</span>
+                Conjunctuurcyclus begrijpen.
+                <a
+                  href="index.html#lu-1"
+                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+                  >(LU 1)</a
+                >
+                <a
+                  href="index.html#lu-4"
+                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+                  >(LU 4)</a
+                >
               </li>
               <li>
                 Conjunctuurgevoeligheid van sectoren verkennen.
-                <span class="text-emerald-400/80">(LU 1)</span>
+                <a
+                  href="index.html#lu-1"
+                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+                  >(LU 1)</a
+                >
               </li>
               <li>
-                Tools (FRED) en bronnen voor macro-data vinden/gebruiken.
-                <span class="text-emerald-400/80">(Ondersteunt LU 1+)</span>
+                Tools en bronnen voor macro-data vinden/gebruiken.
+                <span class="text-emerald-400/80 ml-1"
+                  >(Ondersteunt LU 1+)</span
+                >
+                <!-- Geen directe link als het breed ondersteunend is -->
               </li>
               <li>
                 Componenten geaggregeerde vraag (C,I,G,X,M) en BBP snappen.
-                <span class="text-emerald-400/80">(LU 1, 2, 5)</span>
+                <a
+                  href="index.html#lu-1"
+                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+                  >(LU 1)</a
+                >
+                <a
+                  href="index.html#lu-2"
+                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+                  >(LU 2)</a
+                >
+                <a
+                  href="index.html#lu-5"
+                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+                  >(LU 5)</a
+                >
               </li>
             </ul>
           </section>
@@ -141,138 +263,304 @@
 
         <!-- Kolom 2: Ebook & Opdracht -->
         <div class="space-y-8">
-          <!-- Ebook Units Sectie -->
+          <!-- *** VERNIEUWDE Ebook Units Sectie (Accordion) *** -->
           <section
             class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
           >
             <h2 class="text-2xl font-semibold text-emerald-300 mb-4">
-              📚 Verdieping: Ebook Units
+              📚 Verdieping: Relevante Textbook Units
             </h2>
-            <p class="text-slate-400 mb-6">Check deze units voor de details:</p>
-            <div class="space-y-6">
-              <!-- Unit 1 -->
-              <div>
-                <h3 class="text-xl font-semibold text-emerald-400 mb-2">
-                  Unit 1: Tech, Bevolking & Groei
-                </h3>
-                <p class="text-slate-300 mb-3 text-sm leading-relaxed">
-                  Basisideeën: economische activiteit meten, data gebruiken,
-                  historisch perspectief BBP/capita.
-                </p>
-                <a
-                  href="pdfs/the-economy-unit-1-pdf.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="pdf-button"
-                >
-                  <!-- Nieuwe class voor styling -->
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    class="w-5 h-5 mr-2"
+            <p class="text-slate-400 mb-6">
+              Klik op een unit titel om de beschrijving en PDF link te zien:
+            </p>
+            <div class="space-y-0">
+              <!-- Geen extra space nodig, zit in <details> styling -->
+
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 1: The Capitalist Revolution</span
                   >
-                    <path
-                      fill-rule="evenodd"
-                      d="M15.5 10a.75.75 0 0 1-.75.75h-6.5a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 .75.75Z"
-                      clip-rule="evenodd"
-                    />
-                    <path
-                      fill-rule="evenodd"
-                      d="M4.502 2.075A.75.75 0 0 1 5.25 2h9.5a.75.75 0 0 1 .75.75v14.5a.75.75 0 0 1-.75.75h-9.5a.75.75 0 0 1-.748-.676L4.502 2.075Z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                  Unit 1 PDF
-                </a>
-              </div>
-              <!-- Unit 13 -->
-              <div>
-                <h3 class="text-xl font-semibold text-emerald-400 mb-2">
-                  Unit 13: Fluctuaties & Werkloosheid
-                </h3>
-                <p class="text-slate-300 mb-3 text-sm leading-relaxed">
-                  De macro-economie: hoog/laagconjunctuur, BBP meten (nat.
-                  rekeningen), data (FRED), Okun, kringloop, C+I+G+X-M.
-                </p>
-                <a
-                  href="pdfs/the-economy-unit-13-pdf.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="pdf-button"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    class="w-5 h-5 mr-2"
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Geeft context over economische systemen en introduceert
+                    begrippen als BBP. Nuttig om het raamwerk van de economie en
+                    belangrijke geaggregeerde maatstaven te begrijpen.
+                  </p>
+                  <a
+                    href="pdfs/the-economy-unit-1-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
                   >
-                    <path
-                      fill-rule="evenodd"
-                      d="M15.5 10a.75.75 0 0 1-.75.75h-6.5a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 .75.75Z"
-                      clip-rule="evenodd"
-                    />
-                    <path
-                      fill-rule="evenodd"
-                      d="M4.502 2.075A.75.75 0 0 1 5.25 2h9.5a.75.75 0 0 1 .75.75v14.5a.75.75 0 0 1-.75.75h-9.5a.75.75 0 0 1-.748-.676L4.502 2.075Z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                  Unit 13 PDF
-                </a>
-              </div>
-              <!-- Unit 14 -->
-              <div>
-                <h3 class="text-xl font-semibold text-emerald-400 mb-2">
-                  Unit 14: Werkloosheid & Fiscaal Beleid
-                </h3>
-                <p class="text-slate-300 mb-3 text-sm leading-relaxed">
-                  Impact vraagfluctuaties op BBP (multiplier), rol overheid:
-                  stabilisatoren, stimulering.
-                </p>
-                <a
-                  href="pdfs/the-economy-unit-14-pdf.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="pdf-button"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    class="w-5 h-5 mr-2"
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      class="w-4 h-4 mr-1"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      />
+                    </svg>
+                    Unit 1 PDF
+                  </a>
+                </div>
+              </details>
+
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 9: The Labour Market</span
                   >
-                    <path
-                      fill-rule="evenodd"
-                      d="M15.5 10a.75.75 0 0 1-.75.75h-6.5a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 .75.75Z"
-                      clip-rule="evenodd"
-                    />
-                    <path
-                      fill-rule="evenodd"
-                      d="M4.502 2.075A.75.75 0 0 1 5.25 2h9.5a.75.75 0 0 1 .75.75v14.5a.75.75 0 0 1-.75.75h-9.5a.75.75 0 0 1-.748-.676L4.502 2.075Z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                  Unit 14 PDF
-                </a>
-              </div>
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Bespreakt arbeidsmarktconcepten zoals werkgelegenheid,
+                    werkloosheid en participatiegraad, wat belangrijke
+                    macrovariabelen zijn.
+                  </p>
+                  <a
+                    href="pdfs/the-economy-unit-9-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      class="w-4 h-4 mr-1"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      />
+                    </svg>
+                    Unit 9 PDF
+                  </a>
+                </div>
+              </details>
+
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 10: Banks, Money, Credit</span
+                  >
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Introduceert concepten als vermogen, inkomen en de
+                    beleidsrente van de centrale bank. Relevant voor het
+                    begrijpen van de invloed van rentetarieven.
+                  </p>
+                  <a
+                    href="pdfs/the-economy-unit-10-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      class="w-4 h-4 mr-1"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      />
+                    </svg>
+                    Unit 10 PDF
+                  </a>
+                </div>
+              </details>
+
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 13: Economic Fluctuations</span
+                  >
+                  <span class="text-xs text-slate-400 ml-auto mr-2"
+                    >(Centraal!)</span
+                  >
+                  <!-- Extra hint -->
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Bespreakt nationale rekeningen, meting van geaggregeerde
+                    economische activiteit (BBP), componenten van geaggregeerde
+                    vraag (C, I, G, X, M), inflatie, werkloosheid, en
+                    introduceert de conjunctuurcyclus. Deze unit is centraal.
+                  </p>
+                  <a
+                    href="pdfs/the-economy-unit-13-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      class="w-4 h-4 mr-1"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      />
+                    </svg>
+                    Unit 13 PDF
+                  </a>
+                </div>
+              </details>
+
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 14: Unemployment & Fiscal Policy</span
+                  >
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Gaat verder met economische schommelingen, de multiplier, en
+                    analyse van geaggregeerde vraag. Relevant voor het begrijpen
+                    van de dynamiek van de conjunctuur.
+                  </p>
+                  <a
+                    href="pdfs/the-economy-unit-14-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      class="w-4 h-4 mr-1"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      />
+                    </svg>
+                    Unit 14 PDF
+                  </a>
+                </div>
+              </details>
+
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 15: Inflation, Unempl. & Monetary Policy</span
+                  >
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Verkent de relatie tussen inflatie en werkloosheid en de rol
+                    van monetair beleid. Direct relevant voor twee belangrijke
+                    macrovariabelen.
+                  </p>
+                  <a
+                    href="pdfs/the-economy-unit-15-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      class="w-4 h-4 mr-1"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      />
+                    </svg>
+                    Unit 15 PDF
+                  </a>
+                </div>
+              </details>
+
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 17: History, Instability, Growth</span
+                  >
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Onderzoekt periodes van economische instabiliteit en groei,
+                    bespreekt concepten als de Grote Depressie, financiële
+                    crises en positieve feedback. Relevant voor het begrijpen
+                    van de aard en invloeden van economische instabiliteit.
+                  </p>
+                  <a
+                    href="pdfs/the-economy-unit-17-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      class="w-4 h-4 mr-1"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      />
+                    </svg>
+                    Unit 17 PDF
+                  </a>
+                </div>
+              </details>
+
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 18: Global Economy</span
+                  >
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Bespreakt globalisering, internationale handel
+                    (export/import) en internationale kapitaalstromen. Relevant
+                    voor het begrijpen van wereldhandel als invloed op de
+                    sector.
+                  </p>
+                  <a
+                    href="pdfs/the-economy-unit-18-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      class="w-4 h-4 mr-1"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      />
+                    </svg>
+                    Unit 18 PDF
+                  </a>
+                </div>
+              </details>
             </div>
           </section>
+          <!-- *** EINDE VERNIEUWDE Ebook Units Sectie *** -->
 
           <!-- Concrete Opdracht Sectie -->
           <section
             class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg border-t-4 border-emerald-500"
           >
-            <!-- Extra border top -->
             <h2 class="text-2xl font-semibold text-emerald-300 mb-4">
-              ✅ Jouw Concrete Opdracht Week 1
+              ✅ Jouw Concrete Opdracht Week 1 (Topics & Tasks)
             </h2>
             <p class="text-slate-400 mb-6">
               Tijd om de theorie toe te passen! Werk deze punten uit voor jouw
               sector/bedrijven:
             </p>
-
-            <!-- Belangrijk/Tip Box -->
             <div
               class="bg-slate-700 border-l-4 border-emerald-400 p-4 rounded-md text-slate-300 mb-6 text-sm"
             >
@@ -280,35 +568,54 @@
               vormt een belangrijk deel van je Omgevingsanalyse (BEDROM04). Zorg
               voor een duidelijke onderbouwing en conclusie per punt.
             </div>
-
             <ol
               class="list-decimal list-outside space-y-4 text-slate-300 leading-relaxed pl-5"
             >
               <li>
-                Positioneer je sector in de <strong>bedrijfskolom</strong>.
+                Bepaal de plaats van de gekozen sector in de
+                <strong>waardeketen (bedrijfskolom)</strong>.
               </li>
               <li>
-                Breng relevante <strong>macro-variabelen</strong> (NL) en hun
-                <strong>ontwikkelingen</strong> in kaart.
+                Breng de relevante
+                <strong>macro-economische variabelen</strong> van Nederland in
+                kaart (<em class="text-slate-400 not-italic font-medium"
+                  >bijv. BBP, consumentenuitgaven, bedrijfsuitgaven,
+                  overheidsuitgaven, export-import, werkgelegenheid, inflatie,
+                  conjunctuur, consumenten-/producentenvertrouwen</em
+                >) en analyseer hun relevante <strong>ontwikkelingen</strong>.
               </li>
               <li>
-                Analyseer de <strong>impact</strong> van deze variabelen op
-                <strong>jouw sector</strong>.
+                Beschrijf duidelijk de
+                <strong>invloeden van macro-economische variabelen</strong> op
+                de gekozen sector (<em
+                  class="text-slate-400 not-italic font-medium"
+                  >bijv. rente, kapitaalintensiteit, vertrouwensindicatoren,
+                  grondstofprijzen, wisselkoersen, wereldhandel, conjunctuur,
+                  werkgelegenheid, inflatie</em
+                >).
               </li>
               <li>
-                Bepaal + onderbouw de
-                <strong>conjunctuurgevoeligheid</strong> van de
-                <strong>sector</strong>.
+                Bepaal de <strong>conjunctuurgevoeligheid</strong> van de sector
+                en trek een conclusie gebaseerd op criteria zoals: (<em
+                  class="text-slate-400 not-italic font-medium"
+                  >kapitaalintensiteit, grondstofprijzen, wisselkoersen,
+                  wereldhandel, werkgelegenheid, inflatie, aard van producten,
+                  positie in de waardeketen</em
+                >).
               </li>
               <li>
-                Bepaal + onderbouw de
-                <strong>conjunctuurgevoeligheid</strong> van je gekozen
-                <strong>bedrijven</strong> (kijk naar spreiding, diversificatie,
-                macht).
+                Bepaal de <strong>conjunctuurgevoeligheid</strong> voor gekozen
+                bedrijven binnen de sector en trek een conclusie gebaseerd op
+                criteria zoals: (<em
+                  class="text-slate-400 not-italic font-medium"
+                  >geografische spreiding van omzet, productdiversificatie,
+                  marktmacht</em
+                >).
               </li>
               <li>
-                Trek een <strong>overall conclusie</strong> over macro-invloeden
-                en gevoeligheid.
+                Trek een <strong>overkoepelende conclusie</strong> over de
+                macro-invloeden en conjunctuurgevoeligheid (impliciet, maar
+                belangrijk om expliciet te formuleren).
               </li>
             </ol>
             <p class="mt-6 text-sm text-emerald-300 font-semibold">
@@ -318,6 +625,16 @@
         </div>
       </div>
       <!-- Einde Grid -->
+
+      <!-- *** NIEUW: Volgende Stap Sectie *** -->
+      <div class="mt-16 text-center">
+        <a
+          href="week2.html"
+          class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+        >
+          Klaar met Week 1? Ga door naar Week 2 →
+        </a>
+      </div>
     </main>
 
     <footer class="site-footer py-8 bg-slate-950 text-center mt-16">

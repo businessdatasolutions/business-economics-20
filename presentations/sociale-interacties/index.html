@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>Sociale Interacties & Dilemma's</title>
+
+    <link
+      rel="stylesheet"
+      href="dist/reset.css"
+    />
+    <link
+      rel="stylesheet"
+      href="dist/reveal.css"
+    />
+    <link
+      rel="stylesheet"
+      href="dist/theme/white.css"
+      id="theme"
+    />
+    <link
+      rel="stylesheet"
+      href="plugin/highlight/monokai.css"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+
+    <style>
+      :root {
+        /* --- NIEUW THEMA: Gebaseerd op de afbeelding --- */
+        --img-bg-cream: #faf6f0; /* Achtergrond van de afbeelding */
+        --img-blue-earth: #4a89c8;
+        --img-green-nature: #78b954;
+        --img-orange-accent: #f27f54;
+        --img-yellow-accent: #f7d154;
+        --img-dark-blue-text: #223a5e; /* Donkerblauw voor tekst, van pak */
+        --img-grey-tech: #a0b3c4;
+        --img-light-blue-sky: #d6e6f2;
+
+        /* Lettertypes */
+        --font-headings: "Nunito", sans-serif;
+        --font-body: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+        /* --- Mapping naar RevealJS Variabelen --- */
+        --main-bg-color: var(--img-bg-cream);
+        --text-color: var(--img-dark-blue-text);
+        --heading-text-color: var(--img-dark-blue-text);
+        --heading-accent-color: var(
+          --img-green-nature
+        ); /* Groen voor H2 underlines */
+
+        --accent-color-primary: var(--img-green-nature);
+        --accent-color-secondary: var(--img-blue-earth);
+        --accent-color-tertiary: var(
+          --img-orange-accent
+        ); /* Oranje als derde accent */
+
+        --link-color: var(--img-orange-accent);
+        --link-hover-color: #d96f43; /* Donkerder oranje */
+
+        --title-text-color: var(
+          --img-dark-blue-text
+        ); /* Tekst op titel slide wordt donker */
+        --title-bg-overlay: rgba(
+          250,
+          246,
+          240,
+          0.7
+        ); /* Zeer lichte, semi-transparante overlay */
+        --title-subtitle-color: #5c789c; /* Gedempte versie van donkerblauw */
+
+        /* Voor p5.js payoff kleuren */
+        --payoff-color-p1: var(--img-orange-accent); /* Oranje voor P1 */
+        --payoff-color-p2: var(--img-blue-earth); /* Blauw voor P2 */
+
+        /* Font mapping */
+        --font-primary: var(--font-headings);
+        --font-secondary: var(--font-body);
+
+        /* Borders en interactie-elementen */
+        --border-color: #dde2e8; /* Lichte, neutrale border */
+        --border-color-interactive: var(--img-green-nature);
+        --shadow-color-soft: rgba(44, 62, 80, 0.1);
+      }
+
+      /* --- General Reveal Settings & Body --- */
+      .reveal {
+        font-size: 38px; /* Basis font size, pas aan indien nodig */
+        background-color: var(--main-bg-color);
+        color: var(--text-color);
+        font-family: var(--font-secondary);
+      }
+
+      /* --- Headings --- */
+      .reveal h1,
+      .reveal h2,
+      .reveal h3,
+      .reveal h4,
+      .reveal h5,
+      .reveal h6 {
+        font-family: var(--font-primary);
+        color: var(--heading-text-color);
+        text-transform: none;
+        line-height: 1.25;
+        font-weight: 700;
+      }
+      .reveal h1 {
+        font-size: 2.3em;
+        text-shadow: none;
+        margin-bottom: 0.5em;
+      }
+      .reveal h2 {
+        font-size: 1.65em;
+        margin-top: 0;
+        margin-bottom: 0.4em;
+        border-bottom: 3px solid var(--heading-accent-color);
+        padding-bottom: 0.2em;
+        text-align: left;
+        font-weight: 800;
+      }
+      .reveal h3 {
+        font-size: 1.3em;
+        color: var(--accent-color-secondary);
+        margin-bottom: 0.3em;
+        font-weight: 700;
+      }
+      .reveal h4 {
+        font-size: 1.1em;
+        color: var(--accent-color-primary);
+        margin-bottom: 0.25em;
+        font-weight: 600;
+      }
+
+      /* --- Paragraphs & Lists --- */
+      .reveal p,
+      .reveal li {
+        font-size: 0.8em;
+        line-height: 1.55;
+        text-align: left;
+        margin-bottom: 0.3em;
+      }
+      .reveal ul,
+      .reveal ol {
+        margin-bottom: 0.4em;
+      }
+
+      /* --- Strong Text & Links --- */
+      .reveal strong {
+        color: var(--accent-color-primary);
+        font-weight: 700;
+      }
+      .reveal a {
+        color: var(--link-color);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.2s ease-in-out;
+      }
+      .reveal a:hover {
+        color: var(--link-hover-color);
+        text-decoration: underline;
+      }
+
+      /* --- Title Slide Specifics --- */
+      .title-slide {
+        text-align: center;
+      }
+      .title-slide[data-background-image="cezanne.jpg"] {
+        data-background-opacity: "0.1";
+      }
+      .title-slide-content {
+        background-color: var(--title-bg-overlay);
+        padding: 40px 50px;
+        border-radius: 12px;
+        display: inline-block;
+        max-width: 85%;
+        box-shadow: 0 5px 20px var(--shadow-color-soft);
+      }
+      .title-slide h1 {
+        color: var(--title-text-color);
+        margin-bottom: 0.2em;
+        font-size: 2.6em;
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-top: 0;
+        font-weight: 800;
+      }
+      .title-slide h3.subtitle {
+        color: var(--title-subtitle-color);
+        font-family: var(--font-secondary);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 1.2em;
+        margin-top: 0.1em;
+        margin-bottom: 0.8em;
+      }
+      .title-slide .tagline {
+        font-size: 0.9em;
+        color: var(--text-color);
+        font-family: var(--font-secondary);
+        font-weight: 400;
+        line-height: 1.5;
+      }
+      .title-slide .attribution {
+        font-size: 0.6em;
+        color: var(--img-grey-tech);
+        margin-top: 1.2em;
+      }
+
+      /* --- Content Slide Styling --- */
+      .reveal section img.bordered-image {
+        border: 4px solid var(--border-color-interactive);
+        box-shadow: 0 4px 12px var(--shadow-color-soft);
+        margin: 12px auto;
+        border-radius: 8px;
+        background-color: white;
+        padding: 6px;
+        display: block;
+      }
+      .img-caption {
+        font-size: 0.7em;
+        text-align: center;
+        color: var(--img-grey-tech);
+        font-family: var(--font-secondary);
+        margin-top: 8px;
+        display: block;
+        line-height: 1.3;
+      }
+
+      /* --- Column Layout --- */
+      .column-layout {
+        display: flex;
+        align-items: flex-start;
+        gap: 25px;
+        margin-top: 0.6em;
+      }
+      .column-layout > div {
+        flex: 1;
+      }
+      .column-layout > .text-column {
+        flex: 1.5;
+      }
+      .column-layout > .text-column > *:first-child {
+        margin-top: 0;
+      }
+      .column-layout > .text-column > *:last-child {
+        margin-bottom: 0;
+      }
+      .column-layout > .image-column {
+        flex: 1;
+        text-align: center;
+      }
+      .column-layout .image-column img.bordered-image {
+        margin-top: 0;
+      }
+      .column-layout .image-column .img-caption {
+        font-size: 0.7em;
+        margin-top: 5px;
+      }
+
+      /* --- Custom Bullet Points (Nieuw Thema) --- */
+      .bullet-points ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+      .bullet-points li {
+        background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle fill="%2378B954" cx="12" cy="12" r="6"/></svg>')
+          no-repeat 0 0.3em;
+        background-size: 0.55em;
+        padding-left: 1em;
+        margin-bottom: 0.25em;
+      }
+      .bullet-points ul ul {
+        list-style-type: none;
+        padding-left: 0.8em;
+        margin-top: 0.2em;
+        margin-bottom: 0.25em;
+      }
+      .bullet-points ul ul li {
+        background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="%234A89C8" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>');
+        font-size: 0.95em;
+        padding-left: 1em;
+        background-size: 0.6em;
+        background-position: 0 0.3em;
+      }
+
+      /* --- Specific Slide Elements: Social Dilemma Examples --- */
+      .example-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: stretch;
+        gap: 20px;
+        margin-top: 20px;
+      }
+      .example-item {
+        flex: 1;
+        min-width: 0;
+        text-align: center;
+        padding: 18px;
+        background-color: var(--img-light-blue-sky);
+        border-radius: 10px;
+        box-shadow: 0 3px 10px var(--shadow-color-soft);
+        display: flex;
+        flex-direction: column;
+      }
+      .example-item img {
+        width: 100%;
+        max-width: 220px;
+        height: 130px;
+        object-fit: cover;
+        border-radius: 6px;
+        margin-bottom: 10px;
+      }
+      .example-item p {
+        font-size: 0.72em;
+        margin-top: auto;
+        text-align: center;
+        line-height: 1.4;
+        color: var(--img-dark-blue-text);
+      }
+
+      /* Scrollbar (optioneel, Webkit) */
+      .reveal .slides section[data-state="scrollHeight"]::-webkit-scrollbar {
+        width: 10px;
+      }
+      .reveal
+        .slides
+        section[data-state="scrollHeight"]::-webkit-scrollbar-track {
+        background: #ebe4db;
+      }
+      .reveal
+        .slides
+        section[data-state="scrollHeight"]::-webkit-scrollbar-thumb {
+        background: var(--img-blue-earth);
+        border-radius: 5px;
+      }
+      .reveal
+        .slides
+        section[data-state="scrollHeight"]::-webkit-scrollbar-thumb:hover {
+        background: #3e7ab5;
+      }
+
+      /* --- P5.js Matrix Containers --- */
+      #pdMatrixStaticContainer,
+      #pdAnalysisMatrixContainer {
+        /* GEWIJZIGD: Gebruik een duidelijkere border kleur */
+        border: 2px solid var(--border-color-interactive); /* Groen, consistent met matrix cellen */
+        border-radius: 8px;
+        box-sizing: border-box; /* Zorgt ervoor dat padding en border binnen width/height vallen */
+      }
+      #pdMatrixStaticContainer {
+        /* GEWIJZIGD: Afmetingen hier instellen, niet inline */
+        width: 600px;
+        height: 350px;
+        margin: 20px auto; /* Was 15px, aangepast aan de vorige inline style */
+      }
+      #pdAnalysisMatrixContainer {
+        width: 100%; /* Behoudt flexibiliteit binnen de kolom */
+        max-width: 480px;
+        height: 380px;
+        margin: 0 auto; /* Aangepast van 20px auto naar 0 auto voor betere centrering in flex kolom */
+      }
+
+      .code-block {
+        font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console",
+          "Lucida Sans Typewriter", "DejaVu Sans Mono",
+          "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco,
+          "Courier New", Courier, monospace;
+        font-size: 0.8em;
+        background-color: #fdfbf7;
+        color: var(--img-dark-blue-text);
+        padding: 10px 15px;
+        border-radius: 6px;
+        margin-top: 0.3em;
+        display: inline-block;
+        border: 1px solid var(--border-color);
+      }
+
+      /* Override inline styles voor begripvragen slide */
+      section[data-state="scrollHeight"] > div[style*="font-size: 0.75em"] {
+        font-size: 0.78em !important;
+      }
+      section[data-state="scrollHeight"]
+        .bullet-points[style*="font-size: 0.9em"] {
+        font-size: 0.88em !important;
+      }
+      section[data-state~="prisoner-dilemma-analysis-slide"]
+        span[style*="var(--accent-color-blue)"] {
+        color: var(--payoff-color-p2) !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section
+          data-state="scrollHeight"
+          data-background-image="cezanne.jpg"
+          data-background-opacity="0.6"
+          data-background-position="center center"
+          class="title-slide"
+        >
+          <div class="title-slide-content">
+            <h1>SOCIALE INTERACTIES</h1>
+            <h3 class="subtitle">Dilemma's en Samenwerking</h3>
+            <p class="tagline">
+              Hoe eigenbelang, respect voor anderen en instituties onze wereld
+              vormen.
+            </p>
+            <p class="attribution">
+              Achtergrond: Paul Cézanne's "Les Joueurs de Carte" (De
+              Kaartspelers)
+            </p>
+          </div>
+        </section>
+        <section>
+          <h2>Het Maatschappelijk Fundament: Sociale Interacties</h2>
+          <div class="column-layout">
+            <div class="text-column bullet-points">
+              <p>Jouw keuze heeft invloed op iedereen.</p>
+              <ul>
+                <li class="fragment">
+                  <strong>Strategische Interacties:</strong> Bewustzijn van
+                  wederzijdse impact van acties.
+                </li>
+                <li class="fragment">
+                  <strong>Speltheorie:</strong> Modellen voor interactieve
+                  beslissingen.
+                  <ul>
+                    <li class="fragment">
+                      Kernelementen: Spelers, Strategieën, Informatie,
+                      opbrengsten.
+                    </li>
+                  </ul>
+                </li>
+                <li class="fragment">
+                  <strong>Conflict:</strong> Individueel gewin vs. collectief
+                  welzijn.
+                </li>
+              </ul>
+            </div>
+            <div class="image-column">
+              <img
+                src="people-collaborating.png"
+                alt="Mensen die samenwerken aan een project"
+                class="bordered-image"
+              />
+              <span class="img-caption"
+                >Van markttransacties tot wereldwijd klimaatbeleid.</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <section data-state="scrollHeight">
+          <h2>De Kern van de Zaak: Sociale Dilemma's</h2>
+          <p class="fragment text-center">
+            <strong>Sociaal dilemma</strong>: Eigenbelang leidt tot
+            <strong>collectief inferieure resultaten</strong>.
+          </p>
+
+          <div class="example-container">
+            <div
+              class="example-item fragment"
+              data-fragment-index="1"
+            >
+              <img
+                src="traffic-jam.jpg"
+                alt="Luchtfoto van een file"
+              />
+              <p>
+                <strong>Files:</strong> Mijn gemak vs. collectieve stagnatie.
+              </p>
+            </div>
+            <div
+              class="example-item fragment"
+              data-fragment-index="2"
+            >
+              <img
+                src="climate-change.jpg"
+                alt="Rookpluimen die de lucht vervuilen met de Aarde op de achtergrond"
+              />
+              <p>
+                <strong>Klimaatverandering:</strong> Mijn kleine impact vs.
+                wereldwijde gevolgen.
+              </p>
+            </div>
+            <div
+              class="example-item fragment"
+              data-fragment-index="3"
+            >
+              <img
+                src="deep-sea-mining.jpg"
+                alt="Visnetten, symbool voor overbevissing"
+              />
+              <p>
+                <strong>Tragedie van de Meent:</strong> Individueel gewin vs.
+                uitputting van middelen.
+              </p>
+            </div>
+          </div>
+          <p
+            class="fragment text-center"
+            data-fragment-index="4"
+            style="margin-top: 20px; color: var(--heading-color)"
+          >
+            <strong>Uitdaging:</strong> Individuele prikkels & collectief
+            welzijn op één lijn brengen.
+          </p>
+        </section>
+
+        <section data-state="scrollHeight">
+          <h2>Experiment: Het Publieke Goederenspel</h2>
+
+          <div class="column-layout">
+            <div
+              class="text-column bullet-points"
+              style="flex: 1.2"
+            >
+              <ul>
+                <li class="fragment">
+                  <strong>Groep & Rondes:</strong> 4 studenten, 10 rondes,
+                  anoniem.
+                </li>
+                <li class="fragment">
+                  <strong>Startkapitaal:</strong> 20 tokens per ronde.
+                </li>
+                <li class="fragment">
+                  <strong>Keuze:</strong> Bijdrage aan project (0-20 tokens).
+                  Rest voor jezelf.
+                </li>
+              </ul>
+            </div>
+            <div
+              class="text-column bullet-points"
+              style="flex: 1.2"
+            >
+              <ul>
+                <li class="fragment">
+                  <strong>Projectopbrengst:</strong>
+                  <ul>
+                    <li>Input: 1 token → Output project: 1.6 tokens.</li>
+                    <li>
+                      Jouw aandeel: 0.4 token per bijgedragen token (door
+                      iedereen).
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <section data-state="scrollHeight">
+          <h2>Spelregels</h2>
+          <div class="column-layout">
+            <div class="text-column bullet-points">
+              <ul>
+                <li>
+                  <strong>Doel:</strong> Maximaal totaal inkomen na 10 rondes.
+                </li>
+                <!-- GEWIJZIGD: --highlight-color vervangen door een gedefinieerde variabele -->
+                <li
+                  style="color: var(--accent-color-tertiary); margin-top: 10px"
+                >
+                  <strong>Regel:</strong> Beslissingen privé! Niet overleggen.
+                </li>
+              </ul>
+            </div>
+            <div
+              class="image-column"
+              style="align-self: center"
+            >
+              <img
+                src="game-rules.png"
+                alt="People palying a game"
+                class="bordered-image"
+                style="max-width: 500px; max-height: 400px"
+              />
+            </div>
+          </div>
+          <aside class="notes">
+            Leg uit dat dit een live experiment is. Loop de regels stap voor
+            stap door. Benadruk de berekening van de inkomsten. Herinner
+            studenten aan de geheimhoudingsregel.
+          </aside>
+        </section>
+
+        <section data-state="scrollHeight">
+          <h2>Publieke Goederenspel: Begripvragen</h2>
+          <div style="font-size: 0.75em">
+            <strong>Inkomsten per Ronde:</strong>
+            <p class="code-block">Tokens gehouden + (0.4 × Totaal project)</p>
+          </div>
+          <p>Test je begrip van de regels:</p>
+          <div
+            class="bullet-points"
+            style="font-size: 0.9em"
+          >
+            <ol style="list-style-type: decimal; padding-left: 20px">
+              <li
+                class="fragment"
+                style="background: none; padding-left: 0"
+              >
+                Elk groepslid heeft 20 tokens. Stel, de andere drie dragen
+                <strong>niets</strong> bij.
+                <ul style="margin-top: 5px">
+                  <li>
+                    (a) Wat zijn jouw inkomsten als jij
+                    <strong>niets</strong> bijdraagt?
+                  </li>
+                  <li>
+                    (b) Wat zijn jouw inkomsten als jij
+                    <strong>20 tokens</strong> bijdraagt?
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="fragment"
+                style="background: none; padding-left: 0; margin-top: 15px"
+              >
+                Elk groepslid heeft 20 tokens. Stel, de andere drie dragen samen
+                <strong>12 tokens</strong> bij (exclusief jouw bijdrage).
+                <ul style="margin-top: 5px">
+                  <li>
+                    (a) Wat zijn jouw inkomsten als jij
+                    <strong>20 tokens</strong> bijdraagt?
+                  </li>
+                  <li>
+                    (b) Wat zijn jouw inkomsten als jij
+                    <strong>0 tokens</strong> bijdraagt?
+                  </li>
+                </ul>
+              </li>
+            </ol>
+          </div>
+          <p
+            class="fragment"
+            style="margin-top: 20px"
+          >
+            <em
+              >Denk na over wat jouw optimale strategie zou zijn in deze
+              scenario's!</em
+            >
+          </p>
+          <aside class="notes">
+            Deze vragen helpen studenten de payoff-structuur te begrijpen.<br />Antwoorden:
+            <br />1a: Inkomsten = (20-0) + (0.4 * 0) = 20 tokens. <br />1b:
+            Inkomsten = (20-20) + (0.4 * 20) = 0 + 8 = 8 tokens.<br />
+            2a: Inkomsten = (20-20) + (0.4 * 32) = 0 + 12.8 = 12.8 tokens.<br />
+            2b: Inkomsten = (20-0) + (0.4 * 12) = 20 + 4.8 = 24.8 tokens.
+          </aside>
+        </section>
+
+        <section data-state="scrollHeight">
+          <h2>Het Gevangenendilemma: De Klassieker</h2>
+          <div class="column-layout">
+            <div class="text-column bullet-points">
+              <ul>
+                <li
+                  class="fragment"
+                  data-fragment-index="1"
+                >
+                  <strong>Scenario:</strong> Twee verdachten (gevangenen) worden
+                  apart verhoord.
+                </li>
+                <li
+                  class="fragment"
+                  data-fragment-index="2"
+                >
+                  Ze kunnen niet communiceren.
+                </li>
+                <li
+                  class="fragment"
+                  data-fragment-index="3"
+                >
+                  Elk heeft twee keuzes:
+                  <ul>
+                    <li><strong>Bekennen</strong> (de ander verraden).</li>
+                    <li>
+                      <strong>Zwijgen</strong> (samenwerken met de ander door
+                      niet te bekennen).
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <div
+              class="image-column fragment"
+              data-fragment-index="4"
+            >
+              <img
+                src="prisoner-dilemma.png"
+                alt="Twee gestileerde figuren achter tralies"
+                class="bordered-image"
+              />
+              <span class="img-caption"
+                >Individuele rationaliteit vs. collectief resultaat.</span
+              >
+            </div>
+          </div>
+          <div>
+            <p class="fragment">
+              Twee <strong>logisch denkende</strong> personen kiezen soms tegen
+              samenwerking, zelfs als samenwerken voor beiden voordeliger is.
+            </p>
+          </div>
+        </section>
+
+        <section data-state="scrollHeight prisoner-dilemma-matrix-slide">
+          <h2>Gevangenendilemma: Uitbetalingsmatrix</h2>
+          <p>
+            De uitkomsten (jaren straf) hangen af van de keuzes van beide
+            gevangenen.
+          </p>
+          <!-- GEWIJZIGD: Inline styles verwijderd, CSS class zal het overnemen -->
+          <div id="pdMatrixStaticContainer">
+            <!-- p5.js sketch zal hier worden ingevoegd -->
+          </div>
+          <p
+            class="fragment text-center"
+            style="margin-top: 10px"
+          >
+            Laten we de logica van elke gevangene analyseren.
+          </p>
+        </section>
+
+        <section data-state="scrollHeight prisoner-dilemma-analysis-slide">
+          <h2>Analyse van het Dilemma</h2>
+          <div class="column-layout">
+            <div
+              class="text-column bullet-points"
+              style="flex: 1.2"
+            >
+              <p style="margin-bottom: 0.5em">Stel je bent Gevangene A:</p>
+              <ul>
+                <li
+                  class="fragment"
+                  data-analysis-step="B_Zwijgt_Header"
+                >
+                  Als B <strong>Zwijgt</strong>:
+                  <ul>
+                    <li
+                      class="fragment"
+                      data-analysis-step="B_Zwijgt_A_Beken"
+                    >
+                      A Bekent: 0 jaar
+                      <span
+                        style="
+                          color: var(--accent-color-blue);
+                          font-weight: bold;
+                        "
+                        >(Beste Keuze)</span
+                      >
+                    </li>
+                    <li
+                      class="fragment"
+                      data-analysis-step="B_Zwijgt_A_Zwijg"
+                    >
+                      A Zwijgt: 1 jaar
+                    </li>
+                  </ul>
+                </li>
+                <li
+                  class="fragment"
+                  data-analysis-step="B_Bekent_Header"
+                  style="margin-top: 1em"
+                >
+                  Als B <strong>Bekent</strong>:
+                  <ul>
+                    <li
+                      class="fragment"
+                      data-analysis-step="B_Bekent_A_Beken"
+                    >
+                      A Bekent: 5 jaar
+                      <span
+                        style="
+                          color: var(--accent-color-blue);
+                          font-weight: bold;
+                        "
+                        >(Beste Keuze)</span
+                      >
+                    </li>
+                    <li
+                      class="fragment"
+                      data-analysis-step="B_Bekent_A_Zwijg"
+                    >
+                      A Zwijgt: 10 jaar
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <div
+              class="matrix-column"
+              style="
+                flex: 1.8;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <div id="pdAnalysisMatrixContainer">
+                <!-- p5.js matrix sketch wordt hier opnieuw getekend/geüpdatet -->
+              </div>
+            </div>
+          </div>
+          <div>
+            <p
+              class="fragment"
+              data-analysis-step="A_Dominant"
+              style="
+                margin-top: 1.5em;
+                color: var(--heading-color);
+                font-weight: bold;
+              "
+            >
+              Voor Gevangene A is <strong>Bekennen</strong> dus altijd de beste
+              keuze. Dit is A's <strong>dominante strategie</strong>.
+            </p>
+          </div>
+        </section>
+
+        <section data-state="scrollHeight">
+          <h2>Resultaat & De "Tragedie"</h2>
+          <div class="bullet-points">
+            <ul>
+              <li class="fragment">
+                Beide gevangenen kiezen hun dominante strategie:
+                <strong>Bekennen</strong>.
+              </li>
+              <li class="fragment">
+                Het resultaat (evenwicht): Beide krijgen
+                <strong>5 jaar</strong> celstraf.
+              </li>
+              <li class="fragment">
+                <strong>MAAR:</strong> Als ze beiden hadden
+                <strong>gezwegen</strong>, hadden ze elk maar
+                <strong>1 jaar</strong> gekregen!
+              </li>
+              <li
+                class="fragment"
+                style="
+                  color: var(--heading-color);
+                  font-weight: bold;
+                  margin-top: 1em;
+                "
+              >
+                Dit is het dilemma: individueel rationeel gedrag leidt tot een
+                collectief suboptimaal resultaat.
+              </li>
+            </ul>
+            <p
+              class="fragment"
+              style="margin-top: 1em"
+            >
+              Toepassingen: wapenwedlopen, prijsconcurrentie, milieuvervuiling,
+              en... het publieke goederenspel!
+            </p>
+          </div>
+        </section>
+
+        <section data-state="scrollHeight">
+          <h2>Sociale Dilemma's Oplossen</h2>
+          <div class="bullet-points">
+            <p>
+              Verschillende mechanismen kunnen sociale dilemma's helpen
+              verminderen:
+            </p>
+            <ul>
+              <li class="fragment">
+                <strong>Altruïsme & Sociale Voorkeuren:</strong> Individuen die
+                geven om de uitkomsten van anderen.
+              </li>
+              <li class="fragment">
+                <strong>Herhaalde Interacties & Reputatie:</strong> "Schaduw van
+                de toekomst" moedigt samenwerking aan.
+              </li>
+              <li class="fragment">
+                <strong>Sociale Normen:</strong> Gedeeld begrip van gepast
+                gedrag.
+              </li>
+              <li class="fragment">
+                <strong>Instituties & Handhaving:</strong> Regels, wetten en
+                straffen die opbrengsten veranderen.
+                <ul>
+                  <li class="fragment">
+                    Voorbeeld: Belastingen op vervuiling.
+                  </li>
+                  <li class="fragment">Voorbeeld: Visquota.</li>
+                </ul>
+              </li>
+              <li class="fragment">
+                <strong>Communicatie & Overeenkomsten:</strong> Spelers in staat
+                stellen te coördineren.
+              </li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+
+    <script>
+      // ... (JavaScript voor Reveal en P5.js blijft ongewijzigd) ...
+      let pdMatrixStaticInstance = null;
+      let pdAnalysisMatrixInstance = null;
+
+      Reveal.initialize({
+        hash: true,
+        controls: true,
+        progress: true,
+        center: true,
+        slideNumber: "c/t",
+        width: 1024,
+        height: 800,
+        margin: 0.04,
+        minScale: 0.2,
+        maxScale: 2.0,
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+
+      function destroyP5Sketch(instance) {
+        if (instance) {
+          instance.remove();
+        }
+        return null;
+      }
+
+      Reveal.addEventListener("ready", function (event) {
+        const currentSlide = event.currentSlide;
+        console.log(
+          "Reveal ready. Initial slide state:",
+          currentSlide.dataset.state
+        );
+
+        if (
+          currentSlide.matches('[data-state~="prisoner-dilemma-matrix-slide"]')
+        ) {
+          console.log("Ready: Initializing static matrix.");
+          pdMatrixStaticInstance = destroyP5Sketch(pdMatrixStaticInstance);
+          pdMatrixStaticInstance = new p5(
+            pdMatrixStaticSketch("pdMatrixStaticContainer"),
+            "pdMatrixStaticContainer"
+          );
+        }
+        if (
+          currentSlide.matches(
+            '[data-state~="prisoner-dilemma-analysis-slide"]'
+          )
+        ) {
+          console.log("Ready: Initializing analysis matrix.");
+          pdAnalysisMatrixInstance = destroyP5Sketch(pdAnalysisMatrixInstance);
+          pdAnalysisMatrixInstance = new p5(
+            pdMatrixAnalysisSketch("pdAnalysisMatrixContainer"),
+            "pdAnalysisMatrixContainer"
+          );
+          if (pdAnalysisMatrixInstance)
+            pdAnalysisMatrixInstance.updateAnalysisStep(null);
+        }
+      });
+
+      Reveal.addEventListener("slidechanged", function (event) {
+        console.log(
+          "Slide changed. From:",
+          event.previousSlide ? event.previousSlide.dataset.state : "N/A",
+          "To:",
+          event.currentSlide.dataset.state
+        );
+        if (event.previousSlide) {
+          if (
+            event.previousSlide.matches(
+              '[data-state~="prisoner-dilemma-matrix-slide"]'
+            )
+          ) {
+            console.log("Destroying static matrix from previous slide.");
+            pdMatrixStaticInstance = destroyP5Sketch(pdMatrixStaticInstance);
+          }
+          if (
+            event.previousSlide.matches(
+              '[data-state~="prisoner-dilemma-analysis-slide"]'
+            )
+          ) {
+            console.log("Destroying analysis matrix from previous slide.");
+            pdAnalysisMatrixInstance = destroyP5Sketch(
+              pdAnalysisMatrixInstance
+            );
+          }
+        }
+
+        if (
+          event.currentSlide.matches(
+            '[data-state~="prisoner-dilemma-matrix-slide"]'
+          )
+        ) {
+          console.log("Initializing static matrix for current slide.");
+          pdMatrixStaticInstance = destroyP5Sketch(pdMatrixStaticInstance);
+          pdMatrixStaticInstance = new p5(
+            pdMatrixStaticSketch("pdMatrixStaticContainer"),
+            "pdMatrixStaticContainer"
+          );
+        }
+        if (
+          event.currentSlide.matches(
+            '[data-state~="prisoner-dilemma-analysis-slide"]'
+          )
+        ) {
+          console.log("Initializing analysis matrix for current slide.");
+          pdAnalysisMatrixInstance = destroyP5Sketch(pdAnalysisMatrixInstance);
+          pdAnalysisMatrixInstance = new p5(
+            pdMatrixAnalysisSketch("pdAnalysisMatrixContainer"),
+            "pdAnalysisMatrixContainer"
+          );
+          if (pdAnalysisMatrixInstance) {
+            let visibleFragments = event.currentSlide.querySelectorAll(
+              ".fragment.visible[data-analysis-step]"
+            );
+            let lastVisibleStep = null;
+            if (visibleFragments.length > 0) {
+              lastVisibleStep =
+                visibleFragments[visibleFragments.length - 1].dataset
+                  .analysisStep;
+            }
+            console.log(
+              "Slide changed to analysis, setting step to:",
+              lastVisibleStep
+            );
+            pdAnalysisMatrixInstance.updateAnalysisStep(lastVisibleStep);
+          }
+        }
+      });
+
+      Reveal.addEventListener("fragmentshown", function (event) {
+        if (
+          pdAnalysisMatrixInstance &&
+          Reveal.getCurrentSlide().matches(
+            '[data-state~="prisoner-dilemma-analysis-slide"]'
+          )
+        ) {
+          const analysisStep = event.fragment.dataset.analysisStep;
+          if (analysisStep) {
+            console.log(
+              "Fragment shown, updating analysis step to:",
+              analysisStep
+            );
+            pdAnalysisMatrixInstance.updateAnalysisStep(analysisStep);
+          }
+        }
+      });
+
+      Reveal.addEventListener("fragmenthidden", function (event) {
+        if (
+          pdAnalysisMatrixInstance &&
+          Reveal.getCurrentSlide().matches(
+            '[data-state~="prisoner-dilemma-analysis-slide"]'
+          )
+        ) {
+          let visibleFragments = Reveal.getCurrentSlide().querySelectorAll(
+            ".fragment.visible[data-analysis-step]"
+          );
+          let lastVisibleStep = null;
+          if (visibleFragments.length > 0) {
+            let lastVisibleFragment =
+              visibleFragments[visibleFragments.length - 1];
+            if (lastVisibleFragment.dataset.analysisStep) {
+              lastVisibleStep = lastVisibleFragment.dataset.analysisStep;
+            }
+          }
+          console.log(
+            "Fragment hidden, updating analysis step to (based on remaining visible):",
+            lastVisibleStep
+          );
+          pdAnalysisMatrixInstance.updateAnalysisStep(lastVisibleStep);
+        }
+      });
+    </script>
+    <script src="sketches.js"></script>
+  </body>
+</html>

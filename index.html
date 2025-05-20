@@ -25,14 +25,23 @@
         border-radius: 0.5rem; /* rounded-lg */
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
           0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-lg */
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease,
+          border-color 0.3s ease; /* border-color transitie toegevoegd */
         text-decoration: none; /* Geen onderlijning */
         color: inherit; /* Erft tekstkleur */
+        border: 2px solid transparent; /* Initiele transparante border */
       }
       .roadmap-link-card:hover {
         transform: scale(1.05);
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
           0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+      }
+      .roadmap-link-card.game-card-link:hover {
+        border-color: #a78bfa; /* purple-400 voor hover op game cards */
+      }
+      .roadmap-link-card.placeholder-game {
+        opacity: 0.7;
+        cursor: not-allowed;
       }
     </style>
   </head>
@@ -188,14 +197,12 @@
             <div
               class="content-block bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
             >
-              <!-- ... (Inhoud kolom 1 blijft hetzelfde) ... -->
               <h3 class="text-2xl font-semibold text-emerald-300 mb-6">
                 📘 Inhoud en Doelstellingen
               </h3>
               <blockquote
                 class="bg-slate-700 border-l-4 border-emerald-400 p-4 rounded-md italic text-slate-300 mb-6 text-sm"
               >
-                <!-- Iets kleiner -->
                 “De resultaten van ondernemingen zijn afhankelijk van externe
                 factoren en individuele ondernemingskenmerken. [...] Binnen een
                 bedrijfstak proberen individuele ondernemingen zich te
@@ -211,7 +218,6 @@
               <ul
                 class="list-disc list-inside space-y-1 text-slate-300 mb-6 text-sm"
               >
-                <!-- Iets compacter -->
                 <li>Concurrentie-intensiteit analyseert.</li>
                 <li>Concurrentiepositie van bedrijven bepaalt.</li>
                 <li>Impact van beleid op concurrentie ziet.</li>
@@ -224,13 +230,12 @@
                 Link met je studie
               </h4>
               <p class="text-slate-300 leading-relaxed text-sm">
-                <!-- Iets kleiner -->
                 Dit vak bouwt voort op Macro-economie (B-cluster) en levert
                 input voor je Omgevingsanalyse (BEDROM04). Alles hangt samen!
               </p>
             </div>
 
-            <!-- Kolom 2: Genummerde Leeruitkomsten met IDs en Flexbox Alignment -->
+            <!-- Kolom 2: Genummerde Leeruitkomsten -->
             <div
               class="content-block bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg lg:border-l lg:border-slate-700 lg:pl-8"
             >
@@ -241,19 +246,13 @@
                 Na deze module kun jij als
                 <strong>Bedrijfskundig adviseur</strong>:
               </p>
-              <!-- UL met Flexbox LI's -->
               <ul class="space-y-4 text-slate-300 leading-relaxed">
-                <!-- Geen pl-5 meer nodig, flex regelt het -->
-
                 <li class="flex items-baseline" id="lu-1">
-                  <!-- Flex container, align baseline -->
                   <span class="w-7 flex-shrink-0 font-semibold">1.</span>
-                  <!-- Vaste breedte voor nummer -->
                   <span
                     ><strong>Markten, concurrentie & positie analyseren</strong>
                     voor strategisch advies.</span
                   >
-                  <!-- Tekst in eigen span -->
                 </li>
                 <li class="flex items-baseline" id="lu-2">
                   <span class="w-7 flex-shrink-0 font-semibold">2.</span>
@@ -329,7 +328,6 @@
           </p>
 
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Week 1 Card Link -->
             <a href="week1.html" class="roadmap-link-card">
               <span class="block text-sm font-semibold text-emerald-400 mb-1"
                 >Week 1</span
@@ -345,9 +343,7 @@
                 <strong>Focus:</strong> Externe omgeving (BEDROM04)
               </p>
             </a>
-            <!-- Week 2 Card Link -->
             <a href="week2.html" class="roadmap-link-card">
-              <!-- Let op: week2.html moet nog gemaakt worden -->
               <span class="block text-sm font-semibold text-emerald-400 mb-1"
                 >Week 2</span
               >
@@ -362,9 +358,7 @@
                 <strong>Focus:</strong> Concurrentie-intensiteit (BEDROM04)
               </p>
             </a>
-            <!-- Week 3 Card Link -->
             <a href="week3.html" class="roadmap-link-card">
-              <!-- Let op: week3.html moet nog gemaakt worden -->
               <span class="block text-sm font-semibold text-emerald-400 mb-1"
                 >Week 3</span
               >
@@ -379,9 +373,7 @@
                 <strong>Focus:</strong> Concurrentiepositie (BEDROM04)
               </p>
             </a>
-            <!-- Week 4 Card Link -->
             <a href="week4.html" class="roadmap-link-card">
-              <!-- Let op: week4.html moet nog gemaakt worden -->
               <span class="block text-sm font-semibold text-emerald-400 mb-1"
                 >Week 4</span
               >
@@ -395,9 +387,7 @@
                 <strong>Focus:</strong> Duurzaamheidsanalyse (BEDROM04)
               </p>
             </a>
-            <!-- Week 5 Card Link -->
             <a href="week5.html" class="roadmap-link-card">
-              <!-- Let op: week5.html moet nog gemaakt worden -->
               <span class="block text-sm font-semibold text-emerald-400 mb-1"
                 >Week 5</span
               >
@@ -411,9 +401,7 @@
                 <strong>Focus:</strong> ESG-analyse & rapportage (BEDROM04)
               </p>
             </a>
-            <!-- Week 6 & 7 Card Link -->
             <a href="week6-7.html" class="roadmap-link-card">
-              <!-- Let op: week6-7.html moet nog gemaakt worden -->
               <span class="block text-sm font-semibold text-emerald-400 mb-1"
                 >Week 6 & 7</span
               >
@@ -428,19 +416,152 @@
               </p>
             </a>
           </div>
+        </div>
+      </section>
 
-          <!-- Mijlpaal -->
-          <div class="text-center mt-12 pt-8 border-t border-slate-700">
-            <h4 class="text-xl font-semibold text-emerald-400 mb-2">
-              📌 Belangrijke Mijlpaal
-            </h4>
-            <p class="text-slate-300 max-w-xl mx-auto">
-              Don't forget: T1/3 = Deadline Omgevingsanalyse (BEDROM04). Deze
-              module is je input!
-            </p>
+      <!-- NIEUWE SECTIE: Interactieve Games & Experimenten -->
+      <section class="interactive-games-section py-16 md:py-24 bg-slate-900">
+        <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold text-center mb-12 text-purple-400">
+            🎮 Interactieve Games & Experimenten
+          </h2>
+          <p class="text-center text-slate-300 max-w-3xl mx-auto mb-12">
+            Versterk je begrip van economische concepten door middel van deze
+            interactieve games en simulaties. Speel en leer!
+          </p>
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Game Week 1 -->
+            <a
+              href="#multiplier-game-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="roadmap-link-card game-card-link"
+            >
+              <span class="block text-sm font-semibold text-purple-400 mb-1"
+                >Week 1 Game</span
+              >
+              <h3 class="text-xl font-semibold mb-3 text-purple-300">
+                Multiplier Momentum
+              </h3>
+              <p class="text-sm text-slate-300 mb-2">
+                Ervaar hoe individuele consumptiekeuzes de hele economie
+                beïnvloeden! Ontdek het multiplier-effect en de
+                conjunctuurcyclus.
+              </p>
+              <span class="text-xs text-slate-400"
+                ><strong>Thema:</strong> Macro-economie, Multiplier</span
+              >
+            </a>
+
+            <!-- Game Week 2 -->
+            <a
+              href="#public-goods-game-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="roadmap-link-card game-card-link"
+            >
+              <span class="block text-sm font-semibold text-purple-400 mb-1"
+                >Week 2 Game</span
+              >
+              <h3 class="text-xl font-semibold mb-3 text-purple-300">
+                Commons Quest
+              </h3>
+              <p class="text-sm text-slate-300 mb-2">
+                Duik in het dilemma van publieke goederen! Werk samen of ga voor
+                eigen gewin in dit klassieke experiment.
+              </p>
+              <span class="text-xs text-slate-400"
+                ><strong>Thema:</strong> Publieke Goederen, Free-riding</span
+              >
+            </a>
+
+            <!-- Game Week 3 (Placeholder) -->
+            <a
+              href="#"
+              class="roadmap-link-card game-card-link placeholder-game"
+            >
+              <span class="block text-sm font-semibold text-purple-400 mb-1"
+                >Week 3 Game
+                <span class="text-xs text-slate-500">(Binnenkort)</span></span
+              >
+              <h3 class="text-xl font-semibold mb-3 text-purple-300">
+                Innovatie Spel
+              </h3>
+              <p class="text-sm text-slate-300 mb-2">
+                Ontdek de dynamiek van innovatie en strategische keuzes in een
+                competitieve markt. Meer info volgt!
+              </p>
+              <span class="text-xs text-slate-400"
+                ><strong>Thema:</strong> Innovatie, Strategie</span
+              >
+            </a>
+
+            <!-- Game Week 4 (Placeholder) -->
+            <a
+              href="#"
+              class="roadmap-link-card game-card-link placeholder-game"
+            >
+              <span class="block text-sm font-semibold text-purple-400 mb-1"
+                >Week 4 Game
+                <span class="text-xs text-slate-500">(Binnenkort)</span></span
+              >
+              <h3 class="text-xl font-semibold mb-3 text-purple-300">
+                True Pricing Challenge
+              </h3>
+              <p class="text-sm text-slate-300 mb-2">
+                Verken de impact van maatschappelijke kosten en het concept van
+                'true pricing' in deze simulatie. Details volgen!
+              </p>
+              <span class="text-xs text-slate-400"
+                ><strong>Thema:</strong> Maatschappelijke Kosten, True
+                Pricing</span
+              >
+            </a>
+
+            <!-- Game Week 5 (Placeholder) -->
+            <a
+              href="#"
+              class="roadmap-link-card game-card-link placeholder-game"
+            >
+              <span class="block text-sm font-semibold text-purple-400 mb-1"
+                >Week 5 Game
+                <span class="text-xs text-slate-500">(Binnenkort)</span></span
+              >
+              <h3 class="text-xl font-semibold mb-3 text-purple-300">
+                ESG Dilemma
+              </h3>
+              <p class="text-sm text-slate-300 mb-2">
+                Weeg Environmental, Social en Governance factoren af in dit
+                strategische spel. Binnenkort beschikbaar!
+              </p>
+              <span class="text-xs text-slate-400"
+                ><strong>Thema:</strong> ESG, Duurzaamheid</span
+              >
+            </a>
+
+            <!-- Lege div voor grid alignment indien nodig -->
+            <div class="hidden lg:block roadmap-link-card invisible"></div>
+            <!-- Maakt de kaart onzichtbaar maar neemt ruimte in -->
           </div>
         </div>
       </section>
+      <!-- EINDE NIEUWE SECTIE -->
+
+      <!-- Mijlpaal -->
+      <div class="container mx-auto px-4">
+        <!-- Mijlpaal binnen de container voor padding -->
+        <div
+          class="text-center mt-12 mb-16 md:mb-24 pt-8 border-t border-slate-700"
+        >
+          <h4 class="text-xl font-semibold text-emerald-400 mb-2">
+            📌 Belangrijke Mijlpaal
+          </h4>
+          <p class="text-slate-300 max-w-xl mx-auto">
+            Don't forget: T1/3 = Deadline Omgevingsanalyse (BEDROM04). Deze
+            module is je input!
+          </p>
+        </div>
+      </div>
     </main>
 
     <footer class="site-footer py-8 bg-slate-950 text-center">

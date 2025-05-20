@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Multiplier Effect - Economic Experiment</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>The Multiplier Effect</h1>
+        <p>An interactive economic experiment for business management students</p>
+    </header>
+
+    <main>
+        <!-- Home Screen / Role Selection -->
+        <section id="home-screen" class="screen">
+            <h2>Welcome to the Multiplier Effect Experiment</h2>
+            <p class="intro-text">This interactive experiment demonstrates how individual consumption decisions affect the overall economy through the multiplier effect.</p>
+            
+            <div class="role-selection">
+                <div id="student-role-card" class="role-card">
+                    <h3>Join as Participant</h3>
+                    <p id="student-instructions">If you're a student participating in this experiment, join an existing game using the code provided by your instructor.</p>
+                    <div id="direct-join-message" class="join-message hidden">
+                        <p>You're joining a game created by your instructor. Just enter your name below to get started.</p>
+                    </div>
+                    <form id="join-game-form">
+                        <div class="form-group">
+                            <label for="game-id">Game Code:</label>
+                            <input type="text" id="game-id" placeholder="Enter 6-digit code" maxlength="6" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="player-name">Your Name:</label>
+                            <input type="text" id="player-name" placeholder="Enter your name" required>
+                        </div>
+                        <button type="submit" class="btn primary-btn">Join Game</button>
+                    </form>
+                </div>
+                
+                <div id="instructor-role-card" class="role-card">
+                    <h3>Create as Instructor</h3>
+                    <p>If you're an instructor running this experiment, create a new game for your students to join.</p>
+                    <form id="create-game-form">
+                        <div class="form-group">
+                            <label for="facilitator-name">Instructor Name:</label>
+                            <input type="text" id="facilitator-name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="rounds">Number of Rounds:</label>
+                            <input type="number" id="rounds" min="1" max="20" value="10" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mpc">Marginal Propensity to Consume (0.1-1.0):</label>
+                            <input type="number" id="mpc" min="0.1" max="1.0" step="0.1" value="0.8" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time-limit">Time Limit per Round (seconds):</label>
+                            <input type="number" id="time-limit" min="10" max="300" value="60" required>
+                        </div>
+                        <button type="submit" class="btn admin-btn">Create Game</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lobby Screen -->
+        <section id="lobby-screen" class="screen hidden">
+            <h2>Game Lobby</h2>
+            
+            <div class="game-info">
+                <div class="info-box">
+                    <h3>Game Information</h3>
+                    <p>Game Code: <span id="lobby-game-id" class="highlight-text"></span></p>
+                    <p>Hosted by: <span id="lobby-facilitator-name"></span></p>
+                    <p>Players: <span id="lobby-player-count">0</span></p>
+                </div>
+                
+                <div id="lobby-join-link-container" class="info-box hidden">
+                    <h3>Invite Students</h3>
+                    <p>Share this link or code with your students:</p>
+                    <div class="copy-link-container">
+                        <input type="text" id="lobby-join-link" readonly>
+                        <button id="copy-link-btn" class="btn small-btn">Copy</button>
+                    </div>
+                    <div class="game-code-display">
+                        <p>Game Code: <span id="lobby-game-code" class="highlight-text"></span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lobby-players">
+                <h3>Players in Lobby</h3>
+                <div id="lobby-players-list"></div>
+            </div>
+            
+            <div id="lobby-controls">
+                <div id="player-lobby-controls">
+                    <p class="waiting-message">Waiting for the instructor to start the game...</p>
+                </div>
+                <div id="facilitator-lobby-controls" class="hidden">
+                    <button id="start-game-btn" class="btn admin-btn" disabled>Start Game</button>
+                    <p class="min-players-notice">Waiting for players to join...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Screen (Participant) -->
+        <section id="player-game-screen" class="screen hidden">
+            <div class="help-button-container">
+                <button id="player-tutorial-btn" class="btn help-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+                    </svg>
+                    Help
+                </button>
+            </div>
+            
+            <div class="game-header">
+                <div class="round-info">
+                    <p>Round: <span id="player-current-round">0</span> of <span id="player-total-rounds">10</span></p>
+                    <p>Investment: <span id="player-investment">0</span></p>
+                </div>
+                <div id="round-timer-container" class="timer-container hidden">
+                    <p>Time Remaining: <span id="player-round-timer">60</span> seconds</p>
+                </div>
+            </div>
+            
+            <div class="game-container">
+                <div class="player-info">
+                    <h2>Your Information</h2>
+                    <div class="info-box">
+                        <p>Player: <span id="player-name-display"></span></p>
+                        <p>Previous Income: <span id="player-previous-income">0</span></p>
+                        <p>Suggested Consumption: <span id="player-suggested-consumption">0</span></p>
+                    </div>
+
+                    <div id="consumption-form" class="actions hidden">
+                        <h3>Submit Your Consumption</h3>
+                        <div class="consumption-controls">
+                            <label for="consumption-amount">How much will you consume?</label>
+                            <input type="number" id="consumption-amount" min="0" step="1" value="0">
+                            <button id="submit-consumption-btn" class="btn action-btn">Submit</button>
+                        </div>
+                        <p class="consumption-hint">Aim for a consumption level that matches your suggested target.</p>
+                    </div>
+                    
+                    <div id="waiting-for-results" class="status-message hidden">
+                        <p>Consumption submitted! Waiting for other players...</p>
+                    </div>
+                </div>
+
+                <div id="round-results" class="results-section hidden">
+                    <h2>Round Results</h2>
+                    <div class="info-box">
+                        <p>Your Consumption: <span id="result-consumption">0</span></p>
+                        <p>Average Consumption: <span id="result-average-consumption">0</span></p>
+                        <p>Income: <span id="result-income">0</span></p>
+                        <p>Target Consumption: <span id="result-target-consumption">0</span></p>
+                        <p>Deviation: <span id="result-deviation">0</span></p>
+                        <p>Cumulative Deviation: <span id="result-cumulative-deviation">0</span></p>
+                    </div>
+                    <div id="waiting-for-next-round" class="status-message">
+                        <p>Waiting for instructor to start next round...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Screen (Facilitator) -->
+        <section id="facilitator-game-screen" class="screen hidden">
+            <div class="help-button-container">
+                <button id="facilitator-tutorial-btn" class="btn help-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+                    </svg>
+                    Help
+                </button>
+            </div>
+            
+            <div class="game-header">
+                <div class="round-info">
+                    <p>Round: <span id="facilitator-current-round">0</span> of <span id="facilitator-total-rounds">10</span></p>
+                    <p>Investment: <span id="facilitator-investment">0</span></p>
+                </div>
+                <div id="facilitator-timer-container" class="timer-container hidden">
+                    <p>Time Remaining: <span id="facilitator-round-timer">60</span> seconds</p>
+                </div>
+            </div>
+            
+            <div class="facilitator-container">
+                <div class="facilitator-controls">
+                    <div id="round-controls">
+                        <button id="next-round-btn" class="btn admin-btn">Start Round 1</button>
+                        <button id="end-round-btn" class="btn admin-btn hidden">End Round</button>
+                        <button id="end-game-btn" class="btn danger-btn">End Game</button>
+                    </div>
+                    
+                    <div class="round-status">
+                        <p>Players: <span id="facilitator-player-count">0</span></p>
+                        <p>Submissions: <span id="facilitator-submissions">0</span> / <span id="facilitator-player-count-2">0</span></p>
+                    </div>
+                </div>
+                
+                <div id="facilitator-round-results" class="results-section hidden">
+                    <h2>Round <span id="facilitator-result-round">0</span> Results</h2>
+                    <div class="info-box">
+                        <p>Average Consumption: <span id="facilitator-average-consumption">0</span></p>
+                        <p>Income: <span id="facilitator-income">0</span></p>
+                    </div>
+                </div>
+                
+                <div class="facilitator-player-list">
+                    <h2>Participants</h2>
+                    <div id="facilitator-players-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Over Screen -->
+        <section id="game-over-screen" class="screen hidden">
+            <h2>Game Complete</h2>
+            
+            <div id="player-final-results" class="hidden">
+                <div class="info-box">
+                    <h3>Your Results</h3>
+                    <p>Total Cumulative Deviation: <span id="final-cumulative-deviation">0</span></p>
+                    <p>Rank: <span id="final-rank">0</span> of <span id="final-player-count">0</span></p>
+                </div>
+                
+                <div class="results-table-container">
+                    <h3>Performance by Round</h3>
+                    <table id="player-results-table" class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Round</th>
+                                <th>Investment</th>
+                                <th>Your Consumption</th>
+                                <th>Income</th>
+                                <th>Target</th>
+                                <th>Deviation</th>
+                            </tr>
+                        </thead>
+                        <tbody id="player-results-table-body">
+                            <!-- Results will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div id="facilitator-final-results" class="hidden">
+                <div class="leaderboard-container">
+                    <h3>Leaderboard</h3>
+                    <table id="leaderboard-table" class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Name</th>
+                                <th>Cumulative Deviation</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-table-body">
+                            <!-- Leaderboard will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="results-table-container">
+                    <h3>Economy Performance by Round</h3>
+                    <table id="economy-results-table" class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Round</th>
+                                <th>Investment</th>
+                                <th>Average Consumption</th>
+                                <th>Income</th>
+                            </tr>
+                        </thead>
+                        <tbody id="economy-results-table-body">
+                            <!-- Results will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="game-over-actions">
+                <button id="play-again-btn" class="btn primary-btn">Play Again</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Student Tutorial Modal -->
+    <div id="student-tutorial-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Student Guide: The Multiplier Effect</h2>
+            
+            <div class="tutorial-step">
+                <h3>Welcome to the Multiplier Effect Experiment!</h3>
+                <p>This simulation demonstrates how spending decisions by individuals affect the overall economy. Here's how to participate:</p>
+            </div>
+            
+            <div class="tutorial-step">
+                <h3>1. The Economic Concept</h3>
+                <p>In this experiment:</p>
+                <ul>
+                    <li>Each round, you decide how much to consume (spend)</li>
+                    <li>Your income depends on the average consumption of all participants plus a fixed investment amount</li>
+                    <li>The "ideal" consumption is a percentage of your income (the Marginal Propensity to Consume or MPC)</li>
+                    <li>Your goal is to match your consumption with this target</li>
+                </ul>
+            </div>
+            
+            <div class="tutorial-step">
+                <h3>2. Playing the Game</h3>
+                <p>For each round:</p>
+                <ol>
+                    <li>You'll see your previous income and a suggested consumption target</li>
+                    <li>Enter your consumption decision and submit within the time limit</li>
+                    <li>After everyone submits, you'll see your results for the round</li>
+                    <li>The closer your consumption is to the target, the better your score</li>
+                </ol>
+                <p>Your deviation is the difference between your actual consumption and the ideal target. Lower deviation is better!</p>
+            </div>
+            
+            <div class="tutorial-step">
+                <h3>3. The Challenge</h3>
+                <p>The challenge is that your income depends on what everyone decides to consume. This creates interdependence:</p>
+                <ul>
+                    <li>If everyone consumes more, everyone's income increases</li>
+                    <li>If everyone consumes less, everyone's income decreases</li>
+                    <li>Your consumption affects others, and their consumption affects you</li>
+                </ul>
+                <p>This is the multiplier effect: initial spending creates a cascade of additional economic activity!</p>
+            </div>
+            
+            <div class="tutorial-step">
+                <h3>4. Winning the Game</h3>
+                <p>The player with the lowest cumulative deviation (total across all rounds) wins the game.</p>
+                <p>Think strategically about how others might behave and how it will affect your income!</p>
+            </div>
+            
+            <button id="close-student-tutorial" class="btn primary-btn">Got it!</button>
+        </div>
+    </div>
+
+    <!-- Instructor Tutorial Modal -->
+    <div id="instructor-tutorial-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Instructor Guide: The Multiplier Effect</h2>
+            
+            <div class="tutorial-step">
+                <h3>Welcome to the Multiplier Effect Experiment!</h3>
+                <p>This application helps your students experience and understand the economic multiplier effect through active participation.</p>
+            </div>
+            
+            <div class="tutorial-step">
+                <h3>1. Game Structure</h3>
+                <p>The game consists of 10 rounds (by default):</p>
+                <ul>
+                    <li>Rounds 1-5: Investment = 100 per household</li>
+                    <li>Rounds 6-10: Investment = 200 per household</li>
+                </ul>
+                <p>For each round, students make consumption decisions. Their income is calculated as:</p>
+                <p><strong>Income = Average Consumption + Current Investment</strong></p>
+                <p>Students are trying to match their consumption to the target: <strong>MPC × Income</strong></p>
+            </div>
+            
+            <div class="tutorial-step">
+                <h3>2. Running the Experiment</h3>
+                <ol>
+                    <li><strong>Before Starting:</strong> Explain the concept of the multiplier effect to students</li>
+                    <li><strong>Starting a Round:</strong> Click "Start Round" to begin a new round</li>
+                    <li><strong>During the Round:</strong> Monitor student submissions in real-time</li>
+                    <li><strong>Results:</strong> Review the round results with students, highlighting the average consumption and resultant income</li>
+                    <li><strong>Next Round:</strong> Start the next round when ready</li>
+                </ol>
+            </div>
+            
+            <div class="tutorial-step">
+                <h3>3. Teaching Points</h3>
+                <p>Key concepts to emphasize during the experiment:</p>
+                <ul>
+                    <li><strong>Multiplier Effect:</strong> How initial spending leads to additional economic activity</li>
+                    <li><strong>Circular Flow:</strong> How consumption creates income which enables more consumption</li>
+                    <li><strong>Interdependence:</strong> How individual decisions affect the collective outcome</li>
+                    <li><strong>Investment Shock:</strong> Note the effects when investment increases in round 6</li>
+                </ul>
+            </div>
+            
+            <div class="tutorial-step">
+                <h3>4. Discussion Questions</h3>
+                <p>After completing the experiment, consider these discussion points:</p>
+                <ul>
+                    <li>How did your consumption strategy change over the rounds?</li>
+                    <li>What happened to incomes when investment increased in round 6?</li>
+                    <li>How does this simulation relate to real economic cycles?</li>
+                    <li>What factors would reduce the multiplier effect in a real economy?</li>
+                    <li>How might government spending impact the economy through this mechanism?</li>
+                </ul>
+            </div>
+            
+            <button id="close-instructor-tutorial" class="btn primary-btn">Got it!</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>Developed for Business Management Teaching</p>
+    </footer>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>

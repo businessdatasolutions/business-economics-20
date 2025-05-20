@@ -3,8 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Week 2: Marktvorm & Regulering - BE 2.0</title>
-    <!-- Titel aangepast -->
+    <title>Week 1: Macro-economische Analyse - BE 2.0</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -24,7 +23,7 @@
         font-size: 0.875rem;
         text-decoration: none;
         transition: color 0.3s ease;
-        margin-top: 0.5rem;
+        margin-top: 0.5rem; /* my-2 */
       }
       .pdf-link-in-accordion:hover {
         color: var(--primary-color-lighter);
@@ -36,52 +35,58 @@
         margin-right: 0.25rem;
         fill: currentColor;
       }
+
       /* Styling voor accordion summary */
       details > summary {
-        list-style: none;
+        list-style: none; /* Verwijder standaard driehoekje */
         cursor: pointer;
-        padding: 0.75rem 0;
-        border-bottom: 1px solid var(--bg-light);
+        padding: 0.75rem 0; /* py-3 */
+        border-bottom: 1px solid var(--bg-light); /* border-b border-slate-700 */
         display: flex;
         justify-content: space-between;
         align-items: center;
         transition: background-color 0.2s ease;
       }
       details > summary:hover {
-        background-color: rgba(51, 65, 85, 0.3);
+        background-color: rgba(51, 65, 85, 0.3); /* bg-slate-700 met opacity */
       }
+
       details > summary::-webkit-details-marker {
         display: none;
-      }
+      } /* Verwijder marker in Chrome/Safari */
+
       details[open] > summary {
-        border-bottom: 1px solid var(--primary-color-darker);
+        border-bottom: 1px solid var(--primary-color-darker); /* Accentueer als open */
       }
+
       /* Icoon voor open/dicht state */
       details summary::after {
         content: "+";
         font-size: 1.5em;
         line-height: 1;
-        margin-left: 0.5rem;
+        margin-left: 0.5rem; /* ml-2 */
         color: var(--primary-color);
         transition: transform 0.2s ease-in-out;
       }
+
       details[open] summary::after {
         content: "-";
         transform: rotate(180deg);
       }
+
       /* Inhoud van de accordion */
       details > div {
-        padding: 1rem 0.5rem;
+        padding: 1rem 0.5rem; /* py-4 px-2 */
         border-bottom: 1px solid var(--bg-light);
       }
       details:last-of-type > div {
-        border-bottom: none;
+        border-bottom: none; /* Geen border na laatste item */
       }
       details:last-of-type > summary {
-        border-bottom: none;
+        border-bottom: none; /* Geen border na laatste summary als gesloten*/
       }
       details[open]:last-of-type > summary {
-        border-bottom: 1px solid var(--primary-color-darker);
+        border-bottom: 1px solid var(--primary-color-darker); /* Wel border als laatste item open is */
       }
     </style>
   </head>
@@ -104,11 +109,10 @@
             >
               <span class="menu-toggle-icon"></span>
             </button>
-            <!-- Desktop Nav: Week 2 Active -->
             <ul class="nav-links hidden md:flex space-x-4" id="mainNav">
               <li><a href="index.html">Start</a></li>
-              <li><a href="week1.html">Week 1</a></li>
-              <li><a href="week2.html" class="active">Week 2</a></li>
+              <li><a href="week1.html" class="active">Week 1</a></li>
+              <li><a href="week2.html">Week 2</a></li>
               <li><a href="week3.html">Week 3</a></li>
               <li><a href="week4.html">Week 4</a></li>
               <li><a href="week5.html">Week 5</a></li>
@@ -117,15 +121,14 @@
           </nav>
         </div>
       </div>
-      <!-- Mobiel Menu: Week 2 Active -->
       <div
         id="mobileMenu"
         class="mobile-menu md:hidden bg-slate-800 absolute w-full shadow-xl hidden"
       >
         <ul class="flex flex-col items-center py-4 space-y-2">
           <li><a href="index.html" class="mobile-link">Start</a></li>
-          <li><a href="week1.html" class="mobile-link">Week 1</a></li>
-          <li><a href="week2.html" class="active-mobile">Week 2</a></li>
+          <li><a href="week1.html" class="active-mobile">Week 1</a></li>
+          <li><a href="week2.html" class="mobile-link">Week 2</a></li>
           <li><a href="week3.html" class="mobile-link">Week 3</a></li>
           <li><a href="week4.html" class="mobile-link">Week 4</a></li>
           <li><a href="week5.html" class="mobile-link">Week 5</a></li>
@@ -135,18 +138,16 @@
     </header>
 
     <main class="container mx-auto px-4 py-12 md:py-16">
-      <!-- Hoofdtitel Week 2 -->
       <h1 class="text-4xl font-bold text-emerald-400 mb-4 text-center">
-        Week 2: Marktvorm & Overheidsregulering ⚖️
+        Week 1: Macro-economische Analyse 🌍
       </h1>
 
-      <!-- Context Paragraaf Week 2 -->
       <p class="text-center text-slate-300 max-w-3xl mx-auto mb-12">
-        Oké, nu je de macro-omgeving snapt, duiken we dieper in de markt zelf!
-        Als <strong>Bedrijfskundig adviseur</strong> ga je deze week de
-        structuur van je gekozen sector analyseren: hoe concurreren bedrijven?
-        Welke rol speelt de overheid? En wat betekent dit voor prijzen en
-        producten?
+        Alright, kick-off time! Deze week leg je als
+        <strong>Bedrijfskundig adviseur</strong> de basis voor je analyse. Je
+        zoomt uit naar het grote economische plaatje dat impact heeft op élke
+        sector. Essentieel om straks de concurrentie en kansen scherp te
+        krijgen.
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -156,15 +157,15 @@
           <section
             class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
           >
-            <!-- Titel & Inhoud Intro Week 2 -->
             <h2 class="text-2xl font-semibold text-emerald-300 mb-4">
               🔍 Wat ga je doen? (Introductie Thema's)
             </h2>
             <p class="text-slate-300 leading-relaxed">
-              Deze week ontleed je de marktstructuur: hoe bedrijven met elkaar
-              omgaan en hoe overheidsbeleid de uitkomsten beïnvloedt. Je kijkt
-              ook naar de kenmerken van de producten/diensten en hoe gevoelig de
-              vraag is voor prijsveranderingen.
+              Deze week richt zich op het begrijpen van de bredere economische
+              omgeving waarin een specifieke sector opereert. Dit omvat het
+              onderzoeken van belangrijke indicatoren van de nationale economie
+              en hoe deze de prestaties van de sector beïnvloeden, evenals het
+              bepalen hoe gevoelig de sector is voor economische schommelingen.
             </p>
           </section>
 
@@ -172,19 +173,46 @@
           <section
             class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
           >
-            <!-- Titel & Inhoud Leerdoelen Week 2 -->
             <h2 class="text-2xl font-semibold text-emerald-300 mb-4">
               🎯 Leerdoelen & Jouw Rol
             </h2>
             <p class="text-slate-400 mb-6">
-              Deze week zet je stappen richting deze overkoepelende skills:
+              Deze week bouw je aan de fundamenten voor deze skills:
             </p>
             <ul
               class="list-disc list-outside space-y-3 text-slate-300 leading-relaxed pl-5 text-sm"
             >
               <li>
-                Marktstructuur (SGR-kenmerken) analyseren en marktvorm
-                beargumenteren.
+                Macro-analyse en relevantie snappen voor bedrijfsomgeving.
+                <a
+                  href="index.html#lu-1"
+                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+                  >(LU 1)</a
+                >
+              </li>
+              <li>
+                Kernvariabelen (BBP, inflatie...) en impact op sector herkennen.
+                <a
+                  href="index.html#lu-1"
+                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+                  >(LU 1)</a
+                >
+              </li>
+              <li>
+                Uitleggen hoe BBP gemeten wordt (nationale rekeningen).
+                <a
+                  href="index.html#lu-1"
+                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+                  >(LU 1)</a
+                >
+                <a
+                  href="index.html#lu-6"
+                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+                  >(LU 6)</a
+                >
+              </li>
+              <li>
+                Conjunctuurcyclus begrijpen.
                 <a
                   href="index.html#lu-1"
                   class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
@@ -197,16 +225,22 @@
                 >
               </li>
               <li>
-                De rol en impact van (aankomende) overheidsregulering
-                beschrijven.
+                Conjunctuurgevoeligheid van sectoren verkennen.
                 <a
-                  href="index.html#lu-5"
+                  href="index.html#lu-1"
                   class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
-                  >(LU 5)</a
+                  >(LU 1)</a
                 >
               </li>
               <li>
-                Product-/dienstkenmerken en doelgroep (B2C/B2B) definiëren.
+                Tools en bronnen voor macro-data vinden/gebruiken.
+                <span class="text-emerald-400/80 ml-1"
+                  >(Ondersteunt LU 1+)</span
+                >
+                <!-- Geen directe link als het breed ondersteunend is -->
+              </li>
+              <li>
+                Componenten geaggregeerde vraag (C,I,G,X,M) en BBP snappen.
                 <a
                   href="index.html#lu-1"
                   class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
@@ -217,22 +251,11 @@
                   class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
                   >(LU 2)</a
                 >
-              </li>
-              <li>
-                Prijsgevoeligheid (elasticiteiten) van de vraag bepalen.
                 <a
-                  href="index.html#lu-2"
+                  href="index.html#lu-5"
                   class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
-                  >(LU 2)</a
+                  >(LU 5)</a
                 >
-              </li>
-              <li>
-                Strategische interacties tussen bedrijven begrijpen (basis).
-                <span class="text-emerald-400/80 ml-1">(Ondersteunt LU 4)</span>
-              </li>
-              <li>
-                Marktfalen als reden voor overheidsingrijpen herkennen.
-                <span class="text-emerald-400/80 ml-1">(Ondersteunt LU 5)</span>
               </li>
             </ul>
           </section>
@@ -240,11 +263,10 @@
 
         <!-- Kolom 2: Ebook & Opdracht -->
         <div class="space-y-8">
-          <!-- Ebook Units Sectie (Accordion) -->
+          <!-- *** VERNIEUWDE Ebook Units Sectie (Accordion) *** -->
           <section
             class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
           >
-            <!-- Titel & Inhoud Ebook Units Week 2 -->
             <h2 class="text-2xl font-semibold text-emerald-300 mb-4">
               📚 Verdieping: Relevante Textbook Units
             </h2>
@@ -252,22 +274,25 @@
               Klik op een unit titel om de beschrijving en PDF link te zien:
             </p>
             <div class="space-y-0">
-              <!-- Accordion container -->
+              <!-- Geen extra space nodig, zit in <details> styling -->
 
               <details>
                 <summary>
                   <span class="text-lg font-semibold text-emerald-400"
-                    >Unit 4: Strategic Interactions</span
+                    >Unit 1: Technology, Population, and Growth</span
                   >
                 </summary>
                 <div>
                   <p class="text-slate-300 text-sm leading-relaxed">
-                    Concepten: games, Nash evenwicht, strategische interacties.
-                    Fundamenteel voor begrip gedrag in niet-perfect competitieve
-                    markten.
+                    Introduceert fundamentele ideeën waaronder het meten van
+                    economische activiteit en het gebruik van data. Het
+                    behandelt het historische perspectief van levensstandaarden
+                    en groei, vaak gemeten door BBP per hoofd van de bevolking.
+                    Economische activiteit wordt gekaderd binnen de bredere
+                    fysieke en sociale omgeving.
                   </p>
                   <a
-                    href="book/the-economy-unit-4-pdf.pdf"
+                    href="book/the-economy-unit-1-pdf.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="pdf-link-in-accordion"
@@ -282,7 +307,7 @@
                         d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
                       />
                     </svg>
-                    Unit 4 PDF
+                    Unit 1 PDF
                   </a>
                 </div>
               </details>
@@ -290,17 +315,29 @@
               <details>
                 <summary>
                   <span class="text-lg font-semibold text-emerald-400"
-                    >Unit 5: Property and Power</span
+                    >Unit 13: Economic Fluctuations and Unemployment</span
                   >
+                  <span class="text-xs text-slate-400 ml-auto mr-2"
+                    >(Centraal!)</span
+                  >
+                  <!-- Extra hint -->
                 </summary>
                 <div>
                   <p class="text-slate-300 text-sm leading-relaxed">
-                    Rol instituties (spelregels), macht, onderhandelen,
-                    evaluatie uitkomsten (efficiëntie/eerlijkheid). Helpt
-                    dynamiek binnen marktstructuur analyseren.
+                    Richt zich op de geaggregeerde economie en legt uit hoe
+                    economieën bewegen tussen bloeiperiodes en recessies. Het
+                    introduceert de nationale rekeningen als hulpmiddelen om
+                    geaggregeerde economische activiteit zoals BBP te meten. We
+                    verkennen hoe toegang te krijgen tot en macro-economische
+                    data te interpreteren met tools zoals FRED (Federal Reserve
+                    Economic Data). Sleutelbegrippen zijn onder andere recessie,
+                    de wet van Okun, de circulaire stroom, en de componenten van
+                    geaggregeerde vraag (Consumptie, Investeringen,
+                    Overheidsuitgaven, Export, Import). We raken ook aan het
+                    meten van inflatie.
                   </p>
                   <a
-                    href="book/the-economy-unit-5-pdf.pdf"
+                    href="book/the-economy-unit-13-pdf.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="pdf-link-in-accordion"
@@ -315,7 +352,7 @@
                         d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
                       />
                     </svg>
-                    Unit 5 PDF
+                    Unit 13 PDF
                   </a>
                 </div>
               </details>
@@ -323,16 +360,21 @@
               <details>
                 <summary>
                   <span class="text-lg font-semibold text-emerald-400"
-                    >Unit 6: The Firm</span
+                    >Unit 14: Unemployment and Fiscal Policy</span
                   >
                 </summary>
                 <div>
                   <p class="text-slate-300 text-sm leading-relaxed">
-                    Introductie van de onderneming zelf: structuur, kosten,
-                    winst. Basis voor begrip gedrag binnen marktstructuur.
+                    Bouwt voort op Unit 13 door te bespreken hoe fluctuaties in
+                    geaggregeerde vraag de BBP-groei beïnvloeden via processen
+                    zoals de multiplier. Het introduceert ook concepten
+                    gerelateerd aan overheidsingrijpen, zoals automatische
+                    stabilisatoren en fiscale stimulans, relevant voor het
+                    begrijpen hoe beleidsmakers proberen economische fluctuaties
+                    te modereren.
                   </p>
                   <a
-                    href="book/the-economy-unit-6-pdf.pdf"
+                    href="book/the-economy-unit-14-pdf.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="pdf-link-in-accordion"
@@ -347,252 +389,97 @@
                         d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
                       />
                     </svg>
-                    Unit 6 PDF
-                  </a>
-                </div>
-              </details>
-
-              <details>
-                <summary>
-                  <span class="text-lg font-semibold text-emerald-400"
-                    >Unit 7: The Firm and its Customers</span
-                  >
-                </summary>
-                <div>
-                  <p class="text-slate-300 text-sm leading-relaxed">
-                    Focus op bedrijven met gedifferentieerde producten,
-                    prijsbeslissingen, kostenfuncties, schaalvoordelen,
-                    prijselasticiteit vraag. Essentieel voor o.a.
-                    monopolistische concurrentie & oligopolie en
-                    prijsgevoeligheid.
-                  </p>
-                  <a
-                    href="book/the-economy-unit-7-pdf.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="pdf-link-in-accordion"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      class="w-4 h-4 mr-1"
-                    >
-                      <path
-                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
-                      />
-                    </svg>
-                    Unit 7 PDF
-                  </a>
-                </div>
-              </details>
-
-              <details>
-                <summary>
-                  <span class="text-lg font-semibold text-emerald-400"
-                    >Unit 8: Supply and Demand</span
-                  >
-                </summary>
-                <div>
-                  <p class="text-slate-300 text-sm leading-relaxed">
-                    Introductie vraag/aanbod analyse, evenwicht in competitieve
-                    markten, prijsnemende bedrijven. Relevant voor begrip
-                    competitieve marktstructuren.
-                  </p>
-                  <a
-                    href="book/the-economy-unit-8-pdf.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="pdf-link-in-accordion"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      class="w-4 h-4 mr-1"
-                    >
-                      <path
-                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
-                      />
-                    </svg>
-                    Unit 8 PDF
-                  </a>
-                </div>
-              </details>
-
-              <details>
-                <summary>
-                  <span class="text-lg font-semibold text-emerald-400"
-                    >Unit 11: Rent-seeking, Price-setting</span
-                  >
-                </summary>
-                <div>
-                  <p class="text-slate-300 text-sm leading-relaxed">
-                    Werking markten, prijssignalen, rent-seeking gedrag,
-                    marktevenwicht dynamiek. Nuttig voor analyse gedrag en
-                    dynamiek.
-                  </p>
-                  <a
-                    href="book/the-economy-unit-11-pdf.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="pdf-link-in-accordion"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      class="w-4 h-4 mr-1"
-                    >
-                      <path
-                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
-                      />
-                    </svg>
-                    Unit 11 PDF
-                  </a>
-                </div>
-              </details>
-
-              <details>
-                <summary>
-                  <span class="text-lg font-semibold text-emerald-400"
-                    >Unit 12: Markets, Efficiency, Public Policy</span
-                  >
-                </summary>
-                <div>
-                  <p class="text-slate-300 text-sm leading-relaxed">
-                    Marktfalen (externe effecten, etc.), redenen voor
-                    overheidsingrijpen. Economische rationale voor regulering.
-                  </p>
-                  <a
-                    href="book/the-economy-unit-12-pdf.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="pdf-link-in-accordion"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      class="w-4 h-4 mr-1"
-                    >
-                      <path
-                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
-                      />
-                    </svg>
-                    Unit 12 PDF
-                  </a>
-                </div>
-              </details>
-
-              <details>
-                <summary>
-                  <span class="text-lg font-semibold text-emerald-400"
-                    >Unit 22: Economics, Politics, Public Policy</span
-                  >
-                </summary>
-                <div>
-                  <p class="text-slate-300 text-sm leading-relaxed">
-                    Rol overheid, publiek beleid, marktfalen, regulerende
-                    interventies. Direct relevant voor begrip
-                    overheidsregulering.
-                  </p>
-                  <a
-                    href="book/the-economy-unit-22-pdf.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="pdf-link-in-accordion"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      class="w-4 h-4 mr-1"
-                    >
-                      <path
-                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
-                      />
-                    </svg>
-                    Unit 22 PDF
+                    Unit 14 PDF
                   </a>
                 </div>
               </details>
             </div>
           </section>
+          <!-- *** EINDE VERNIEUWDE Ebook Units Sectie *** -->
 
           <!-- Concrete Opdracht Sectie -->
           <section
             class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg border-t-4 border-emerald-500"
           >
-            <!-- Titel & Inhoud Opdracht Week 2 -->
             <h2 class="text-2xl font-semibold text-emerald-300 mb-4">
-              ✅ Jouw Concrete Opdracht Week 2 (Topics & Tasks)
+              ✅ Jouw Concrete Opdracht Week 1 (Topics & Tasks)
             </h2>
             <p class="text-slate-400 mb-6">
-              Duik in de details van jouw sector en werk de volgende punten uit:
+              Tijd om de theorie toe te passen! Werk deze punten uit voor jouw
+              sector/bedrijven:
             </p>
             <div
               class="bg-slate-700 border-l-4 border-emerald-400 p-4 rounded-md text-slate-300 mb-6 text-sm"
             >
-              <strong class="text-emerald-300">Focus:</strong> Deze analyse is
-              cruciaal voor je Omgevingsanalyse (BEDROM04). Onderbouw je
-              argumenten goed!
+              <strong class="text-emerald-300">Focus:</strong> Deze analyse
+              vormt een belangrijk deel van je Omgevingsanalyse (BEDROM04). Zorg
+              voor een duidelijke onderbouwing en conclusie per punt.
             </div>
             <ol
               class="list-decimal list-outside space-y-4 text-slate-300 leading-relaxed pl-5"
             >
-              <li>Beargumenteer de <strong>marktvorm</strong> in de sector.</li>
               <li>
-                Analyseer de bijbehorende
-                <strong>structuur-, gedrags-, en resultaatskenmerken</strong>
-                (SGR) van deze marktvorm.
+                Bepaal de plaats van de gekozen sector in de
+                <strong>waardeketen (bedrijfskolom)</strong>.
               </li>
               <li>
-                Beschrijf welke vormen van
-                <strong>overheidsregulering</strong> (aankomend) relevant zijn
-                en hoe deze de sector kunnen vormen.
+                Breng de relevante
+                <strong>macro-economische variabelen</strong> van Nederland in
+                kaart (<em class="text-slate-400 not-italic font-medium"
+                  >bijv. BBP, consumentenuitgaven, bedrijfsuitgaven,
+                  overheidsuitgaven, export-import, werkgelegenheid, inflatie,
+                  conjunctuur, consumenten-/producentenvertrouwen</em
+                >) en analyseer hun relevante <strong>ontwikkelingen</strong>.
               </li>
               <li>
-                Beschrijf de markt: tot welk
-                <strong>type consumptiegoederen</strong> (<em
+                Beschrijf duidelijk de
+                <strong>invloeden van macro-economische variabelen</strong> op
+                de gekozen sector (<em
                   class="text-slate-400 not-italic font-medium"
-                  >convenience, shopping, specialty, unsought; basis/luxe</em
-                >) behoren de eindproducten?
-              </li>
-              <li>
-                Aan wie levert de sector? (<em
-                  class="text-slate-400 not-italic font-medium"
-                  >definieer B2C en/of B2B</em
+                  >bijv. rente, kapitaalintensiteit, vertrouwensindicatoren,
+                  grondstofprijzen, wisselkoersen, wereldhandel, conjunctuur,
+                  werkgelegenheid, inflatie</em
                 >).
               </li>
               <li>
-                Bepaal de mate van <strong>prijsgevoeligheid</strong> (<em
+                Bepaal de <strong>conjunctuurgevoeligheid</strong> van de sector
+                en trek een conclusie gebaseerd op criteria zoals: (<em
                   class="text-slate-400 not-italic font-medium"
-                  >denk aan prijs-, inkomens-, kruislingse elasticiteit</em
+                  >kapitaalintensiteit, grondstofprijzen, wisselkoersen,
+                  wereldhandel, werkgelegenheid, inflatie, aard van producten,
+                  positie in de waardeketen</em
                 >).
               </li>
               <li>
-                Trek een <strong>overkoepelende conclusie</strong> conclusie
-                over de marktvorm, regulering en marktkenmerken voor jouw
-                sector.
+                Bepaal de <strong>conjunctuurgevoeligheid</strong> voor gekozen
+                bedrijven binnen de sector en trek een conclusie gebaseerd op
+                criteria zoals: (<em
+                  class="text-slate-400 not-italic font-medium"
+                  >geografische spreiding van omzet, productdiversificatie,
+                  marktmacht</em
+                >).
+              </li>
+              <li>
+                Trek een <strong>overkoepelende conclusie</strong> over de
+                macro-invloeden en conjunctuurgevoeligheid (impliciet, maar
+                belangrijk om expliciet te formuleren).
               </li>
             </ol>
             <p class="mt-6 text-sm text-emerald-300 font-semibold">
-              🚀 Succes met het analyseren van de marktstructuur!
+              💪 Zet 'm op met de analyse!
             </p>
           </section>
         </div>
       </div>
       <!-- Einde Grid -->
 
-      <!-- Volgende Stap Sectie -->
+      <!-- *** NIEUW: Volgende Stap Sectie *** -->
       <div class="mt-16 text-center">
-        <!-- Link aangepast naar Week 3 -->
         <a
-          href="week3.html"
+          href="week2.html"
           class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
         >
-          Klaar met Week 2? Ga door naar Week 3 →
+          Klaar met Week 1? Ga door naar Week 2 →
         </a>
       </div>
     </main>
@@ -605,7 +492,6 @@
         </p>
       </div>
     </footer>
-
     <script src="script.js"></script>
   </body>
 </html>

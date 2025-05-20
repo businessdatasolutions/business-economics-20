@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weken 6 & 7: Presentaties & Integratie - BE 2.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Extra CSS (Best in style.css) -->
+    <style>
+      /* Styling voor de PDF links (nu binnen accordion) */
+      .pdf-link-in-accordion {
+        display: inline-flex;
+        align-items: center;
+        color: var(--primary-color);
+        font-weight: 600;
+        font-size: 0.875rem;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        margin-top: 0.5rem; /* my-2 */
+      }
+      .pdf-link-in-accordion:hover {
+        color: var(--primary-color-lighter);
+        text-decoration: underline;
+      }
+      .pdf-link-in-accordion svg {
+        width: 1em;
+        height: 1em;
+        margin-right: 0.25rem;
+        fill: currentColor;
+      }
+
+      /* Styling voor accordion summary */
+      details > summary {
+        list-style: none; /* Verwijder standaard driehoekje */
+        cursor: pointer;
+        padding: 0.75rem 0; /* py-3 */
+        border-bottom: 1px solid var(--bg-light); /* border-b border-slate-700 */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color 0.2s ease;
+      }
+      details > summary:hover {
+        background-color: rgba(51, 65, 85, 0.3); /* bg-slate-700 met opacity */
+      }
+
+      details > summary::-webkit-details-marker {
+        display: none;
+      } /* Verwijder marker in Chrome/Safari */
+
+      details[open] > summary {
+        border-bottom: 1px solid var(--primary-color-darker); /* Accentueer als open */
+      }
+
+      /* Icoon voor open/dicht state */
+      details summary::after {
+        content: "+";
+        font-size: 1.5em;
+        line-height: 1;
+        margin-left: 0.5rem; /* ml-2 */
+        color: var(--primary-color);
+        transition: transform 0.2s ease-in-out;
+      }
+
+      details[open] summary::after {
+        content: "-";
+        transform: rotate(180deg);
+      }
+
+      /* Inhoud van de accordion */
+      details > div {
+        padding: 1rem 0.5rem; /* py-4 px-2 */
+        border-bottom: 1px solid var(--bg-light);
+      }
+      details:last-of-type > div {
+        border-bottom: none; /* Geen border na laatste item */
+      }
+      details:last-of-type > summary {
+        border-bottom: none; /* Geen border na laatste summary als gesloten*/
+      }
+      details[open]:last-of-type > summary {
+        border-bottom: 1px solid var(--primary-color-darker); /* Wel border als laatste item open is */
+      }
+    </style>
+  </head>
+  <body class="bg-slate-900 text-slate-200">
+    <header class="site-header sticky top-0 z-50 shadow-lg">
+      <div class="container mx-auto px-4">
+        <div class="header-content flex justify-between items-center py-4">
+          <a
+            href="index.html"
+            class="site-title text-2xl font-bold text-emerald-400 hover:text-emerald-300 transition-colors"
+            >Business Economics 2.0</a
+          >
+          <nav class="main-navigation" id="mainNavContainer">
+            <button
+              class="menu-toggle md:hidden"
+              id="menuToggle"
+              aria-label="Menu openen/sluiten"
+              aria-expanded="false"
+              aria-controls="mobileMenu"
+            >
+              <span class="menu-toggle-icon"></span>
+            </button>
+            <ul class="nav-links hidden md:flex space-x-4" id="mainNav">
+              <li><a href="index.html">Start</a></li>
+              <li><a href="week1.html">Week 1</a></li>
+              <li><a href="week2.html">Week 2</a></li>
+              <li><a href="week3.html">Week 3</a></li>
+              <li><a href="week4.html">Week 4</a></li>
+              <li><a href="week5.html">Week 5</a></li>
+              <li><a href="week6-7.html" class="active">Weken 6-7</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div
+        id="mobileMenu"
+        class="mobile-menu md:hidden bg-slate-800 absolute w-full shadow-xl hidden"
+      >
+        <ul class="flex flex-col items-center py-4 space-y-2">
+          <li><a href="index.html" class="mobile-link">Start</a></li>
+          <li><a href="week1.html" class="mobile-link">Week 1</a></li>
+          <li><a href="week2.html" class="mobile-link">Week 2</a></li>
+          <li><a href="week3.html" class="mobile-link">Week 3</a></li>
+          <li><a href="week4.html" class="mobile-link">Week 4</a></li>
+          <li><a href="week5.html" class="mobile-link">Week 5</a></li>
+          <li><a href="week6-7.html" class="active-mobile">Weken 6-7</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12 md:py-16">
+      <h1 class="text-4xl font-bold text-emerald-400 mb-4 text-center">
+        Weken 6 & 7: Presentaties & Integratie 🎬🧩
+      </h1>
+      <p class="text-center text-slate-300 max-w-3xl mx-auto mb-12">
+        Showtime! In deze laatste weken breng je alles samen. Als
+        <strong>Bedrijfskundig adviseur</strong> presenteer je jouw analyses en
+        inzichten. Het is tijd om je kennis te etaleren, verbanden te leggen en
+        te leren van elkaar.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Kolom 1: Introductie & Leerdoelen -->
+        <div class="space-y-8">
+          <section
+            class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
+          >
+            <h2 class="text-2xl font-semibold text-emerald-300 mb-4">
+              🔍 Wat ga je doen? (Introductie Thema's)
+            </h2>
+            <p class="text-slate-300 leading-relaxed">
+              Deze weken zijn gewijd aan studentenpresentaties, waarbij je de
+              economische concepten en analytische tools die je in de voorgaande
+              weken hebt geleerd, toepast op specifieke casestudies, sectoren of
+              onderzoeksvragen gerelateerd aan de cursusthema's. Het doel is om
+              de opgedane kennis te integreren en te demonstreren.
+            </p>
+          </section>
+
+          <section
+            class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
+          >
+            <h2 class="text-2xl font-semibold text-emerald-300 mb-4">
+              🎯 Leerdoelen & Jouw Rol
+            </h2>
+            <p class="text-slate-400 mb-6">
+              Tijdens deze presentatieweken werk je aan:
+            </p>
+            <ul
+              class="list-disc list-outside space-y-3 text-slate-300 leading-relaxed pl-5 text-sm"
+            >
+              <li>
+                Synthetiseren en toepassen van kerneconomische concepten om
+                specifieke kwesties of cases te analyseren.
+                <a
+                  href="index.html#lu-1"
+                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+                  >(LU 1-8)</a
+                >
+              </li>
+              <li>
+                Ontwikkelen van kritisch denkvermogen om economische fenomenen
+                te evalueren.
+                <a
+                  href="index.html#lu-1"
+                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+                  >(LU 1-8)</a
+                >
+              </li>
+              <li>
+                Verbeteren van onderzoeks- en presentatievaardigheden.
+                <span class="text-emerald-400/80 ml-1"
+                  >(Professionele Skill)</span
+                >
+              </li>
+              <li>
+                Deelnemen aan peer discussie en constructieve feedback geven op
+                economische analyse.
+                <span class="text-emerald-400/80 ml-1"
+                  >(Professionele Skill)</span
+                >
+              </li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Kolom 2: Ebook & Opdracht -->
+        <div class="space-y-8">
+          <section
+            class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
+          >
+            <h2 class="text-2xl font-semibold text-emerald-300 mb-4">
+              📚 Verdieping: Relevante Textbook Units (Allemaal!)
+            </h2>
+            <p class="text-slate-400 mb-6">
+              Voor je presentatie kun je putten uit alle behandelde units.
+              Hieronder een overzicht als reminder:
+            </p>
+            <div class="space-y-0 max-h-96 overflow-y-auto">
+              <!-- Scrollable list -->
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 1: Technology, Population, and Growth</span
+                  >
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Basis economische activiteit, BBP, economie in ecosysteem.
+                  </p>
+                  <a
+                    href="book/the-economy-unit-1-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      /></svg
+                    >Unit 1 PDF</a
+                  >
+                </div>
+              </details>
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 2: Technology, Population, and Growth
+                    (Innovatie)</span
+                  >
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Technologische vooruitgang, innovatie, isokosten, creatieve
+                    destructie.
+                  </p>
+                  <a
+                    href="book/the-economy-unit-2-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      /></svg
+                    >Unit 2 PDF</a
+                  >
+                </div>
+              </details>
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 6: The Firm: Owners, Managers, and Employees</span
+                  >
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Interne bedrijfsrelaties, stakeholders, prikkels.
+                  </p>
+                  <a
+                    href="book/the-economy-unit-6-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      /></svg
+                    >Unit 6 PDF</a
+                  >
+                </div>
+              </details>
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 7: The Firm and its Customers</span
+                  >
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Gedifferentieerde producten, prijs/hoeveelheid beslissingen,
+                    vraag, kosten, elasticiteit.
+                  </p>
+                  <a
+                    href="book/the-economy-unit-7-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      /></svg
+                    >Unit 7 PDF</a
+                  >
+                </div>
+              </details>
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 8: Supply and Demand: Price-Taking and Competitive
+                    Markets</span
+                  >
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Prijsnemers, competitieve markten, vraag/aanbod evenwicht,
+                    schokken.
+                  </p>
+                  <a
+                    href="book/the-economy-unit-8-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      /></svg
+                    >Unit 8 PDF</a
+                  >
+                </div>
+              </details>
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 11: Rent-Seeking, Price-Setting, and Market
+                    Dynamics</span
+                  >
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Marktwerking, (dis)equilibrium, rent-seeking, prijsbubbels.
+                  </p>
+                  <a
+                    href="book/the-economy-unit-11-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      /></svg
+                    >Unit 11 PDF</a
+                  >
+                </div>
+              </details>
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 12: Markets, Efficiency, and Public Policy</span
+                  >
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Marktfalen, externaliteiten, overheidsingrijpen,
+                    Pigouviaanse belastingen.
+                  </p>
+                  <a
+                    href="book/the-economy-unit-12-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      /></svg
+                    >Unit 12 PDF</a
+                  >
+                </div>
+              </details>
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 13: Economic Fluctuations and Unemployment</span
+                  >
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Geaggregeerde economie, conjunctuur, BBP meting, componenten
+                    geaggregeerde vraag.
+                  </p>
+                  <a
+                    href="book/the-economy-unit-13-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      /></svg
+                    >Unit 13 PDF</a
+                  >
+                </div>
+              </details>
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 14: Unemployment and Fiscal Policy</span
+                  >
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Multiplier, automatische stabilisatoren, fiscaal beleid.
+                  </p>
+                  <a
+                    href="book/the-economy-unit-14-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      /></svg
+                    >Unit 14 PDF</a
+                  >
+                </div>
+              </details>
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 19: Inequality</span
+                  >
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Inkomens- en vermogensverdeling, factoren van ongelijkheid.
+                  </p>
+                  <a
+                    href="book/the-economy-unit-19-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      /></svg
+                    >Unit 19 PDF</a
+                  >
+                </div>
+              </details>
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 20: The Environment and the Economy</span
+                  >
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Economie-milieu interactie, milieukwesties,
+                    hulpbronnenbeheer.
+                  </p>
+                  <a
+                    href="book/the-economy-unit-20-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      /></svg
+                    >Unit 20 PDF</a
+                  >
+                </div>
+              </details>
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 21: Innovation, Information, and the Networked
+                    Economy</span
+                  >
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Innovatieproces, kosten van innovatie, intellectueel
+                    eigendom.
+                  </p>
+                  <a
+                    href="book/the-economy-unit-21-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      /></svg
+                    >Unit 21 PDF</a
+                  >
+                </div>
+              </details>
+              <details>
+                <summary>
+                  <span class="text-lg font-semibold text-emerald-400"
+                    >Unit 22: Politics and Public Policy (of
+                    vergelijkbaar)</span
+                  >
+                </summary>
+                <div>
+                  <p class="text-slate-300 text-sm leading-relaxed">
+                    Overheidsbeleid, maatschappelijke context, ESG-rapportage.
+                  </p>
+                  <a
+                    href="book/the-economy-unit-22-pdf.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pdf-link-in-accordion"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+                      /></svg
+                    >Unit 22 PDF</a
+                  >
+                </div>
+              </details>
+            </div>
+          </section>
+
+          <section
+            class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg border-t-4 border-emerald-500"
+          >
+            <h2 class="text-2xl font-semibold text-emerald-300 mb-4">
+              ✅ Jouw Concrete Opdracht Weken 6 & 7 (Topics & Tasks)
+            </h2>
+            <p class="text-slate-400 mb-6">
+              Bereid je presentatie voor, waarin je jouw Omgevingsanalyse
+              (BEDROM04) presenteert:
+            </p>
+            <div
+              class="bg-slate-700 border-l-4 border-emerald-400 p-4 rounded-md text-slate-300 mb-6 text-sm"
+            >
+              <strong class="text-emerald-300">Focus:</strong> Integratie van
+              alle geleerde concepten. Demonstreer een heldere, onderbouwde
+              analyse van de gekozen sector en bedrijven, inclusief
+              macro-economie, marktstructuur, concurrentie, kosten, innovatie,
+              maatschappelijke kosten en ESG.
+            </div>
+            <ol
+              class="list-decimal list-outside space-y-4 text-slate-300 leading-relaxed pl-5"
+            >
+              <li>
+                <strong>Structuur je presentatie</strong> logisch: introductie,
+                analyse per thema (macro, markt, intern, ESG), en een krachtige
+                conclusie met adviezen.
+              </li>
+              <li>
+                Pas de <strong>kerneconomische concepten</strong> uit de cursus
+                toe om je analyse te onderbouwen. Gebruik de juiste
+                terminologie.
+              </li>
+              <li>
+                Zorg voor <strong>duidelijke visualisaties</strong> (grafieken,
+                tabellen, modellen) om je punten te ondersteunen.
+              </li>
+              <li>
+                Wees <strong>kritisch en evaluerend</strong> in je analyse. Wat
+                zijn de sterktes, zwaktes, kansen en bedreigingen
+                (SWOT-elementen) die voortvloeien uit je economische analyse?
+              </li>
+              <li>
+                Formuleer <strong>concrete, onderbouwde adviezen</strong> voor
+                de gekozen bedrijven op basis van je bevindingen.
+              </li>
+              <li>
+                Bereid je voor op <strong>vragen en discussie</strong>.
+                Anticipeer op mogelijke kritische punten.
+              </li>
+              <li>
+                Oefen je presentatie voor <strong>timing en helderheid</strong>.
+              </li>
+            </ol>
+            <p class="mt-6 text-sm text-emerald-300 font-semibold">
+              🚀 Veel succes met de voorbereidingen en je presentatie!
+            </p>
+          </section>
+        </div>
+      </div>
+
+      <div class="mt-16 text-center">
+        <a
+          href="index.html"
+          class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+        >
+          Terug naar de Startpagina
+        </a>
+      </div>
+    </main>
+
+    <footer class="site-footer py-8 bg-slate-950 text-center mt-16">
+      <div class="container mx-auto px-4">
+        <p class="text-sm text-slate-400">
+          © <span id="currentYear"></span> Cursus Business Economics 2.0 - Ready
+          to Level Up?
+        </p>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

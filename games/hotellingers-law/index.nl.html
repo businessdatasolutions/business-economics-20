@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotelling's Wet Simulatie - Geweldige UX</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --dark-bg: #0a0f19;
+        --panel-bg: #101827;
+        --border-color: #2a3b5a;
+        --primary-accent: #00e0ff;
+        --secondary-accent: #39ff14;
+        --text-light: #e0e0e0;
+        --text-muted: #8899b3;
+        --btn-hover: #00b8d4;
+        --vendor1-color: var(--primary-accent);
+        --vendor2-color: var(--secondary-accent);
+        --vendor1-scoop: #ff8fab; /* Pinkish for vendor 1 scoop */
+        --vendor2-scoop: #87cefa; /* Light sky blue for vendor 2 scoop */
+      }
+
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: var(--dark-bg);
+        color: var(--text-light);
+        overscroll-behavior: none;
+      }
+
+      .main-panel {
+        background-color: var(--panel-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 1rem;
+        box-shadow: 0 8px 30px rgba(0, 224, 255, 0.1);
+      }
+
+      h1,
+      h2,
+      h3,
+      h5,
+      .modal-title {
+        font-family: "Orbitron", sans-serif;
+        color: var(--primary-accent);
+        text-shadow: 0 0 5px rgba(0, 224, 255, 0.5);
+      }
+      p,
+      label,
+      span,
+      li,
+      button,
+      .btn {
+        color: var(--text-light);
+      }
+      .text-muted {
+        color: var(--text-muted) !important;
+      }
+
+      .controls-column .p-4 {
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid var(--border-color);
+      }
+      .form-label {
+        color: var(--text-light);
+        font-weight: 300;
+      }
+      .form-range {
+        padding: 0;
+      }
+      .form-range::-webkit-slider-thumb {
+        background-color: var(--primary-accent);
+        box-shadow: 0 0 8px var(--primary-accent);
+      }
+      .form-range::-moz-range-thumb {
+        background-color: var(--primary-accent);
+        box-shadow: 0 0 8px var(--primary-accent);
+      }
+
+      .btn {
+        border-radius: 0.25rem;
+        transition: all 0.2s ease-in-out;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        border: 1px solid transparent;
+      }
+      .btn-primary {
+        background-color: var(--primary-accent);
+        color: var(--dark-bg);
+        border-color: var(--primary-accent);
+      }
+      .btn-primary:hover {
+        background-color: var(--btn-hover);
+        color: var(--dark-bg);
+        border-color: var(--btn-hover);
+        box-shadow: 0 0 10px var(--primary-accent);
+      }
+      .btn-outline-primary {
+        color: var(--primary-accent);
+        border-color: var(--primary-accent);
+      }
+      .btn-outline-primary:hover {
+        background-color: var(--primary-accent);
+        color: var(--dark-bg);
+        box-shadow: 0 0 10px var(--primary-accent);
+      }
+      .btn-info {
+        background-color: var(--secondary-accent);
+        color: var(--dark-bg);
+        border-color: var(--secondary-accent);
+      }
+      .btn-info:hover {
+        background-color: #2ce600;
+        color: var(--dark-bg);
+        border-color: #2ce600;
+        box-shadow: 0 0 10px var(--secondary-accent);
+      }
+      .btn-outline-info {
+        color: var(--secondary-accent);
+        border-color: var(--secondary-accent);
+      }
+      .btn-outline-info:hover {
+        background-color: var(--secondary-accent);
+        color: var(--dark-bg);
+        box-shadow: 0 0 10px var(--secondary-accent);
+      }
+      .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+      }
+      .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+        box-shadow: 0 0 8px #28a745;
+      }
+      .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+        color: var(--dark-bg);
+      }
+      .btn-warning:hover {
+        background-color: #e0a800;
+        border-color: #d39e00;
+        color: var(--dark-bg);
+        box-shadow: 0 0 8px #ffc107;
+      }
+      .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+      }
+      .btn-danger:hover {
+        box-shadow: 0 0 8px #dc3545;
+      }
+
+      canvas#simulationCanvas {
+        background-color: #0d121c;
+        border: 1px solid var(--border-color);
+      }
+      #statsContainer {
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid var(--border-color);
+      }
+      #statsContainer .p-2 {
+        background-color: rgba(0, 0, 0, 0.1);
+        border: 1px dashed var(--border-color);
+        transition: all 0.2s ease;
+      }
+      #statsContainer .p-2:hover {
+        background-color: rgba(0, 224, 255, 0.1);
+        border-color: var(--primary-accent);
+      }
+      #statsContainer strong {
+        color: var(--text-light) !important;
+      }
+      #statsContainer p {
+        color: var(--text-muted) !important;
+      }
+      .chart-container {
+        background-color: var(--panel-bg);
+        border: 1px solid var(--border-color);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        min-height: 350px;
+      }
+      .modal-content {
+        background-color: var(--panel-bg);
+        border: 1px solid var(--primary-accent);
+        box-shadow: 0 0 25px rgba(0, 224, 255, 0.3);
+      }
+      .modal-header,
+      .modal-footer {
+        border-color: var(--border-color);
+      }
+      .modal-body {
+        color: var(--text-light);
+      }
+      .modal-body h6 {
+        color: var(--secondary-accent);
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+      }
+      .modal-body h6:first-child {
+        margin-top: 0;
+      }
+      .btn-close {
+        filter: invert(1) grayscale(100%) brightness(200%);
+      }
+      .video-preview-link img {
+        border: 2px solid var(--primary-accent);
+        border-radius: 0.25rem;
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        max-width: 100%;
+        height: auto;
+      }
+      .video-preview-link:hover img {
+        transform: scale(1.03);
+        box-shadow: 0 0 15px var(--primary-accent);
+      }
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--dark-bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 5px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--primary-accent);
+      }
+      #loadingIndicator {
+        z-index: 1060;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+      }
+      #loadingIndicator.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* 1D Equilibrium Visualization Styles */
+      .equilibrium-viz-container {
+        padding: 1rem 0;
+        border-top: 1px solid var(--border-color);
+        margin-top: 1.5rem;
+      }
+      .equilibrium-viz {
+        padding: 1rem;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 0.5rem;
+        border: 1px solid var(--border-color);
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+      }
+      .equilibrium-viz .viz-title {
+        color: var(--text-light);
+        font-family: "Roboto", sans-serif;
+        font-weight: 500;
+        font-size: 0.9rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      .beach-line-container {
+        position: relative;
+        width: 90%;
+        margin: 2rem auto 1rem auto;
+      }
+      .beach-line {
+        width: 100%;
+        height: 12px;
+        background: linear-gradient(to right, #e0cda0, #d2b48c, #c0a070);
+        border-radius: 6px;
+        position: relative;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+      }
+      .vendor-icon {
+        position: absolute;
+        bottom: 5px;
+        transform: translateX(-50%);
+        width: 32px;
+        height: 32px;
+        z-index: 10;
+      }
+      .vendor-icon svg {
+        width: 100%;
+        height: 100%;
+        filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
+      }
+      .vendor-icon svg .cone {
+        stroke: #a0522d;
+        stroke-width: 1.5;
+      }
+      .vendor-icon.vendor-1 svg .cone {
+        fill: var(--vendor1-color);
+      }
+      .vendor-icon.vendor-1 svg .scoop {
+        fill: var(--vendor1-scoop);
+        stroke: var(--vendor1-color);
+        stroke-width: 1;
+      }
+      .vendor-icon.vendor-2 svg .cone {
+        fill: var(--vendor2-color);
+      }
+      .vendor-icon.vendor-2 svg .scoop {
+        fill: var(--vendor2-scoop);
+        stroke: var(--vendor2-color);
+        stroke-width: 1;
+      }
+
+      .beach-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        padding: 0;
+        margin-top: 0.75rem;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .beach-labels span {
+        color: var(--text-muted);
+        text-shadow: 0 0 2px var(--dark-bg);
+      }
+      .beach-labels span:nth-child(1) {
+        transform: translateX(-50%);
+        margin-left: 2px;
+      }
+      .beach-labels span:nth-child(5) {
+        transform: translateX(50%);
+        margin-right: 2px;
+      }
+
+      .market-coverage {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .market-coverage .segment {
+        height: 100%;
+        opacity: 0.35;
+      }
+      .market-coverage .segment.vendor-1-zone {
+        background-color: var(--vendor1-color);
+      }
+      .market-coverage .segment.vendor-2-zone {
+        background-color: var(--vendor2-color);
+      }
+    </style>
+  </head>
+  <body class="text-white">
+    <div id="loadingIndicator" class="d-none">Laden...</div>
+
+    <div class="container-fluid container-xl my-3 my-sm-4">
+      <div class="p-3 p-sm-4 main-panel">
+        <header class="mb-4 mb-sm-5 text-center position-relative">
+          <h1>Simulatie van Hotelling's Wet</h1>
+          <p class="text-muted mt-1">
+            Observeer hoe winkels concurreren om marktaandeel.
+          </p>
+          <button
+            class="btn btn-sm btn-outline-primary position-absolute top-0 end-0 mt-1 me-1"
+            data-bs-toggle="modal"
+            data-bs-target="#infoModal"
+          >
+            Info
+          </button>
+        </header>
+
+        <div class="row g-4 g-lg-5">
+          <div class="col-lg-4 controls-column">
+            <div class="p-4 rounded shadow-sm h-100">
+              <div class="mb-4">
+                <label for="numStores" class="form-label"
+                  >Aantal Winkels:
+                  <span id="numStoresValue" class="fw-semibold text-white"
+                    >2</span
+                  ></label
+                >
+                <input
+                  type="range"
+                  class="form-range"
+                  id="numStores"
+                  min="2"
+                  max="10"
+                  value="2"
+                />
+              </div>
+              <div class="mb-4">
+                <span class="form-label">Indeling</span>
+                <div class="d-grid gap-2 d-sm-flex mt-1">
+                  <button
+                    id="layoutPlane"
+                    class="layout-btn btn btn-primary flex-grow-1"
+                  >
+                    Vlak
+                  </button>
+                  <button
+                    id="layoutLine"
+                    class="layout-btn btn btn-outline-primary flex-grow-1"
+                  >
+                    Lijn
+                  </button>
+                </div>
+              </div>
+              <div class="mb-4">
+                <span class="form-label">Regels</span>
+                <div class="btn-group w-100 mt-1 btn-group-rules" role="group">
+                  <button id="ruleNormal" class="rule-btn btn btn-info">
+                    Normaal
+                  </button>
+                  <button
+                    id="rulePricing"
+                    class="rule-btn btn btn-outline-info"
+                  >
+                    Alleen Prijs
+                  </button>
+                  <button id="ruleMoving" class="rule-btn btn btn-outline-info">
+                    Alleen Verplaatsen
+                  </button>
+                </div>
+              </div>
+              <div class="d-grid gap-2 pt-2">
+                <button id="setupBtn" class="btn btn-success btn-lg">
+                  Instellen
+                </button>
+                <div class="row g-2">
+                  <div class="col">
+                    <button id="goBtn" class="btn btn-primary w-100">
+                      Start
+                    </button>
+                  </div>
+                  <div class="col">
+                    <button id="goOnceBtn" class="btn btn-warning w-100">
+                      Eén Stap
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4">
+                <label for="simSpeed" class="form-label"
+                  >Simulatiesnelheid:
+                  <span id="simSpeedValue" class="fw-semibold text-white"
+                    >Gemiddeld</span
+                  ></label
+                >
+                <input
+                  type="range"
+                  class="form-range"
+                  id="simSpeed"
+                  min="1"
+                  max="5"
+                  value="3"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-8">
+            <div class="d-flex flex-column gap-4 h-100">
+              <canvas id="simulationCanvas"></canvas>
+              <div
+                id="statsContainer"
+                class="stats-container p-3 rounded shadow-sm overflow-auto"
+                style="max-height: 14rem"
+              >
+                <h3 class="h5 fw-semibold mb-3">Winkelstatistieken</h3>
+                <div id="statsOutput" class="row g-3 small"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-4 mt-5">
+          <h2 class="text-center h3 mb-4">Historische Gegevens</h2>
+          <div class="col-lg-6">
+            <div class="chart-container">
+              <canvas id="priceChart"></canvas>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="chart-container">
+              <canvas id="shareChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="infoModal"
+      tabindex="-1"
+      aria-labelledby="infoModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="infoModalLabel">
+              Over de Simulatie van Hotelling's Wet
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <h6>Wat is deze Simulatie?</h6>
+            <p>
+              Dit model is een representatie van Hotelling's wet (1929), die de
+              optimale plaatsing van winkels en de prijsstelling van hun
+              goederen onderzoekt om de winst te maximaliseren. In Hotelling's
+              oorspronkelijke paper waren de winkels beperkt tot één dimensie
+              (een lijn). Dit model repliceert en breidt dit uit door winkels
+              vrij te laten bewegen op een vlak.
+            </p>
+
+            <h6>Hoe Werkt de Simulatie?</h6>
+            <p>
+              Verschillende winkels proberen hun winst te maximaliseren door te
+              verplaatsen en hun prijzen aan te passen. Elke consument
+              (vertegenwoordigd door rasterpunten op het canvas) kiest zijn
+              voorkeurswinkel op basis van een combinatie van de afstand tot de
+              winkel en de prijs van de goederen – ze kiezen degene met de
+              laagste som van (afstand + prijs). Bij een gelijke stand kiezen ze
+              willekeurig.
+            </p>
+            <p>
+              Winkels nemen beslissingen zonder de onmiddellijke plannen van hun
+              concurrenten te kennen. Ze proberen potentiële verplaatsingen
+              (Noord, Zuid, Oost, West, of blijven staan) om te zien of ze meer
+              marktaandeel kunnen winnen. Vervolgens controleren ze of het
+              verhogen of verlagen van hun prijs leidt tot een grotere winst
+              (prijs × marktaandeel). Ze voeren de verandering door als deze
+              voordelig is.
+            </p>
+
+            <h6>Hotelling's Wet Begrijpen: De IJscoman Analogie</h6>
+            <p>
+              Harold Hotelling, een econoom opgeleid in de wiskunde, deed
+              diepgaande observaties over concurrentie. Zijn wet kan worden
+              geïllustreerd met een eenvoudig voorbeeld:
+            </p>
+            <p>
+              Stel je een mijl lang strand voor waar twee verkopers identiek ijs
+              willen verkopen tegen dezelfde prijs. Zonnebaders gaan natuurlijk
+              naar de dichtstbijzijnde kar. Waar moeten de verkopers zich
+              positioneren om de meeste klanten te krijgen?
+            </p>
+            <ul>
+              <li>
+                <strong>Een "Optimale" Start:</strong> Als we zouden plannen
+                voor de zonnebaders, zouden we de karren misschien een kwart
+                mijl van de tegenovergestelde uiteinden plaatsen. Op deze manier
+                hoeft niemand meer dan een kwart mijl te lopen.
+              </li>
+              <li>
+                <strong>Het Dilemma van de Verkoper:</strong> Beschouw nu één
+                verkoper. Hij bedient de helft van het strand. Als hij iets naar
+                het midden beweegt, behoudt hij al zijn huidige klanten (hij is
+                nog steeds dichterbij) EN verovert hij sommigen uit het midden
+                die voorheen onverschillig waren of dichter bij de concurrent
+                stonden. Hoe dichter hij bij zijn concurrent komt, hoe meer
+                klanten hij zou kunnen afsnoepen.
+              </li>
+              <li>
+                <strong>De Concurrent Reageert:</strong> De andere verkoper, die
+                dit ziet, zal hetzelfde doen.
+              </li>
+              <li>
+                <strong>Het Evenwicht:</strong> Dit gaat door totdat beide
+                verkopers naast elkaar in het midden van het strand staan. Op
+                dit punt kan geen van beiden zijn situatie verbeteren door te
+                verplaatsen. Dit is een evenwicht.
+              </li>
+              <li>
+                <strong>De Consequentie:</strong> De verkopers hebben over het
+                algemeen niet meer klanten gewonnen (nog steeds ongeveer de
+                helft elk), maar veel zonnebaders moeten nu veel verder lopen –
+                tot wel een halve mijl!
+              </li>
+            </ul>
+            <p>
+              Hotelling's Wet stelt dat er een natuurlijke neiging is voor
+              concurrenten om naar een gemeenschappelijke middenweg getrokken te
+              worden, zelfs als dit niet optimaal is voor consumenten.
+            </p>
+
+            <div class="equilibrium-viz-container">
+              <h6>Visualisatie van de Evenwichten: Het Mijl-Lange Strand</h6>
+              <p>
+                Deze klassieke analogie helpt het kernconcept te illustreren.
+                Stel je twee ijsverkopers voor op een strand. Klanten gaan naar
+                de dichtstbijzijnde.
+              </p>
+
+              <div class="equilibrium-viz my-4">
+                <div class="viz-title">
+                  1. Sociaal Optimale Plaatsing (Minimaliseert Reistijd Klant)
+                </div>
+                <div class="beach-line-container">
+                  <div class="beach-line">
+                    <div class="market-coverage">
+                      <div
+                        class="segment vendor-1-zone"
+                        style="width: 50%"
+                      ></div>
+                      <div
+                        class="segment vendor-2-zone"
+                        style="width: 50%"
+                      ></div>
+                    </div>
+                    <div class="vendor-icon vendor-1" style="left: 25%">
+                      <svg
+                        viewBox="0 0 32 32"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          class="cone"
+                          d="M24.21,26.83l-7.45-13a1,1,0,0,0-1.76,0l-7.45,13A1,1,0,0,0,8.4,28.36H23.34a1,1,0,0,0,.87-1.53Z"
+                        />
+                        <circle class="scoop" cx="15.88" cy="9.5" r="6" />
+                      </svg>
+                    </div>
+                    <div class="vendor-icon vendor-2" style="left: 75%">
+                      <svg
+                        viewBox="0 0 32 32"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          class="cone"
+                          d="M24.21,26.83l-7.45-13a1,1,0,0,0-1.76,0l-7.45,13A1,1,0,0,0,8.4,28.36H23.34a1,1,0,0,0,.87-1.53Z"
+                        />
+                        <circle class="scoop" cx="15.88" cy="9.5" r="6" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="beach-labels">
+                    <span>0</span><span>¼</span><span>½</span><span>¾</span
+                    ><span>1 mijl</span>
+                  </div>
+                </div>
+                <p class="text-center small mt-2 text-muted">
+                  Verkopers op ¼ en ¾. Max. reistijd: ¼ mijl. Beste voor
+                  klanten.
+                </p>
+              </div>
+
+              <div class="equilibrium-viz my-4">
+                <div class="viz-title">
+                  2. Competitief Evenwicht (Hotelling's Wet)
+                </div>
+                <div class="beach-line-container">
+                  <div class="beach-line">
+                    <div class="market-coverage">
+                      <div
+                        class="segment vendor-1-zone"
+                        style="width: 50%"
+                      ></div>
+                      <div
+                        class="segment vendor-2-zone"
+                        style="width: 50%"
+                      ></div>
+                    </div>
+                    <div class="vendor-icon vendor-1" style="left: 48%">
+                      <svg
+                        viewBox="0 0 32 32"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          class="cone"
+                          d="M24.21,26.83l-7.45-13a1,1,0,0,0-1.76,0l-7.45,13A1,1,0,0,0,8.4,28.36H23.34a1,1,0,0,0,.87-1.53Z"
+                        />
+                        <circle class="scoop" cx="15.88" cy="9.5" r="6" />
+                      </svg>
+                    </div>
+                    <div class="vendor-icon vendor-2" style="left: 52%">
+                      <svg
+                        viewBox="0 0 32 32"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          class="cone"
+                          d="M24.21,26.83l-7.45-13a1,1,0,0,0-1.76,0l-7.45,13A1,1,0,0,0,8.4,28.36H23.34a1,1,0,0,0,.87-1.53Z"
+                        />
+                        <circle class="scoop" cx="15.88" cy="9.5" r="6" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="beach-labels">
+                    <span>0</span><span>¼</span><span>½</span><span>¾</span
+                    ><span>1 mijl</span>
+                  </div>
+                </div>
+                <p class="text-center small mt-2 text-muted">
+                  Verkopers clusteren in het midden. Sommige klanten reizen tot
+                  ½ mijl.
+                </p>
+              </div>
+            </div>
+            <h6>Voorbeelden uit de Praktijk</h6>
+            <p>Deze "trek naar het midden" is op veel gebieden te zien:</p>
+            <ul>
+              <li>
+                <strong>Productgelijkheid:</strong> Koelkasten of andere
+                apparaten in dezelfde prijsklasse lijken vaak sterk op elkaar
+                qua uiterlijk en functionaliteit.
+              </li>
+              <li>
+                <strong>Bedrijfsclusters:</strong> Autodealers of
+                fastfoodrestaurants groeperen vaak samen langs dezelfde weg.
+              </li>
+              <li>
+                <strong>Politiek:</strong> Politieke kandidaten passen hun
+                standpunten vaak aan richting het centrum om onbesliste kiezers
+                te trekken, waardoor hun programma's soms minder onderscheidend
+                worden.
+              </li>
+            </ul>
+
+            <h6>Video</h6>
+            <p>
+              Bekijk deze korte video voor nog een duidelijke uitleg van
+              Hotelling's Wet aan de hand van de ijscoman-analogie:
+            </p>
+            <div class="text-center my-3">
+              <a
+                href="https://youtu.be/jILgxeNBK_8?si=LuvQmsjnkaN7PCV4"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="video-preview-link d-inline-block"
+              >
+                <img
+                  src="https://img.youtube.com/vi/jILgxeNBK_8/mqdefault.jpg"
+                  alt="Hotelling's Law Explained Video Thumbnail"
+                  class="img-fluid"
+                />
+                <p class="mt-2 mb-0 small text-muted">
+                  Klik om te bekijken op YouTube (opent nieuw tabblad)
+                </p>
+              </a>
+            </div>
+
+            <h6>Hoe Gebruik je deze Simulatie?</h6>
+            <ul>
+              <li>
+                <strong>Instellen:</strong> Creëert de winkels en visualiseert
+                hun startgebieden. Gebruik dit na het wijzigen van het Aantal
+                Winkels.
+              </li>
+              <li>
+                <strong>Start / Pauze:</strong> Start of stopt de continue
+                simulatie.
+              </li>
+              <li>
+                <strong>Eén Stap:</strong> Voert de simulatie één stap (ronde)
+                uit.
+              </li>
+              <li>
+                <strong>Aantal Winkels:</strong> Bepaalt hoeveel concurrenten er
+                in de wereld zijn (vereist Instellen).
+              </li>
+              <li>
+                <strong>Indeling:</strong> Kies 'Lijn' (winkels op een
+                horizontale lijn) of 'Vlak' (winkels bewegen vrij).
+              </li>
+              <li>
+                <strong>Regels:</strong>
+                <ul>
+                  <li>
+                    <em>Normaal:</em> Winkels kunnen zowel verplaatsen als
+                    prijzen wijzigen.
+                  </li>
+                  <li>
+                    <em>Alleen Prijs:</em> Winkels kunnen alleen prijzen
+                    wijzigen.
+                  </li>
+                  <li>
+                    <em>Alleen Verplaatsen:</em> Winkels kunnen alleen
+                    verplaatsen.
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <strong>Simulatiesnelheid:</strong> Past aan hoeveel
+                simulatierondes er per seconde plaatsvinden.
+              </li>
+            </ul>
+            <h6>Wat Opvalt in de Simulatie</h6>
+            <p>
+              Bij standaardinstellingen (2 winkels, vlak, normaal), merk op hoe
+              winkels vaak heel dicht bij elkaar komen (clusteren) en lage
+              prijzen hanteren. Dit is een klassiek resultaat van Hotelling's
+              wet – concurrentie om klanten aan de rand trekt hen naar elkaar
+              toe.
+            </p>
+            <p>
+              De grenzen tussen winkelgebieden kunnen eruitzien als lijnen of
+              krommen (hyperbolische bogen), afhankelijk van prijsverschillen.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              data-bs-dismiss="modal"
+            >
+              Sluiten
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      // DOM Elements (Same as before)
+      const canvas = document.getElementById("simulationCanvas");
+      const ctx = canvas.getContext("2d");
+      const numStoresInput = document.getElementById("numStores");
+      const numStoresValueDisplay = document.getElementById("numStoresValue");
+      const layoutPlaneBtn = document.getElementById("layoutPlane");
+      const layoutLineBtn = document.getElementById("layoutLine");
+      const ruleNormalBtn = document.getElementById("ruleNormal");
+      const rulePricingBtn = document.getElementById("rulePricing");
+      const ruleMovingBtn = document.getElementById("ruleMoving");
+      const setupBtn = document.getElementById("setupBtn");
+      const goBtn = document.getElementById("goBtn");
+      const goOnceBtn = document.getElementById("goOnceBtn");
+      const statsOutput = document.getElementById("statsOutput");
+      const loadingIndicator = document.getElementById("loadingIndicator");
+      const simSpeedInput = document.getElementById("simSpeed");
+      const simSpeedValueDisplay = document.getElementById("simSpeedValue");
+      const priceChartCtx = document
+        .getElementById("priceChart")
+        .getContext("2d");
+      const shareChartCtx = document
+        .getElementById("shareChart")
+        .getContext("2d");
+
+      // Simulation Parameters (Same as before)
+      let stores = [];
+      let numStores = parseInt(numStoresInput.value);
+      let layoutMode = "plane";
+      let ruleMode = "normal";
+      let isRunning = false;
+      let animationFrameId;
+      const GRID_CELL_SIZE = 10;
+      const STORE_RADIUS = 6;
+      const MOVE_STEP = 10;
+      const PRICE_STEP = 0.5;
+      const MIN_PRICE = 1.0;
+      const INITIAL_PRICE = 10.0;
+      const STORE_COLORS = [
+        "#00e0ff",
+        "#39ff14",
+        "#ff1493",
+        "#f0ad4e",
+        "#6f42c1",
+        "#dc3545",
+        "#17a2b8",
+        "#fd7e14",
+        "#6610f2",
+        "#20c997",
+      ];
+      let simulationSpeed = 3;
+      let currentTick = 0;
+      let tickCounter = 0;
+      const speedThresholds = [20, 15, 10, 5, 1];
+      let history = [];
+      let chartInstances = {};
+      let loadingTimer = null;
+      const MIN_LOADING_DISPLAY_TIME_MS = 150;
+
+      // --- Loading Indicator ---
+      function showLoading(show) {
+        clearTimeout(loadingTimer);
+        if (show) {
+          loadingTimer = setTimeout(() => {
+            loadingIndicator.classList.remove("d-none");
+            void loadingIndicator.offsetWidth;
+            loadingIndicator.classList.add("is-visible");
+          }, MIN_LOADING_DISPLAY_TIME_MS);
+        } else {
+          loadingIndicator.classList.remove("is-visible");
+          setTimeout(() => {
+            if (!loadingIndicator.classList.contains("is-visible")) {
+              loadingIndicator.classList.add("d-none");
+            }
+          }, 200);
+        }
+      }
+
+      // --- Utilities ---
+      function dist(x1, y1, x2, y2) {
+        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+      }
+      function updateSimSpeedDisplay() {
+        const speedNames = [
+          "Zeer Langzaam",
+          "Langzaam",
+          "Gemiddeld",
+          "Snel",
+          "Zeer Snel",
+        ];
+        simSpeedValueDisplay.textContent = speedNames[simulationSpeed - 1];
+      }
+
+      // --- Canvas Sizing ---
+      function resizeCanvas() {
+        const parentElement = canvas.parentElement;
+        if (!parentElement) {
+          canvas.width = 300;
+          canvas.height = 200;
+          console.error("Canvas parent not found for sizing.");
+        } else {
+          const parentWidth = parentElement.clientWidth;
+          canvas.width = parentWidth > 0 ? parentWidth : 600;
+          canvas.height = canvas.width * (2 / 3);
+        }
+        if (canvas.width < 1) canvas.width = 1;
+        if (canvas.height < 1) canvas.height = 1;
+        if (typeof setup === "function" && stores.length > 0) {
+          setTimeout(() => {
+            try {
+              draw();
+              updateStatsDisplay();
+              if (chartInstances.price) {
+                updateCharts();
+              }
+            } catch (e) {
+              console.error("Resize redraw error: ", e);
+            }
+          }, 0);
+        }
+      }
+      window.addEventListener("resize", resizeCanvas);
+
+      // --- Store Object ---
+      class Store {
+        constructor(id, x, y, price, color) {
+          this.id = id;
+          this.x = x;
+          this.y = y;
+          this.price = price;
+          this.color = color;
+          this.marketShare = 0;
+          this.revenue = 0;
+          this.previousX = x;
+          this.previousY = y;
+        }
+        draw() {
+          if (!ctx) return;
+          const pulse =
+            Math.abs(Math.sin(Date.now() * 0.003 + this.id)) * 8 + 5;
+
+          ctx.save();
+          ctx.shadowBlur = pulse;
+          ctx.shadowColor = this.color;
+
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, STORE_RADIUS, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+
+          ctx.shadowBlur = 0;
+          ctx.strokeStyle = "#fff";
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
+
+      // --- Canvas Drawing ---
+      function drawGridBackground() {
+        ctx.save();
+        ctx.strokeStyle = "#1a263f";
+        ctx.lineWidth = 0.5;
+        for (let x = 0; x < canvas.width; x += GRID_CELL_SIZE * 2) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, canvas.height);
+          ctx.stroke();
+        }
+        for (let y = 0; y < canvas.height; y += GRID_CELL_SIZE * 2) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(canvas.width, y);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      function drawMovementArrows() {
+        if (!ctx) return;
+        ctx.save();
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
+        stores.forEach((store) => {
+          if (store.x !== store.previousX || store.y !== store.previousY) {
+            ctx.beginPath();
+            ctx.moveTo(store.previousX, store.previousY);
+            ctx.lineTo(store.x, store.y);
+            ctx.stroke();
+            const angle = Math.atan2(
+              store.y - store.previousY,
+              store.x - store.previousX
+            );
+            ctx.beginPath();
+            ctx.moveTo(store.x, store.y);
+            ctx.lineTo(
+              store.x - 6 * Math.cos(angle - Math.PI / 6),
+              store.y - 6 * Math.sin(angle - Math.PI / 6)
+            );
+            ctx.moveTo(store.x, store.y);
+            ctx.lineTo(
+              store.x - 6 * Math.cos(angle + Math.PI / 6),
+              store.y - 6 * Math.sin(angle + Math.PI / 6)
+            );
+            ctx.stroke();
+          }
+        });
+        ctx.restore();
+      }
+
+      function draw() {
+        if (!ctx) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawGridBackground();
+
+        const marketGrid = calculateAllMarketSharesAndRevenues();
+        const numGridX = Math.floor(canvas.width / GRID_CELL_SIZE);
+        const numGridY = Math.floor(canvas.height / GRID_CELL_SIZE);
+
+        if (numGridX > 0 && numGridY > 0) {
+          for (let gx = 0; gx < numGridX; gx++) {
+            for (let gy = 0; gy < numGridY; gy++) {
+              if (marketGrid[gx] && typeof marketGrid[gx][gy] !== "undefined") {
+                const storeId = marketGrid[gx][gy];
+                if (storeId !== -1) {
+                  const store = stores.find((s) => s.id === storeId);
+                  if (store) {
+                    ctx.fillStyle = store.color + "40";
+                    ctx.fillRect(
+                      gx * GRID_CELL_SIZE,
+                      gy * GRID_CELL_SIZE,
+                      GRID_CELL_SIZE,
+                      GRID_CELL_SIZE
+                    );
+                  }
+                }
+              }
+            }
+          }
+        }
+        drawMovementArrows();
+        stores.forEach((store) => store.draw());
+      }
+
+      // --- Chart Initialization (Dark Theme) ---
+      function initializeCharts() {
+        Object.values(chartInstances).forEach((chart) => chart.destroy());
+        chartInstances = {};
+
+        const computedRootStyle = getComputedStyle(document.documentElement);
+        const textLightColor = computedRootStyle
+          .getPropertyValue("--text-light")
+          .trim();
+        const textMutedColor = computedRootStyle
+          .getPropertyValue("--text-muted")
+          .trim();
+        const borderColorVal = computedRootStyle
+          .getPropertyValue("--border-color")
+          .trim();
+
+        const datasetsPrice = stores.map((store) => ({
+          label: `Winkel ${store.id + 1} Prijs`,
+          data: [],
+          borderColor: store.color,
+          backgroundColor: store.color + "80",
+          borderWidth: 2,
+          pointRadius: 1,
+          tension: 0.1,
+        }));
+        const datasetsShare = stores.map((store) => ({
+          label: `Winkel ${store.id + 1} Aandeel`,
+          data: [],
+          borderColor: store.color,
+          backgroundColor: store.color + "60",
+          borderWidth: 1,
+          pointRadius: 1,
+          tension: 0.1,
+          fill: true,
+        }));
+
+        const chartOptions = (titleText, yLabel, isStacked = false) => ({
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: { display: true, text: titleText, color: textLightColor },
+            legend: { labels: { color: textMutedColor } },
+          },
+          scales: {
+            x: {
+              title: { display: true, text: "Ronde", color: textMutedColor },
+              ticks: { color: textMutedColor },
+              grid: { color: borderColorVal },
+            },
+            y: {
+              beginAtZero: true,
+              stacked: isStacked,
+              title: { display: true, text: yLabel, color: textMutedColor },
+              ticks: { color: textMutedColor },
+              grid: { color: borderColorVal },
+            },
+          },
+        });
+
+        if (priceChartCtx) {
+          chartInstances.price = new Chart(priceChartCtx, {
+            type: "line",
+            data: { labels: [], datasets: datasetsPrice },
+            options: chartOptions("Prijsontwikkeling", "Prijs (€)"),
+          });
+        }
+        if (shareChartCtx) {
+          chartInstances.share = new Chart(shareChartCtx, {
+            type: "line",
+            data: { labels: [], datasets: datasetsShare },
+            options: chartOptions(
+              "Marktaandeelontwikkeling",
+              "Aandeel (Eenheden)",
+              true
+            ),
+          });
+        }
+      }
+
+      function setup() {
+        showLoading(true);
+        isRunning = false;
+        goBtn.textContent = "Start";
+        goBtn.classList.remove("btn-danger");
+        goBtn.classList.add("btn-primary");
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        stores = [];
+        currentTick = 0;
+        history = [];
+        numStores = parseInt(numStoresInput.value);
+        for (let i = 0; i < numStores; i++) {
+          let x, y;
+          if (layoutMode === "line") {
+            x = (canvas.width / (numStores + 1)) * (i + 1);
+            y = canvas.height / 2;
+          } else {
+            x =
+              STORE_RADIUS + Math.random() * (canvas.width - 2 * STORE_RADIUS);
+            y =
+              STORE_RADIUS + Math.random() * (canvas.height - 2 * STORE_RADIUS);
+          }
+          x = Math.max(STORE_RADIUS, Math.min(x, canvas.width - STORE_RADIUS));
+          y = Math.max(STORE_RADIUS, Math.min(y, canvas.height - STORE_RADIUS));
+          stores.push(
+            new Store(
+              i,
+              x,
+              y,
+              INITIAL_PRICE,
+              STORE_COLORS[i % STORE_COLORS.length]
+            )
+          );
+        }
+        initializeCharts();
+        setTimeout(() => {
+          try {
+            draw();
+            updateStatsDisplay();
+            recordHistory();
+            updateCharts();
+          } catch (e) {
+            console.error("Setup error: ", e);
+          } finally {
+            showLoading(false);
+          }
+        }, 50);
+      }
+
+      function calculateMarketShareForSingleStore(
+        targetStore,
+        testPosition,
+        testPrice,
+        currentStoresState
+      ) {
+        let shareCount = 0;
+        const numGridX = Math.floor(canvas.width / GRID_CELL_SIZE);
+        const numGridY = Math.floor(canvas.height / GRID_CELL_SIZE);
+        if (numGridX === 0 || numGridY === 0) return 0;
+        for (let gx = 0; gx < numGridX; gx++) {
+          for (let gy = 0; gy < numGridY; gy++) {
+            const px = gx * GRID_CELL_SIZE + GRID_CELL_SIZE / 2;
+            const py = gy * GRID_CELL_SIZE + GRID_CELL_SIZE / 2;
+            let minCost = Infinity;
+            let tiedStores = [];
+            const costToTarget =
+              dist(px, py, testPosition.x, testPosition.y) + testPrice;
+            let currentMinCostForPixel = costToTarget;
+            tiedStores.push(targetStore.id);
+            for (const otherStore of currentStoresState) {
+              if (otherStore.id === targetStore.id) continue;
+              const costToOther =
+                dist(px, py, otherStore.x, otherStore.y) + otherStore.price;
+              if (costToOther < currentMinCostForPixel) {
+                currentMinCostForPixel = costToOther;
+                tiedStores = [otherStore.id];
+              } else if (costToOther === currentMinCostForPixel) {
+                tiedStores.push(otherStore.id);
+              }
+            }
+            if (tiedStores.includes(targetStore.id)) {
+              shareCount += 1 / tiedStores.length;
+            }
+          }
+        }
+        return shareCount;
+      }
+      function calculateProfitForSingleStore(
+        targetStore,
+        testPosition,
+        testPrice,
+        currentStoresState
+      ) {
+        return (
+          testPrice *
+          calculateMarketShareForSingleStore(
+            targetStore,
+            testPosition,
+            testPrice,
+            currentStoresState
+          )
+        );
+      }
+
+      function updateStores() {
+        const newPositions = {};
+        const newPrices = {};
+        stores.forEach((store) => {
+          store.previousX = store.x;
+          store.previousY = store.y;
+        });
+        if (ruleMode === "moving" || ruleMode === "normal") {
+          stores.forEach((store) => {
+            let bestPotentialPos = { x: store.x, y: store.y };
+            let maxMarketShareFound = calculateMarketShareForSingleStore(
+              store,
+              { x: store.x, y: store.y },
+              store.price,
+              stores
+            );
+            const moves = [{ dx: 0, dy: 0 }];
+            if (layoutMode === "plane") {
+              moves.push(
+                { dx: 0, dy: -MOVE_STEP },
+                { dx: 0, dy: MOVE_STEP },
+                { dx: -MOVE_STEP, dy: 0 },
+                { dx: MOVE_STEP, dy: 0 }
+              );
+            } else {
+              moves.push({ dx: -MOVE_STEP, dy: 0 }, { dx: MOVE_STEP, dy: 0 });
+            }
+            moves.forEach((move) => {
+              let testX = store.x + move.dx;
+              let testY = layoutMode === "line" ? store.y : store.y + move.dy;
+              testX = Math.max(
+                STORE_RADIUS,
+                Math.min(canvas.width - STORE_RADIUS, testX)
+              );
+              testY = Math.max(
+                STORE_RADIUS,
+                Math.min(canvas.height - STORE_RADIUS, testY)
+              );
+              const hypotheticalMarketShare =
+                calculateMarketShareForSingleStore(
+                  store,
+                  { x: testX, y: testY },
+                  store.price,
+                  stores
+                );
+              if (hypotheticalMarketShare > maxMarketShareFound) {
+                maxMarketShareFound = hypotheticalMarketShare;
+                bestPotentialPos = { x: testX, y: testY };
+              }
+            });
+            newPositions[store.id] = bestPotentialPos;
+          });
+          stores.forEach((store) => {
+            store.x = newPositions[store.id].x;
+            store.y = newPositions[store.id].y;
+          });
+        }
+        if (ruleMode === "pricing" || ruleMode === "normal") {
+          stores.forEach((store) => {
+            let bestPotentialPrice = store.price;
+            let maxProfitFound = calculateProfitForSingleStore(
+              store,
+              { x: store.x, y: store.y },
+              store.price,
+              stores
+            );
+            const priceChanges = [0, -PRICE_STEP, PRICE_STEP];
+            priceChanges.forEach((change) => {
+              let testPrice = Math.max(MIN_PRICE, store.price + change);
+              if (testPrice === store.price && change !== 0) return;
+              const hypotheticalProfit = calculateProfitForSingleStore(
+                store,
+                { x: store.x, y: store.y },
+                testPrice,
+                stores
+              );
+              if (hypotheticalProfit > maxProfitFound) {
+                maxProfitFound = hypotheticalProfit;
+                bestPotentialPrice = testPrice;
+              }
+            });
+            newPrices[store.id] = bestPotentialPrice;
+          });
+          stores.forEach((store) => {
+            store.price = newPrices[store.id];
+          });
+        }
+      }
+
+      function calculateAllMarketSharesAndRevenues() {
+        stores.forEach((s) => {
+          s.marketShare = 0;
+          s.revenue = 0;
+        });
+        const numGridX = Math.floor(canvas.width / GRID_CELL_SIZE);
+        const numGridY = Math.floor(canvas.height / GRID_CELL_SIZE);
+        if (numGridX === 0 || numGridY === 0)
+          return Array(0)
+            .fill(null)
+            .map(() => Array(0).fill(-1));
+        const marketGrid = Array(numGridX)
+          .fill(null)
+          .map(() => Array(numGridY).fill(-1));
+        for (let gx = 0; gx < numGridX; gx++) {
+          for (let gy = 0; gy < numGridY; gy++) {
+            const px = gx * GRID_CELL_SIZE + GRID_CELL_SIZE / 2;
+            const py = gy * GRID_CELL_SIZE + GRID_CELL_SIZE / 2;
+            let minCost = Infinity;
+            let winningStoreIds = [];
+            stores.forEach((store) => {
+              const cost = dist(px, py, store.x, store.y) + store.price;
+              if (cost < minCost) {
+                minCost = cost;
+                winningStoreIds = [store.id];
+              } else if (cost === minCost) {
+                winningStoreIds.push(store.id);
+              }
+            });
+            if (winningStoreIds.length > 0) {
+              const chosenWinnerId =
+                winningStoreIds[
+                  Math.floor(Math.random() * winningStoreIds.length)
+                ];
+              marketGrid[gx][gy] = chosenWinnerId;
+              const sharePerWinner = 1 / winningStoreIds.length;
+              winningStoreIds.forEach((id) => {
+                const store = stores.find((s) => s.id === id);
+                if (store) store.marketShare += sharePerWinner;
+              });
+            }
+          }
+        }
+        stores.forEach((store) => {
+          store.revenue = store.price * store.marketShare;
+        });
+        return marketGrid;
+      }
+
+      function updateStatsDisplay() {
+        statsOutput.innerHTML = "";
+        stores.forEach((store) => {
+          const storeCol = document.createElement("div");
+          storeCol.className = "col-12 col-sm-6 col-md-4";
+          const storeDiv = document.createElement("div");
+          storeDiv.className = "p-2 rounded h-100";
+          storeDiv.style.backgroundColor = store.color + "1A";
+          storeDiv.style.borderLeft = `3px solid ${store.color}`;
+          storeDiv.innerHTML = `<div class="d-flex align-items-center mb-1"><span class="d-inline-block rounded-circle me-2" style="width: 0.75rem; height: 0.75rem; background-color: ${
+            store.color
+          }; box-shadow: 0 0 5px ${store.color};"></span><strong>Winkel ${
+            store.id + 1
+          }</strong></div>
+                    <p class="text-muted mb-0">Prijs: €${store.price.toFixed(
+                      2
+                    )}</p><p class="text-muted mb-0">Aandeel: ${store.marketShare.toFixed(
+            1
+          )} eenh.</p><p class="text-muted mb-0">Omzet: €${store.revenue.toFixed(
+            2
+          )}</p>`;
+          storeCol.appendChild(storeDiv);
+          statsOutput.appendChild(storeCol);
+        });
+      }
+
+      function recordHistory() {
+        if (!stores || stores.length === 0) return;
+        const currentData = stores.map((s) => ({
+          id: s.id,
+          price: s.price,
+          marketShare: s.marketShare,
+          revenue: s.revenue,
+        }));
+        history.push({ tick: currentTick, data: currentData });
+      }
+
+      function updateCharts() {
+        if (
+          !history ||
+          history.length === 0 ||
+          !chartInstances.price ||
+          !chartInstances.share ||
+          !chartInstances.price.data ||
+          !chartInstances.share.data
+        )
+          return;
+        const labels = history.map((h) => h.tick);
+        if (chartInstances.price.data.datasets.length !== stores.length) {
+          initializeCharts();
+        }
+        stores.forEach((store, index) => {
+          if (chartInstances.price.data.datasets[index]) {
+            chartInstances.price.data.datasets[index].data = history.map(
+              (h) => h.data.find((d) => d.id === store.id)?.price || 0
+            );
+          }
+          if (chartInstances.share.data.datasets[index]) {
+            chartInstances.share.data.datasets[index].data = history.map(
+              (h) => h.data.find((d) => d.id === store.id)?.marketShare || 0
+            );
+          }
+        });
+        chartInstances.price.data.labels = labels;
+        chartInstances.share.data.labels = labels;
+        chartInstances.price.update("none");
+        chartInstances.share.update("none");
+      }
+
+      function gameLoop() {
+        if (!isRunning) return;
+        tickCounter++;
+        if (tickCounter >= speedThresholds[simulationSpeed - 1]) {
+          currentTick++;
+          tickCounter = 0;
+          showLoading(true);
+          setTimeout(() => {
+            try {
+              updateStores();
+              draw();
+              updateStatsDisplay();
+              recordHistory();
+              updateCharts();
+            } catch (e) {
+              console.error("Game loop error: ", e);
+              isRunning = false;
+              goBtn.textContent = "Start";
+              goBtn.classList.remove("btn-danger");
+              goBtn.classList.add("btn-primary");
+              if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            } finally {
+              showLoading(false);
+            }
+          }, 0);
+        }
+        if (isRunning) animationFrameId = requestAnimationFrame(gameLoop);
+      }
+      function runSingleStep() {
+        if (isRunning) {
+          isRunning = false;
+          goBtn.textContent = "Start";
+          goBtn.classList.add("btn-primary");
+          goBtn.classList.remove("btn-danger");
+          if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        }
+        currentTick++;
+        showLoading(true);
+        setTimeout(() => {
+          try {
+            updateStores();
+            draw();
+            updateStatsDisplay();
+            recordHistory();
+            updateCharts();
+          } catch (e) {
+            console.error("Go Once error: ", e);
+          } finally {
+            showLoading(false);
+          }
+        }, 0);
+      }
+
+      // --- Event Listeners ---
+      numStoresInput.addEventListener("input", (e) => {
+        numStoresValueDisplay.textContent = e.target.value;
+      });
+      simSpeedInput.addEventListener("input", (e) => {
+        simulationSpeed = parseInt(e.target.value);
+        updateSimSpeedDisplay();
+      });
+      layoutPlaneBtn.addEventListener("click", () => {
+        layoutMode = "plane";
+        layoutPlaneBtn.classList.add("btn-primary");
+        layoutPlaneBtn.classList.remove("btn-outline-primary");
+        layoutLineBtn.classList.add("btn-outline-primary");
+        layoutLineBtn.classList.remove("btn-primary");
+      });
+      layoutLineBtn.addEventListener("click", () => {
+        layoutMode = "line";
+        layoutLineBtn.classList.add("btn-primary");
+        layoutLineBtn.classList.remove("btn-outline-primary");
+        layoutPlaneBtn.classList.add("btn-outline-primary");
+        layoutPlaneBtn.classList.remove("btn-primary");
+      });
+      function updateRuleButtons(selectedRule) {
+        ruleMode = selectedRule;
+        [ruleNormalBtn, rulePricingBtn, ruleMovingBtn].forEach((btn) => {
+          btn.classList.remove("btn-info");
+          btn.classList.add("btn-outline-info");
+        });
+        const activeBtn = document.getElementById(
+          `rule${selectedRule.charAt(0).toUpperCase() + selectedRule.slice(1)}`
+        );
+        if (activeBtn) {
+          activeBtn.classList.add("btn-info");
+          activeBtn.classList.remove("btn-outline-info");
+        }
+      }
+      ruleNormalBtn.addEventListener("click", () =>
+        updateRuleButtons("normal")
+      );
+      rulePricingBtn.addEventListener("click", () =>
+        updateRuleButtons("pricing")
+      );
+      ruleMovingBtn.addEventListener("click", () =>
+        updateRuleButtons("moving")
+      );
+      setupBtn.addEventListener("click", () => {
+        resizeCanvas();
+        setup();
+      });
+      goBtn.addEventListener("click", () => {
+        isRunning = !isRunning;
+        goBtn.textContent = isRunning ? "Pauze" : "Start";
+        goBtn.classList.toggle("btn-primary");
+        goBtn.classList.toggle("btn-danger");
+        if (isRunning) {
+          tickCounter = 0;
+          gameLoop();
+        } else {
+          if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        }
+      });
+      goOnceBtn.addEventListener("click", runSingleStep);
+      document.addEventListener("DOMContentLoaded", () => {
+        resizeCanvas();
+        updateSimSpeedDisplay();
+        setup();
+      });
+    </script>
+  </body>
+</html>

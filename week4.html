@@ -1,468 +1,498 @@
 <!DOCTYPE html>
 <html lang="nl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Week 4: Maatschappelijke Kosten & True Pricing - BE 2.0</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Lato:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css" />
-    <!-- Extra CSS (Best in style.css) -->
-    <style>
-      /* Styling voor de PDF links (nu binnen accordion) */
-      .pdf-link-in-accordion {
-        display: inline-flex;
-        align-items: center;
-        color: var(--primary-color);
-        font-weight: 600;
-        font-size: 0.875rem;
-        text-decoration: none;
-        transition: color 0.3s ease;
-        margin-top: 0.5rem; /* my-2 */
-      }
-      .pdf-link-in-accordion:hover {
-        color: var(--primary-color-lighter);
-        text-decoration: underline;
-      }
-      .pdf-link-in-accordion svg {
-        width: 1em;
-        height: 1em;
-        margin-right: 0.25rem;
-        fill: currentColor;
-      }
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Week 4: Maatschappelijke Kosten & True Pricing - BE 2.0</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Lato:wght@400;700&display=swap"
+			rel="stylesheet"
+		/>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link rel="stylesheet" href="style.css" />
+		<!-- Extra CSS (Best in style.css) -->
+		<style>
+			/* Styling voor de PDF links (nu binnen accordion) */
+			.pdf-link-in-accordion {
+				display: inline-flex;
+				align-items: center;
+				color: var(--primary-color);
+				font-weight: 600;
+				font-size: 0.875rem;
+				text-decoration: none;
+				transition: color 0.3s ease;
+				margin-top: 0.5rem; /* my-2 */
+			}
+			.pdf-link-in-accordion:hover {
+				color: var(--primary-color-lighter);
+				text-decoration: underline;
+			}
+			.pdf-link-in-accordion svg {
+				width: 1em;
+				height: 1em;
+				margin-right: 0.25rem;
+				fill: currentColor;
+			}
 
-      /* Styling voor accordion summary */
-      details > summary {
-        list-style: none; /* Verwijder standaard driehoekje */
-        cursor: pointer;
-        padding: 0.75rem 0; /* py-3 */
-        border-bottom: 1px solid var(--bg-light); /* border-b border-slate-700 */
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        transition: background-color 0.2s ease;
-      }
-      details > summary:hover {
-        background-color: rgba(51, 65, 85, 0.3); /* bg-slate-700 met opacity */
-      }
+			/* Styling voor accordion summary */
+			details > summary {
+				list-style: none; /* Verwijder standaard driehoekje */
+				cursor: pointer;
+				padding: 0.75rem 0; /* py-3 */
+				border-bottom: 1px solid var(--bg-light); /* border-b border-slate-700 */
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				transition: background-color 0.2s ease;
+			}
+			details > summary:hover {
+				background-color: rgba(51, 65, 85, 0.3); /* bg-slate-700 met opacity */
+			}
 
-      details > summary::-webkit-details-marker {
-        display: none;
-      } /* Verwijder marker in Chrome/Safari */
+			details > summary::-webkit-details-marker {
+				display: none;
+			} /* Verwijder marker in Chrome/Safari */
 
-      details[open] > summary {
-        border-bottom: 1px solid var(--primary-color-darker); /* Accentueer als open */
-      }
+			details[open] > summary {
+				border-bottom: 1px solid var(--primary-color-darker); /* Accentueer als open */
+			}
 
-      /* Icoon voor open/dicht state */
-      details summary::after {
-        content: "+";
-        font-size: 1.5em;
-        line-height: 1;
-        margin-left: 0.5rem; /* ml-2 */
-        color: var(--primary-color);
-        transition: transform 0.2s ease-in-out;
-      }
+			/* Icoon voor open/dicht state */
+			details summary::after {
+				content: "+";
+				font-size: 1.5em;
+				line-height: 1;
+				margin-left: 0.5rem; /* ml-2 */
+				color: var(--primary-color);
+				transition: transform 0.2s ease-in-out;
+			}
 
-      details[open] summary::after {
-        content: "-";
-        transform: rotate(180deg);
-      }
+			details[open] summary::after {
+				content: "-";
+				transform: rotate(180deg);
+			}
 
-      /* Inhoud van de accordion */
-      details > div {
-        padding: 1rem 0.5rem; /* py-4 px-2 */
-        border-bottom: 1px solid var(--bg-light);
-      }
-      details:last-of-type > div {
-        border-bottom: none; /* Geen border na laatste item */
-      }
-      details:last-of-type > summary {
-        border-bottom: none; /* Geen border na laatste summary als gesloten*/
-      }
-      details[open]:last-of-type > summary {
-        border-bottom: 1px solid var(--primary-color-darker); /* Wel border als laatste item open is */
-      }
-    </style>
-  </head>
-  <body class="bg-slate-900 text-slate-200">
-    <header class="site-header sticky top-0 z-50 shadow-lg">
-      <div class="container mx-auto px-4">
-        <div class="header-content flex justify-between items-center py-4">
-          <a
-            href="index.html"
-            class="site-title text-2xl font-bold text-emerald-400 hover:text-emerald-300 transition-colors"
-            >Business Economics 2.0</a
-          >
-          <nav class="main-navigation" id="mainNavContainer">
-            <button
-              class="menu-toggle md:hidden"
-              id="menuToggle"
-              aria-label="Menu openen/sluiten"
-              aria-expanded="false"
-              aria-controls="mobileMenu"
-            >
-              <span class="menu-toggle-icon"></span>
-            </button>
-            <ul class="nav-links hidden md:flex space-x-4" id="mainNav">
-              <li><a href="index.html">Start</a></li>
-              <li><a href="week1.html">Week 1</a></li>
-              <li><a href="week2.html">Week 2</a></li>
-              <li><a href="week3.html">Week 3</a></li>
-              <li><a href="week4.html" class="active">Week 4</a></li>
-              <li><a href="week5.html">Week 5</a></li>
-              <li><a href="week6-7.html">Weken 6-7</a></li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-      <div
-        id="mobileMenu"
-        class="mobile-menu md:hidden bg-slate-800 absolute w-full shadow-xl hidden"
-      >
-        <ul class="flex flex-col items-center py-4 space-y-2">
-          <li><a href="index.html" class="mobile-link">Start</a></li>
-          <li><a href="week1.html" class="mobile-link">Week 1</a></li>
-          <li><a href="week2.html" class="mobile-link">Week 2</a></li>
-          <li><a href="week3.html" class="mobile-link">Week 3</a></li>
-          <li><a href="week4.html" class="active-mobile">Week 4</a></li>
-          <li><a href="week5.html" class="mobile-link">Week 5</a></li>
-          <li><a href="week6-7.html" class="mobile-link">Weken 6-7</a></li>
-        </ul>
-      </div>
-    </header>
+			/* Inhoud van de accordion */
+			details > div {
+				padding: 1rem 0.5rem; /* py-4 px-2 */
+				border-bottom: 1px solid var(--bg-light);
+			}
+			details:last-of-type > div {
+				border-bottom: none; /* Geen border na laatste item */
+			}
+			details:last-of-type > summary {
+				border-bottom: none; /* Geen border na laatste summary als gesloten*/
+			}
+			details[open]:last-of-type > summary {
+				border-bottom: 1px solid var(--primary-color-darker); /* Wel border als laatste item open is */
+			}
+		</style>
+	</head>
+	<body class="bg-slate-900 text-slate-200">
+		<header class="site-header sticky top-0 z-50 shadow-lg">
+			<div class="container mx-auto px-4">
+				<div class="header-content flex justify-between items-center py-4">
+					<a
+						href="index.html"
+						class="site-title text-2xl font-bold text-emerald-400 hover:text-emerald-300 transition-colors"
+						>Business Economics 2.0</a
+					>
+					<nav class="main-navigation" id="mainNavContainer">
+						<button
+							class="menu-toggle md:hidden"
+							id="menuToggle"
+							aria-label="Menu openen/sluiten"
+							aria-expanded="false"
+							aria-controls="mobileMenu"
+						>
+							<span class="menu-toggle-icon"></span>
+						</button>
+						<ul class="nav-links hidden md:flex space-x-4" id="mainNav">
+							<li><a href="index.html">Start</a></li>
+							<li><a href="week1.html">Week 1</a></li>
+							<li><a href="week2.html">Week 2</a></li>
+							<li><a href="week3.html">Week 3</a></li>
+							<li><a href="week4.html" class="active">Week 4</a></li>
+							<li><a href="week5.html">Week 5</a></li>
+							<li><a href="week6-7.html">Weken 6-7</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+			<div
+				id="mobileMenu"
+				class="mobile-menu md:hidden bg-slate-800 absolute w-full shadow-xl hidden"
+			>
+				<ul class="flex flex-col items-center py-4 space-y-2">
+					<li><a href="index.html" class="mobile-link">Start</a></li>
+					<li><a href="week1.html" class="mobile-link">Week 1</a></li>
+					<li><a href="week2.html" class="mobile-link">Week 2</a></li>
+					<li><a href="week3.html" class="mobile-link">Week 3</a></li>
+					<li><a href="week4.html" class="active-mobile">Week 4</a></li>
+					<li><a href="week5.html" class="mobile-link">Week 5</a></li>
+					<li><a href="week6-7.html" class="mobile-link">Weken 6-7</a></li>
+				</ul>
+			</div>
+		</header>
 
-    <main class="container mx-auto px-4 py-12 md:py-16">
-      <h1 class="text-4xl font-bold text-emerald-400 mb-4 text-center">
-        Week 4: Maatschappelijke Kosten & True Pricing 🌍💰
-      </h1>
-      <p class="text-center text-slate-300 max-w-3xl mx-auto mb-12">
-        Tijd om verder te kijken dan de directe bedrijfskosten! Als
-        <strong>Bedrijfskundig adviseur</strong> verken je deze week de bredere
-        impact van economische activiteit op milieu en maatschappij. Wat zijn de
-        'verborgen' kosten en hoe kan 'True Pricing' bijdragen aan een
-        duurzamere economie?
-      </p>
+		<main class="container mx-auto px-4 py-12 md:py-16">
+			<h1 class="text-4xl font-bold text-emerald-400 mb-4 text-center">
+				Week 4: Maatschappelijke Kosten & True Pricing 🌍💰
+			</h1>
+			<p class="text-center text-slate-300 max-w-3xl mx-auto mb-12">
+				Tijd om verder te kijken dan de directe bedrijfskosten! Als
+				<strong>Bedrijfskundig adviseur</strong> verken je deze week de bredere
+				impact van economische activiteit op milieu en maatschappij. Wat zijn de
+				'verborgen' kosten en hoe kan 'True Pricing' bijdragen aan een
+				duurzamere economie?
+			</p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Kolom 1: Introductie & Leerdoelen -->
-        <div class="space-y-8">
-          <section
-            class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
-          >
-            <h2 class="text-2xl font-semibold text-emerald-300 mb-4">
-              🔍 Wat ga je doen? (Introductie Thema's)
-            </h2>
-            <p class="text-slate-300 leading-relaxed">
-              Deze week verbreden we onze kijk voorbij private markttransacties
-              om de bredere maatschappelijke impact van economische activiteiten
-              te overwegen. We bespreken concepten zoals breed welzijn, kosten
-              gedragen door de samenleving die niet worden weerspiegeld in
-              marktprijzen (externaliteiten), en initiatieven zoals "True
-              Pricing" die dit proberen aan te pakken.
-            </p>
-          </section>
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+				<!-- Kolom 1: Introductie & Leerdoelen -->
+				<div class="space-y-8">
+					<section
+						class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
+					>
+						<h2 class="text-2xl font-semibold text-emerald-300 mb-4">
+							🔍 Wat ga je doen? (Introductie Thema's)
+						</h2>
+						<p class="text-slate-300 leading-relaxed">
+							Deze week verbreden we onze kijk voorbij private markttransacties
+							om de bredere maatschappelijke impact van economische activiteiten
+							te overwegen. We bespreken concepten zoals breed welzijn, kosten
+							gedragen door de samenleving die niet worden weerspiegeld in
+							marktprijzen (externaliteiten), en initiatieven zoals "True
+							Pricing" die dit proberen aan te pakken.
+						</p>
+					</section>
 
-          <section
-            class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
-          >
-            <h2 class="text-2xl font-semibold text-emerald-300 mb-4">
-              🎯 Leerdoelen & Jouw Rol
-            </h2>
-            <p class="text-slate-400 mb-6">
-              Aan het eind van deze week kun jij:
-            </p>
-            <ul
-              class="list-disc list-outside space-y-3 text-slate-300 leading-relaxed pl-5 text-sm"
-            >
-              <li>
-                Het concept 'brede welvaart' (naast BBP) begrijpen.
-                <a
-                  href="index.html#lu-6"
-                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
-                  >(LU 6)</a
-                >
-              </li>
-              <li>
-                Uitleggen wat externe effecten (externaliteiten) zijn en waarom
-                ze tot marktfalen leiden.
-                <a
-                  href="index.html#lu-6"
-                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
-                  >(LU 6)</a
-                >
-                <a
-                  href="index.html#lu-7"
-                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
-                  >(LU 7)</a
-                >
-              </li>
-              <li>
-                Voorbeelden van maatschappelijke kosten (niet in marktprijs)
-                identificeren.
-                <a
-                  href="index.html#lu-6"
-                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
-                  >(LU 6)</a
-                >
-                <a
-                  href="index.html#lu-7"
-                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
-                  >(LU 7)</a
-                >
-              </li>
-              <li>
-                Potentiële beleidsoplossingen (belastingen, regulering) voor
-                externaliteiten bespreken.
-                <a
-                  href="index.html#lu-5"
-                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
-                  >(LU 5)</a
-                >
-                <a
-                  href="index.html#lu-7"
-                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
-                  >(LU 7)</a
-                >
-              </li>
-              <li>
-                Het concept en de uitdagingen van "True Pricing" verkennen.
-                <a
-                  href="index.html#lu-7"
-                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
-                  >(LU 7)</a
-                >
-              </li>
-              <li>
-                De relatie tussen economie en milieu begrijpen.
-                <a
-                  href="index.html#lu-6"
-                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
-                  >(LU 6)</a
-                >
-                <a
-                  href="index.html#lu-8"
-                  class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
-                  >(LU 8)</a
-                >
-              </li>
-            </ul>
-          </section>
-        </div>
+					<section
+						class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
+					>
+						<h2 class="text-2xl font-semibold text-emerald-300 mb-4">
+							🎯 Leerdoelen & Jouw Rol
+						</h2>
+						<p class="text-slate-400 mb-6">
+							Aan het eind van deze week kun jij:
+						</p>
+						<ul
+							class="list-disc list-outside space-y-3 text-slate-300 leading-relaxed pl-5 text-sm"
+						>
+							<li>
+								Het concept 'brede welvaart' (naast BBP) begrijpen.
+								<a
+									href="index.html#lu-6"
+									class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+									>(LU 6)</a
+								>
+							</li>
+							<li>
+								Uitleggen wat externe effecten (externaliteiten) zijn en waarom
+								ze tot marktfalen leiden.
+								<a
+									href="index.html#lu-6"
+									class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+									>(LU 6)</a
+								>
+								<a
+									href="index.html#lu-7"
+									class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+									>(LU 7)</a
+								>
+							</li>
+							<li>
+								Voorbeelden van maatschappelijke kosten (niet in marktprijs)
+								identificeren.
+								<a
+									href="index.html#lu-6"
+									class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+									>(LU 6)</a
+								>
+								<a
+									href="index.html#lu-7"
+									class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+									>(LU 7)</a
+								>
+							</li>
+							<li>
+								Potentiële beleidsoplossingen (belastingen, regulering) voor
+								externaliteiten bespreken.
+								<a
+									href="index.html#lu-5"
+									class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+									>(LU 5)</a
+								>
+								<a
+									href="index.html#lu-7"
+									class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+									>(LU 7)</a
+								>
+							</li>
+							<li>
+								Het concept en de uitdagingen van "True Pricing" verkennen.
+								<a
+									href="index.html#lu-7"
+									class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+									>(LU 7)</a
+								>
+							</li>
+							<li>
+								De relatie tussen economie en milieu begrijpen.
+								<a
+									href="index.html#lu-6"
+									class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+									>(LU 6)</a
+								>
+								<a
+									href="index.html#lu-8"
+									class="text-emerald-400/80 hover:text-emerald-300/80 hover:underline ml-1"
+									>(LU 8)</a
+								>
+							</li>
+						</ul>
+					</section>
+					<section class="games-section mt-8">
+						<h2 class="text-2xl font-semibold text-purple-400 mb-4">
+							🎲 Interactieve Experimenten & Simulaties
+						</h2>
+						<div class="space-y-6">
+							<!-- Game Card: Hidden Costs -->
+							<div
+								class="game-card bg-slate-800 p-6 rounded-lg shadow-lg border-t-2 border-purple-500"
+							>
+								<h3 class="text-xl font-semibold text-purple-300 mb-2">
+									Het Verborgen Grootboek
+								</h3>
+								<p class="text-slate-300 text-sm leading-relaxed mb-4">
+									Bedrijven claimen duurzaam te zijn, maar wat kost hun
+									vervuiling werkelijk? Duik in het 'Onzichtbare Grootboek' en
+									onthul de verborgen miljardenkosten. Van klimaatschade tot
+									mensenrechten - bereken de echte kosten die bedrijven
+									verzwijgen.
+								</p>
+								<a
+									href="https://hanbedrijfskunde.github.io/hidden-costs/"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold px-4 py-2 rounded-md text-sm transition-colors"
+								>
+									Start Verborgen Grootboek →
+								</a>
+							</div>
+						</div>
+					</section>
+				</div>
 
-        <!-- Kolom 2: Ebook & Opdracht -->
-        <div class="space-y-8">
-          <section
-            class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
-          >
-            <h2 class="text-2xl font-semibold text-emerald-300 mb-4">
-              📚 Verdieping: Relevante Textbook Units
-            </h2>
-            <p class="text-slate-400 mb-6">
-              Klik op een unit titel om de beschrijving en PDF link te zien:
-            </p>
-            <div class="space-y-0">
-              <details>
-                <summary>
-                  <span class="text-lg font-semibold text-emerald-400"
-                    >Unit 12: Markets, Efficiency, and Public Policy</span
-                  >
-                  <span class="text-xs text-slate-400 ml-auto mr-2"
-                    >(Kernunit!)</span
-                  >
-                </summary>
-                <div>
-                  <p class="text-slate-300 text-sm leading-relaxed">
-                    Legt uit hoe externe effecten (externaliteiten) ontstaan
-                    wanneer prijzen niet de volledige kosten of voordelen van
-                    acties voor anderen vangen. Dit leidt tot marktfalen. We
-                    zullen voorbeelden zoals vervuiling onderzoeken. De unit
-                    bespreekt potentiële oplossingen voor negatieve externe
-                    effecten, zoals regulering, belasting (bijv. Pigouviaanse
-                    belastingen), en compensatieregelingen.
-                  </p>
-                  <a
-                    href="book/the-economy-unit-12-pdf.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="pdf-link-in-accordion"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                    >
-                      <path
-                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
-                      />
-                    </svg>
-                    Unit 12 PDF
-                  </a>
-                </div>
-              </details>
-              <details>
-                <summary>
-                  <span class="text-lg font-semibold text-emerald-400"
-                    >Unit 20: The Environment and the Economy</span
-                  >
-                </summary>
-                <div>
-                  <p class="text-slate-300 text-sm leading-relaxed">
-                    Koppelt economische activiteit direct aan de impact ervan op
-                    de biosfeer en fysieke omgeving. Het versterkt het idee van
-                    hulpbronnen die uit de natuur stromen en afval dat ernaar
-                    terugkeert. De unit bespreekt specifieke milieukwesties
-                    zoals broeikasgasemissies en de uitdaging van het beheren
-                    van gedeelde milieurijkdommen.
-                  </p>
-                  <a
-                    href="book/the-economy-unit-20-pdf.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="pdf-link-in-accordion"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                    >
-                      <path
-                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
-                      />
-                    </svg>
-                    Unit 20 PDF
-                  </a>
-                </div>
-              </details>
-              <details>
-                <summary>
-                  <span class="text-lg font-semibold text-emerald-400"
-                    >Unit 1: Technology, Population, and Growth</span
-                  >
-                </summary>
-                <div>
-                  <p class="text-slate-300 text-sm leading-relaxed">
-                    Biedt het initiële kader van de economie die is ingebed in
-                    het ecosysteem. Het introduceert ook het idee om verder te
-                    kijken dan traditionele economische maatstaven zoals BBP om
-                    het algemene welzijn te beoordelen, wat aansluit bij het
-                    concept van breed welzijn.
-                  </p>
-                  <a
-                    href="book/the-economy-unit-1-pdf.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="pdf-link-in-accordion"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                    >
-                      <path
-                        d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
-                      />
-                    </svg>
-                    Unit 1 PDF
-                  </a>
-                </div>
-              </details>
-            </div>
-          </section>
+				<!-- Kolom 2: Ebook & Opdracht -->
+				<div class="space-y-8">
+					<section
+						class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg"
+					>
+						<h2 class="text-2xl font-semibold text-emerald-300 mb-4">
+							📚 Verdieping: Relevante Textbook Units
+						</h2>
+						<p class="text-slate-400 mb-6">
+							Klik op een unit titel om de beschrijving en PDF link te zien:
+						</p>
+						<div class="space-y-0">
+							<details>
+								<summary>
+									<span class="text-lg font-semibold text-emerald-400"
+										>Unit 12: Markets, Efficiency, and Public Policy</span
+									>
+									<span class="text-xs text-slate-400 ml-auto mr-2"
+										>(Kernunit!)</span
+									>
+								</summary>
+								<div>
+									<p class="text-slate-300 text-sm leading-relaxed">
+										Legt uit hoe externe effecten (externaliteiten) ontstaan
+										wanneer prijzen niet de volledige kosten of voordelen van
+										acties voor anderen vangen. Dit leidt tot marktfalen. We
+										zullen voorbeelden zoals vervuiling onderzoeken. De unit
+										bespreekt potentiële oplossingen voor negatieve externe
+										effecten, zoals regulering, belasting (bijv. Pigouviaanse
+										belastingen), en compensatieregelingen.
+									</p>
+									<a
+										href="book/the-economy-unit-12-pdf.pdf"
+										target="_blank"
+										rel="noopener noreferrer"
+										class="pdf-link-in-accordion"
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 16 16"
+											fill="currentColor"
+										>
+											<path
+												d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+											/>
+										</svg>
+										Unit 12 PDF
+									</a>
+								</div>
+							</details>
+							<details>
+								<summary>
+									<span class="text-lg font-semibold text-emerald-400"
+										>Unit 20: The Environment and the Economy</span
+									>
+								</summary>
+								<div>
+									<p class="text-slate-300 text-sm leading-relaxed">
+										Koppelt economische activiteit direct aan de impact ervan op
+										de biosfeer en fysieke omgeving. Het versterkt het idee van
+										hulpbronnen die uit de natuur stromen en afval dat ernaar
+										terugkeert. De unit bespreekt specifieke milieukwesties
+										zoals broeikasgasemissies en de uitdaging van het beheren
+										van gedeelde milieurijkdommen.
+									</p>
+									<a
+										href="book/the-economy-unit-20-pdf.pdf"
+										target="_blank"
+										rel="noopener noreferrer"
+										class="pdf-link-in-accordion"
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 16 16"
+											fill="currentColor"
+										>
+											<path
+												d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+											/>
+										</svg>
+										Unit 20 PDF
+									</a>
+								</div>
+							</details>
+							<details>
+								<summary>
+									<span class="text-lg font-semibold text-emerald-400"
+										>Unit 1: Technology, Population, and Growth</span
+									>
+								</summary>
+								<div>
+									<p class="text-slate-300 text-sm leading-relaxed">
+										Biedt het initiële kader van de economie die is ingebed in
+										het ecosysteem. Het introduceert ook het idee om verder te
+										kijken dan traditionele economische maatstaven zoals BBP om
+										het algemene welzijn te beoordelen, wat aansluit bij het
+										concept van breed welzijn.
+									</p>
+									<a
+										href="book/the-economy-unit-1-pdf.pdf"
+										target="_blank"
+										rel="noopener noreferrer"
+										class="pdf-link-in-accordion"
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 16 16"
+											fill="currentColor"
+										>
+											<path
+												d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v7.586A3.75 3.75 0 0 1 12.25 16h-8.5A3.75 3.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2H2Zm6.75.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5Z M3.5 7a.75.75 0 0 0 0 1.5h4.25a.75.75 0 0 0 0-1.5H3.5Zm0 3.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z"
+											/>
+										</svg>
+										Unit 1 PDF
+									</a>
+								</div>
+							</details>
+						</div>
+					</section>
 
-          <section
-            class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg border-t-4 border-emerald-500"
-          >
-            <h2 class="text-2xl font-semibold text-emerald-300 mb-4">
-              ✅ Jouw Concrete Opdracht Week 4 (Topics & Tasks)
-            </h2>
-            <p class="text-slate-400 mb-6">
-              Analyseer de maatschappelijke impact van jouw gekozen
-              sector/bedrijven:
-            </p>
-            <div
-              class="bg-slate-700 border-l-4 border-emerald-400 p-4 rounded-md text-slate-300 mb-6 text-sm"
-            >
-              <strong class="text-emerald-300">Focus:</strong> Identificeer de
-              verborgen kosten en denk na over duurzame waardecreatie. Dit is
-              input voor je Omgevingsanalyse (BEDROM04), met name de
-              duurzaamheidsaspecten.
-            </div>
-            <ol
-              class="list-decimal list-outside space-y-4 text-slate-300 leading-relaxed pl-5"
-            >
-              <li>
-                Hoe draagt de gekozen sector bij aan (of doet afbreuk aan)
-                <strong>brede welvaart</strong> in Nederland/Europa? Denk verder
-                dan alleen economische groei.
-              </li>
-              <li>
-                Identificeer de belangrijkste
-                <strong>negatieve externe effecten</strong> (externaliteiten)
-                die door de sector worden veroorzaakt (bijv. milieuvervuiling,
-                gezondheidskosten, sociale ongelijkheid). Wees specifiek.
-              </li>
-              <li>
-                Welke <strong>maatschappelijke kosten</strong> zijn hiermee
-                gemoeid die momenteel niet (volledig) in de marktprijzen van de
-                producten/diensten van de sector zijn opgenomen? Probeer een
-                inschatting te maken van de orde van grootte waar mogelijk.
-              </li>
-              <li>
-                Welke <strong>beleidsmaatregelen</strong> (huidig of mogelijk)
-                zouden deze externaliteiten kunnen adresseren (bijv. heffingen,
-                subsidies voor alternatieven, regulering, quota)? Wat is de
-                (verwachte) effectiviteit?
-              </li>
-              <li>
-                Leg het concept <strong>"True Pricing"</strong> uit. Hoe zou dit
-                toegepast kunnen worden op producten/diensten in de gekozen
-                sector? Wat zijn de praktische uitdagingen en potentiële
-                voordelen?
-              </li>
-              <li>
-                Hoe is de
-                <strong>relatie tussen de sector en het milieu</strong>? Welke
-                natuurlijke hulpbronnen zijn cruciaal? Wat is de ecologische
-                voetafdruk?
-              </li>
-              <li>
-                Trek een <strong>overkoepelende conclusie</strong> over de
-                maatschappelijke kosten en de potentie van True Pricing voor de
-                sector, en wat dit betekent voor de lange termijn
-                levensvatbaarheid en acceptatie.
-              </li>
-            </ol>
-            <p class="mt-6 text-sm text-emerald-300 font-semibold">
-              🌱 Denk groen, denk eerlijk!
-            </p>
-          </section>
-        </div>
-      </div>
+					<section
+						class="content-section bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg border-t-4 border-emerald-500"
+					>
+						<h2 class="text-2xl font-semibold text-emerald-300 mb-4">
+							✅ Jouw Concrete Opdracht Week 4 (Topics & Tasks)
+						</h2>
+						<p class="text-slate-400 mb-6">
+							Analyseer de maatschappelijke impact van jouw gekozen
+							sector/bedrijven:
+						</p>
+						<div
+							class="bg-slate-700 border-l-4 border-emerald-400 p-4 rounded-md text-slate-300 mb-6 text-sm"
+						>
+							<strong class="text-emerald-300">Focus:</strong> Identificeer de
+							verborgen kosten en denk na over duurzame waardecreatie. Dit is
+							input voor je Omgevingsanalyse (BEDROM04), met name de
+							duurzaamheidsaspecten.
+						</div>
+						<ol
+							class="list-decimal list-outside space-y-4 text-slate-300 leading-relaxed pl-5"
+						>
+							<li>
+								Hoe draagt de gekozen sector bij aan (of doet afbreuk aan)
+								<strong>brede welvaart</strong> in Nederland/Europa? Denk verder
+								dan alleen economische groei.
+							</li>
+							<li>
+								Identificeer de belangrijkste
+								<strong>negatieve externe effecten</strong> (externaliteiten)
+								die door de sector worden veroorzaakt (bijv. milieuvervuiling,
+								gezondheidskosten, sociale ongelijkheid). Wees specifiek.
+							</li>
+							<li>
+								Welke <strong>maatschappelijke kosten</strong> zijn hiermee
+								gemoeid die momenteel niet (volledig) in de marktprijzen van de
+								producten/diensten van de sector zijn opgenomen? Probeer een
+								inschatting te maken van de orde van grootte waar mogelijk.
+							</li>
+							<li>
+								Welke <strong>beleidsmaatregelen</strong> (huidig of mogelijk)
+								zouden deze externaliteiten kunnen adresseren (bijv. heffingen,
+								subsidies voor alternatieven, regulering, quota)? Wat is de
+								(verwachte) effectiviteit?
+							</li>
+							<li>
+								Leg het concept <strong>"True Pricing"</strong> uit. Hoe zou dit
+								toegepast kunnen worden op producten/diensten in de gekozen
+								sector? Wat zijn de praktische uitdagingen en potentiële
+								voordelen?
+							</li>
+							<li>
+								Hoe is de
+								<strong>relatie tussen de sector en het milieu</strong>? Welke
+								natuurlijke hulpbronnen zijn cruciaal? Wat is de ecologische
+								voetafdruk?
+							</li>
+							<li>
+								Trek een <strong>overkoepelende conclusie</strong> over de
+								maatschappelijke kosten en de potentie van True Pricing voor de
+								sector, en wat dit betekent voor de lange termijn
+								levensvatbaarheid en acceptatie.
+							</li>
+						</ol>
+						<p class="mt-6 text-sm text-emerald-300 font-semibold">
+							🌱 Denk groen, denk eerlijk!
+						</p>
+					</section>
+				</div>
+			</div>
 
-      <div class="mt-16 text-center">
-        <a
-          href="week5.html"
-          class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
-        >
-          Klaar met Week 4? Ga door naar Week 5 →
-        </a>
-      </div>
-    </main>
+			<div class="mt-16 text-center">
+				<a
+					href="week5.html"
+					class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+				>
+					Klaar met Week 4? Ga door naar Week 5 →
+				</a>
+			</div>
+		</main>
 
-    <footer class="site-footer py-8 bg-slate-950 text-center mt-16">
-      <div class="container mx-auto px-4">
-        <p class="text-sm text-slate-400">
-          © <span id="currentYear"></span> Cursus Business Economics 2.0 - Ready
-          to Level Up?
-        </p>
-      </div>
-    </footer>
-    <script src="script.js"></script>
-  </body>
+		<footer class="site-footer py-8 bg-slate-950 text-center mt-16">
+			<div class="container mx-auto px-4">
+				<p class="text-sm text-slate-400">
+					© <span id="currentYear"></span> Cursus Business Economics 2.0 - Ready
+					to Level Up?
+				</p>
+			</div>
+		</footer>
+		<script src="script.js"></script>
+	</body>
 </html>
